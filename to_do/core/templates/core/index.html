@@ -3,3 +3,31 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}{% endblock %}
+{% block content %}
+    <div class="login-wrapper">
+        <div id="login-buttons">
+            <button id="login-button">
+                Login
+            </button>
+
+            <button id="register-button">
+                Register
+            </button>
+        </div>
+
+        <form id="login-form" class="user-form" action="">
+            <input type="text" id="login-user-name" placeholder="Podaj nazwę">
+            <input type="password" id="login-password" placeholder="Podaj haslo">
+
+            <input type="button" value="Zaloguj się" id="submit-login">
+        </form>
+
+        <form id="register-form" class="user-form" action="">
+            <input type="text" id="register-user-name" placeholder="Podaj nazwę">
+            <input type="text" id="register-password" placeholder="Podaj hasło">
+            <input type="text" id="register-password-2" placeholder="Powtórz haslo">
+
+            <input type="button" value="Zarejestruj się" id="submit-register">
+        </form>
+    </div>
+{% endblock %}

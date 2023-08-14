@@ -12,10 +12,13 @@
     {% compress css %}
         <link rel="stylesheet" type="text/css" href="{% sass_src 'core/styles.scss' %}">
     {% endcompress %}
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <title>{% block title %}{% endblock %} | To Do</title>
 </head>
 <body>
     {% block content %}
     {% endblock %}
+
+    <script src="{% static 'core/scripts.js' %}"></script>
 </body>
 </html>
