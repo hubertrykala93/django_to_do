@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     'compressor',
     'sass_processor',
     'core',
-    'users'
+    'users',
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
