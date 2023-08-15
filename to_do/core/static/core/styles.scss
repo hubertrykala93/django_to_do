@@ -174,8 +174,9 @@ a {
         }
     }
 
-    .login-question {
-        text-align: right;
+    .form-footer {
+        display: flex;
+        justify-content: space-between;
     }
 
 }

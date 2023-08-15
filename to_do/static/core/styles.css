@@ -130,7 +130,8 @@ a {
       background-color: #663aff;
       color: white; }
 
-#user-form form .login-question {
-  text-align: right; }
+#user-form form .form-footer {
+  display: flex;
+  justify-content: space-between; }
 
 /*# sourceMappingURL=styles.css.map */
