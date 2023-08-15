@@ -4,28 +4,41 @@ from .models import User
 
 
 class RegistrationForm(UserCreationForm):
-    username = forms.CharField(max_length=255, label='Username', required=True,
+    username = forms.CharField(max_length=255, label='Username',
+                               help_text='Required. 150 characters or fewer.Letters, digits and @/./+/-/_ only.',
+                               required=True,
                                widget=forms.TextInput(attrs={
                                    'id': 'register-user-name',
-                                   'name': 'Username',
+                                   'label': 'username',
                                    'type': 'text',
                                    'placeholder': 'Your Username'
                                }))
-    email = forms.EmailField(max_length=255, label='E-mail Address', required=True, widget=forms.TextInput(attrs={
-        'id': 'register-email',
-        'name': 'Email Address',
-        'type': 'text',
-        'placeholder': 'Your E-mail Address'
-    }))
-    password1 = forms.CharField(max_length=50, label='Password', required=True, widget=forms.PasswordInput(attrs={
-        'id': 'register-password',
-        'type': 'password',
-        'name': 'Password',
-        'placeholder': 'Your Password'
-    }))
-    password2 = forms.CharField(max_length=50, label='Confirm Password', required=True,
+
+    email = forms.EmailField(max_length=255, label='E-mail Address', required=True,
+                             widget=forms.TextInput(attrs={
+                                 'id': 'register-email',
+                                 'label': 'email-address',
+                                 'type': 'text',
+                                 'placeholder': 'Your E-mail Address'
+                             }))
+
+    password1 = forms.CharField(max_length=50, label='Password',
+                                help_text="Your password can't be too similar to your other personal information.\n"
+                                          "Your password must contain at least 8 characters.\n"
+                                          "Your password can't be a commonly used password.\n"
+                                          "Your password can't be entirely numeric.", required=True,
+                                widget=forms.PasswordInput(attrs={
+                                    'id': 'register-password',
+                                    'type': 'password',
+                                    'label': 'password1',
+                                    'placeholder': 'Your Password'
+                                }))
+
+    password2 = forms.CharField(max_length=50, label='Confirm Password',
+                                help_text='Enter the same password as before, for verification.', required=True,
                                 widget=forms.PasswordInput(attrs={
                                     'id': 'register-password-2',
+                                    'label': 'password2',
                                     'name': 'Confirm Password',
                                     'type': 'password',
                                     'placeholder': 'Confirm Password'
