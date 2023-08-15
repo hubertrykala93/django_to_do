@@ -7,7 +7,7 @@ class RegistrationForm(UserCreationForm):
     username = forms.CharField(max_length=255, label='Username', required=True,
                                widget=forms.TextInput(attrs={
                                    'id': 'register-user-name',
-                                   'label': 'username',
+                                   'label': 'required',
                                    'type': 'text',
                                    'placeholder': 'Your Username'
                                }))
@@ -15,7 +15,7 @@ class RegistrationForm(UserCreationForm):
     email = forms.EmailField(max_length=255, label='E-mail Address', required=True,
                              widget=forms.TextInput(attrs={
                                  'id': 'register-email',
-                                 'label': 'email-address',
+                                 'label': 'required',
                                  'type': 'text',
                                  'placeholder': 'Your E-mail Address'
                              }))
@@ -24,16 +24,15 @@ class RegistrationForm(UserCreationForm):
                                 widget=forms.PasswordInput(attrs={
                                     'id': 'register-password',
                                     'type': 'password',
-                                    'label': 'password1',
+                                    'label': 'required',
                                     'placeholder': 'Your Password'
                                 }))
 
     password2 = forms.CharField(max_length=50, label='Confirm Password', required=True,
                                 widget=forms.PasswordInput(attrs={
                                     'id': 'register-password-2',
-                                    'label': 'password2',
-                                    'name': 'Confirm Password',
                                     'type': 'password',
+                                    'label': 'required',
                                     'placeholder': 'Confirm Password'
                                 }))
 
