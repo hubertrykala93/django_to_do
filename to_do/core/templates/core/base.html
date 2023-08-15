@@ -16,10 +16,11 @@
     <title>{% block title %}{% endblock %} | To Do</title>
 </head>
 <body>
+
     {% if messages %}
-        {% for message in messages %}
-            <p>{{ message }}</p>
-        {% endfor %}
+    {% for message in messages %}
+    <div class="message-container">{{ message }}</div>
+    {% endfor %}
     {% endif %}
 
     <section class="to-do-wrapper">
@@ -55,7 +56,9 @@
                 </header>
 
                 <main>
-                    {% block content %}{% endblock %}
+                    {% block content %}
+
+                    {% endblock %}
                 </main>
             </div>
     </section>
