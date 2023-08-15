@@ -4,9 +4,7 @@ from .models import User
 
 
 class RegistrationForm(UserCreationForm):
-    username = forms.CharField(max_length=255, label='Username',
-                               help_text='Required. 150 characters or fewer.Letters, digits and @/./+/-/_ only.',
-                               required=True,
+    username = forms.CharField(max_length=255, label='Username', required=True,
                                widget=forms.TextInput(attrs={
                                    'id': 'register-user-name',
                                    'label': 'username',
@@ -22,11 +20,7 @@ class RegistrationForm(UserCreationForm):
                                  'placeholder': 'Your E-mail Address'
                              }))
 
-    password1 = forms.CharField(max_length=50, label='Password',
-                                help_text="Your password can't be too similar to your other personal information.\n"
-                                          "Your password must contain at least 8 characters.\n"
-                                          "Your password can't be a commonly used password.\n"
-                                          "Your password can't be entirely numeric.", required=True,
+    password1 = forms.CharField(max_length=50, label='Password', required=True,
                                 widget=forms.PasswordInput(attrs={
                                     'id': 'register-password',
                                     'type': 'password',
@@ -34,8 +28,7 @@ class RegistrationForm(UserCreationForm):
                                     'placeholder': 'Your Password'
                                 }))
 
-    password2 = forms.CharField(max_length=50, label='Confirm Password',
-                                help_text='Enter the same password as before, for verification.', required=True,
+    password2 = forms.CharField(max_length=50, label='Confirm Password', required=True,
                                 widget=forms.PasswordInput(attrs={
                                     'id': 'register-password-2',
                                     'label': 'password2',
