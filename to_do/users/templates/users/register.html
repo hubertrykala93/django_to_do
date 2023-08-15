@@ -8,13 +8,13 @@
             {% csrf_token %}
             {% for field in registration_form %}
             <div class="input-row">
-                {{ field.label }}
+                <label>{{ field.label }}</label>
                 {{ field }}
                 {{ field.help_text }}
             </div>
             {% endfor %}
             <div class="submit-row">
-                <button type="submit">Register</button>
+                <button class="btn" type="submit">Register</button>
             </div>
 
             <a href="#">Forgot Password?</a>
