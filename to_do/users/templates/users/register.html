@@ -10,7 +10,10 @@
             <div class="input-row">
                 <label>{{ field.label }}</label>
                 {{ field }}
-                {{ field.help_text }}
+                <div class="form-help">
+                    <i class="ri-information-line"></i>
+                    <span class="help-message">{{ field.help_text }}</span>
+                </div>
             </div>
             {% endfor %}
             <div class="submit-row">
