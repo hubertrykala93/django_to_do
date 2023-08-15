@@ -9,27 +9,20 @@ def register(request):
         registration_form = RegistrationForm(data=request.POST)
 
         if registration_form.is_valid():
-            registration_form.save()
+            user = registration_form.save()
             username = registration_form.cleaned_data.get('username')
-            email = registration_form.cleaned_data.get('email')
-            raw_password = registration_form.cleaned_data.get('password1')
 
-            user = authenticate(email=email, password=raw_password)
-
-            login(request=request, user=user)
+            login(request=request, user=user, backend='django.contrib.auth.backends.ModelBackend')
 
             messages.success(request=request,
                              message=f'{username}, your account has been created! You are now able to log in.')
 
-            return redirect(to='register')
+            return redirect(to='index')
 
     else:
         registration_form = RegistrationForm()
 
-        for field in registration_form:
-            pass
-
-    return render(request=request, template_name='core/index.html', context={
+    return render(request=request, template_name='users/register.html', context={
         'title': 'Sign Up for Free!',
         'registration_form': registration_form
     })

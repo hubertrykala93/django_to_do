@@ -16,9 +16,12 @@
     <title>{% block title %}{% endblock %} | To Do</title>
 </head>
 <body>
-    {% block content %}
-    {% endblock %}
-
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    {% block content %}{% endblock %}
     <script src="{% static 'core/scripts.js' %}"></script>
 </body>
 </html>
