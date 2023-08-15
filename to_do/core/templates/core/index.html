@@ -2,32 +2,4 @@
 
 {% block title %}{{ title }}{% endblock %}
 
-{% block content %}
-    <div class="login-wrapper">
-        <div id="login-buttons">
-            <button id="login-button">
-                Login
-            </button>
-
-            <button id="register-button">
-                Register
-            </button>
-        </div>
-
-<!--        <form id="login-form" class="user-form" action="">-->
-<!--            <input type="text" id="login-user-name" placeholder="Podaj nazwę">-->
-<!--            <input type="password" id="login-password" placeholder="Podaj haslo">-->
-
-<!--            <input type="button" value="Zaloguj się" id="submit-login">-->
-<!--        </form>-->
-
-        <form method="post" id="register-form" class="user-form" action="">
-            {% for field in registration_form %}
-<!--                <input type="text" id="{{ field.id_for_label }}">-->
-                {{ field }}
-            {% endfor %}
-
-            <button type="submit" value="Register" id="submit-register"></button>
-        </form>
-    </div>
-{% endblock %}
+{% block content %}{% endblock %}
