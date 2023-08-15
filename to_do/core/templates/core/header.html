@@ -1,0 +1,23 @@
+{% block header %}
+<header id="header">
+    <div class="container">
+        <div class="row">
+            <div class="logo">
+                <a href="{% url 'index' %}">
+                    <i class="ri-list-check-3"></i>
+                    <span>todo list</span>
+                </a>
+            </div>
+
+            {% block nav %}
+                {% include 'core/navbar.html' %}
+            {% endblock %}
+
+            <a href="{% url 'register' %}" id="header-button" class="btn">
+                <i class="ri-user-add-fill"></i>
+                <span>Register</span>
+            </a>
+        </div>
+    </div>
+</header>
+{% endblock %}

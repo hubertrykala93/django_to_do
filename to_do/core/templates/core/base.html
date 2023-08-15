@@ -29,44 +29,9 @@
 
     <section class="to-do-wrapper">
             <div class="row">
-               <header id="header">
-                <div class="container">
-                    <div class="row">
-                        <div class="logo">
-                            <a href="{% url 'index' %}">
-                                <i class="ri-list-check-3"></i>
-                                <span>todo list</span>
-                            </a>
-                        </div>
-
-                        <nav id="nav">
-                            <ul>
-                                <li>
-                                    <a href="{% url 'index' %}">Home</a>
-                                </li>
-
-                                <li>
-                                    <a href="#">Sign in</a>
-                                </li>
-
-                                <li>
-                                    <a href="#">Profile</a>
-                                </li>
-
-                                <li>
-                                    <a href="#">Log out</a>
-                                </li>
-                            </ul>
-                        </nav>
-
-                        <a href="{% url 'register' %}" id="header-button" class="btn">
-                            <i class="ri-user-add-fill"></i>
-                            <span>Register</span>
-                        </a>
-                    </div>
-                </div>
-                </header>
-
+                {% block header %}
+                    {% include 'core/header.html' %}
+                {% endblock %}
                 <main>
                     {% block content %}{% endblock %}
                 </main>
