@@ -22,6 +22,45 @@
         {% endfor %}
     {% endif %}
     {% block content %}{% endblock %}
+
+    <section class="to-do-wrapper">
+            <div class="row">
+               <header id="header">
+                <div class="container">
+                    <div class="row">
+                        <div class="logo">
+                            <a href="#">
+                                <i class="ri-list-check-3"></i>
+                                <span>todo list</span>
+                            </a>
+                        </div>
+
+                        <nav id="nav">
+                            <ul>
+                                <li>
+                                    <a href="#">Home</a>
+                                </li>
+
+                                <li>
+                                    <a href="#">Sign in</a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                        <a href="#" id="header-button" class="btn">
+                            <i class="ri-user-add-fill"></i>
+                            <span>Register</span>
+                        </a>
+                    </div>
+                </div>
+                </header>
+
+                <main>
+                    Tu ma być formularz rejestracji i tego typu rzeczy w zależności od podstrony suko
+                </main>
+            </div>
+    </section>
+
     <script src="{% static 'core/scripts.js' %}"></script>
 </body>
 </html>
