@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login
 from django.contrib import messages
 
 
@@ -21,6 +21,9 @@ def register(request):
 
     else:
         registration_form = RegistrationForm()
+
+        for field in registration_form:
+            pass
 
     return render(request=request, template_name='users/register.html', context={
         'title': 'Sign Up for Free!',

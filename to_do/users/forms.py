@@ -4,22 +4,31 @@ from .models import User
 
 
 class RegistrationForm(UserCreationForm):
-    username = forms.CharField(max_length=255, widget=forms.TextInput(attrs={
+    username = forms.CharField(max_length=255, label='Username', widget=forms.TextInput(attrs={
         'id': 'register-user-name',
+        'name': 'Username',
+        'type': 'text',
         'placeholder': 'Your Username'
     }))
-    email = forms.EmailField(max_length=255, widget=forms.TextInput(attrs={
+    email = forms.EmailField(max_length=255, label='E-mail Address', widget=forms.TextInput(attrs={
         'id': 'register-email',
+        'name': 'Email Address',
+        'type': 'text',
         'placeholder': 'Your E-mail Address'
     }))
-    password1 = forms.CharField(max_length=50, help_text='', widget=forms.PasswordInput(attrs={
+    password1 = forms.CharField(max_length=50, label='Password', help_text='', widget=forms.PasswordInput(attrs={
         'id': 'register-password',
+        'type': 'password',
+        'name': 'Password',
         'placeholder': 'Your Password'
     }))
-    password2 = forms.CharField(max_length=50, help_text='', widget=forms.PasswordInput(attrs={
-        'id': 'register-password-2',
-        'placeholder': 'Confirm Password'
-    }))
+    password2 = forms.CharField(max_length=50, label='Confirm Password', help_text='',
+                                widget=forms.PasswordInput(attrs={
+                                    'id': 'register-password-2',
+                                    'name': 'Confirm Password',
+                                    'type': 'password',
+                                    'placeholder': 'Confirm Password'
+                                }))
 
     class Meta:
         model = User
@@ -29,7 +38,7 @@ class RegistrationForm(UserCreationForm):
         email = self.cleaned_data['email'].lower()
 
         try:
-            User.objects.get(email=email)
+            user = User.objects.get(email=email)
         except Exception as e:
             return email
 
@@ -39,7 +48,7 @@ class RegistrationForm(UserCreationForm):
         username = self.cleaned_data['username']
 
         try:
-            User.objects.get(username=username)
+            user = User.objects.get(username=username)
         except Exception as e:
             return username
 
