@@ -4,25 +4,26 @@ from .models import User
 
 
 class RegistrationForm(UserCreationForm):
-    username = forms.CharField(max_length=255, label='Username', widget=forms.TextInput(attrs={
-        'id': 'register-user-name',
-        'name': 'Username',
-        'type': 'text',
-        'placeholder': 'Your Username'
-    }))
-    email = forms.EmailField(max_length=255, label='E-mail Address', widget=forms.TextInput(attrs={
+    username = forms.CharField(max_length=255, label='Username', required=True,
+                               widget=forms.TextInput(attrs={
+                                   'id': 'register-user-name',
+                                   'name': 'Username',
+                                   'type': 'text',
+                                   'placeholder': 'Your Username'
+                               }))
+    email = forms.EmailField(max_length=255, label='E-mail Address', required=True, widget=forms.TextInput(attrs={
         'id': 'register-email',
         'name': 'Email Address',
         'type': 'text',
         'placeholder': 'Your E-mail Address'
     }))
-    password1 = forms.CharField(max_length=50, label='Password', help_text='', widget=forms.PasswordInput(attrs={
+    password1 = forms.CharField(max_length=50, label='Password', required=True, widget=forms.PasswordInput(attrs={
         'id': 'register-password',
         'type': 'password',
         'name': 'Password',
         'placeholder': 'Your Password'
     }))
-    password2 = forms.CharField(max_length=50, label='Confirm Password', help_text='',
+    password2 = forms.CharField(max_length=50, label='Confirm Password', required=True,
                                 widget=forms.PasswordInput(attrs={
                                     'id': 'register-password-2',
                                     'name': 'Confirm Password',
