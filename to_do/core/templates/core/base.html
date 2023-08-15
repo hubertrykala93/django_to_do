@@ -21,15 +21,15 @@
             <p>{{ message }}</p>
         {% endfor %}
     {% endif %}
-    {% block content %}{% endblock %}
-
+    {% block content %}
+    {% endblock %}
     <section class="to-do-wrapper">
             <div class="row">
                <header id="header">
                 <div class="container">
                     <div class="row">
                         <div class="logo">
-                            <a href="#">
+                            <a href="{% url 'index' %}">
                                 <i class="ri-list-check-3"></i>
                                 <span>todo list</span>
                             </a>
@@ -38,7 +38,7 @@
                         <nav id="nav">
                             <ul>
                                 <li>
-                                    <a href="#">Home</a>
+                                    <a href="{% url 'index' %}">Home</a>
                                 </li>
 
                                 <li>
@@ -47,7 +47,7 @@
                             </ul>
                         </nav>
 
-                        <a href="#" id="header-button" class="btn">
+                        <a href="{% url 'register' %}" id="header-button" class="btn">
                             <i class="ri-user-add-fill"></i>
                             <span>Register</span>
                         </a>
@@ -56,7 +56,7 @@
                 </header>
 
                 <main>
-                    Tu ma być formularz rejestracji i tego typu rzeczy w zależności od podstrony suko
+                    Jebany form
                 </main>
             </div>
     </section>
