@@ -22,6 +22,10 @@ def register(request):
     else:
         registration_form = RegistrationForm()
 
+        for field in registration_form:
+            for error in field.errors:
+                pass
+
     return render(request=request, template_name='users/register.html', context={
         'title': 'Sign Up for Free!',
         'registration_form': registration_form

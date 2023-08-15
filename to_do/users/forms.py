@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .models import User
+from string import ascii_letters, digits
 
 
 class RegistrationForm(UserCreationForm):
@@ -40,22 +41,15 @@ class RegistrationForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
-    def clean_email(self):
-        email = self.cleaned_data['email'].lower()
-
-        try:
-            user = User.objects.get(email=email)
-        except Exception as e:
-            return email
-
-        raise forms.ValidationError(message=f'Email {email} is already in use')
-
-    def clean_username(self):
-        username = self.cleaned_data['username']
-
-        try:
-            user = User.objects.get(username=username)
-        except Exception as e:
-            return username
-
-        raise forms.ValidationError(message=f'Username {username} is already in use')
+    # def clean(self):
+    #     cleaned_data = super(RegistrationForm, self).clean()
+    #     username = cleaned_data.get('username')
+    #
+    #     characters = ','.join([ascii_letters + digits])
+    #
+    #     for letter in username:
+    #         if letter not in characters:
+    #             self.add_error(username,
+    #                            'The username can consist only of lowercase letters, uppercase letters, and/or numbers.')
+    #
+    #     return cleaned_data
