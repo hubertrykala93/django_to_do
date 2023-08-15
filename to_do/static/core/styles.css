@@ -88,4 +88,35 @@ a {
 .message-container {
   text-align: center; }
 
+#user-form form .input-row,
+#user-form form .submit-row {
+  margin-bottom: 10px; }
+
+#user-form form input {
+  width: 100%;
+  background-color: #DFCCFB;
+  border-radius: 7px;
+  height: 45px;
+  outline: none;
+  border: 2px solid transparent;
+  padding: 0 20px;
+  font-family: inherit; }
+  #user-form form input:focus {
+    border-color: #663aff; }
+
+#user-form form label {
+  margin-bottom: 5px;
+  display: inline-block; }
+
+#user-form form .submit-row button {
+  border: 2px solid white;
+  background-color: white;
+  color: black;
+  width: 100%;
+  font-family: inherit;
+  transition: background-color .4s; }
+  #user-form form .submit-row button:hover {
+    background-color: #663aff;
+    color: white; }
+
 /*# sourceMappingURL=styles.css.map */

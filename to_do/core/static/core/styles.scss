@@ -119,6 +119,48 @@ a {
     text-align: center;
 }
 
+//user form
+#user-form form {
+    .input-row,
+    .submit-row {
+        margin-bottom: 10px;
+    }
+
+    input {
+        width: 100%;
+        background-color: $body-bg;
+        border-radius: $radius-400;
+        height: 45px;
+        outline: none;
+        border: 2px solid transparent;
+        padding: 0 20px;
+        font-family: inherit;
+
+        &:focus{
+            border-color: $header-bg;
+        }
+    }
+
+    label{
+        margin-bottom: 5px;
+        display: inline-block;
+    }
+
+    .submit-row button {
+        border: 2px solid white;
+        background-color: white;
+        color: black;
+        width: 100%;
+        font-family: inherit;
+        transition: background-color .4s;
+
+        &:hover{
+            background-color: $header-bg;
+            color: white;
+        }
+    }
+
+}
 
 
 
