@@ -2,7 +2,7 @@
 {% load static %}
 {% load compress %}
 
-<!doctype html>
+<!--<!doctype html>-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,14 +13,18 @@
         <link rel="stylesheet" type="text/css" href="{% sass_src 'core/styles.scss' %}">
     {% endcompress %}
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <title>{% block title %}{% endblock %} | To Do</title>
+    {% if title %}
+        <title>{% block title %}{% endblock %} | To Do App</title>
+    {% else %}
+        <title>To Do App</title>
+    {% endif %}
 </head>
 <body>
 
     {% if messages %}
-    {% for message in messages %}
-    <div class="message-container">{{ message }}</div>
-    {% endfor %}
+        {% for message in messages %}
+            <div class="message-container">{{ message }}</div>
+        {% endfor %}
     {% endif %}
 
     <section class="to-do-wrapper">
@@ -56,9 +60,7 @@
                 </header>
 
                 <main>
-                    {% block content %}
-
-                    {% endblock %}
+                    {% block content %}{% endblock %}
                 </main>
             </div>
     </section>
