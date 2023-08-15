@@ -29,7 +29,7 @@ class RegistrationForm(UserCreationForm):
         email = self.cleaned_data['email'].lower()
 
         try:
-            user = User.objects.get(email=email)
+            User.objects.get(email=email)
         except Exception as e:
             return email
 
@@ -39,7 +39,7 @@ class RegistrationForm(UserCreationForm):
         username = self.cleaned_data['username']
 
         try:
-            user = User.objects.get(username=username)
+            User.objects.get(username=username)
         except Exception as e:
             return username
 
