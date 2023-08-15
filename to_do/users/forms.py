@@ -44,11 +44,3 @@ class RegistrationForm(UserCreationForm):
             return username
 
         raise forms.ValidationError(message=f'Username {username} is already in use')
-
-    def get_placeholder(self):
-        placeholders = []
-
-        for field in self.fields:
-            placeholders.append(self.fields[field].widget.attrs['placeholder'])
-
-        return
