@@ -1,11 +1,11 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .models import User
-from .validators import validate_username, validate_email, validate_password
+from .validators import username_validate, email_validate, password_validate
 
 
 class RegistrationForm(UserCreationForm):
-    username = forms.CharField(max_length=255, label='Username', required=True, validators=[validate_username],
+    username = forms.CharField(max_length=255, label='Username', required=True, validators=[username_validate],
                                widget=forms.TextInput(attrs={
                                    'id': 'register-user-name',
                                    'label': 'required',
@@ -13,7 +13,8 @@ class RegistrationForm(UserCreationForm):
                                    'placeholder': 'Your Username'
                                }))
 
-    email = forms.EmailField(max_length=255, label='E-mail Address', required=True, validators=[validate_email],
+    email = forms.EmailField(max_length=255, label='E-mail Address', required=True, validators=[email_validate],
+                             error_messages=None,
                              widget=forms.TextInput(attrs={
                                  'id': 'register-email',
                                  'label': 'required',
@@ -21,7 +22,7 @@ class RegistrationForm(UserCreationForm):
                                  'placeholder': 'Your E-mail Address'
                              }))
 
-    password1 = forms.CharField(max_length=50, label='Password', required=True, validators=[validate_password],
+    password1 = forms.CharField(max_length=50, label='Password', required=True, validators=[password_validate],
                                 widget=forms.PasswordInput(attrs={
                                     'id': 'register-password',
                                     'type': 'password',

@@ -9,10 +9,10 @@ def register(request):
         registration_form = RegistrationForm(data=request.POST or None)
 
         if registration_form.is_valid():
-            user = registration_form.save()
-            username = registration_form.cleaned_data.get('username')
-
+            user = registration_form.save(commit=True)
             login(request=request, user=user, backend='django.contrib.auth.backends.ModelBackend')
+            
+            username = registration_form.cleaned_data.get('username')
 
             messages.success(request=request,
                              message=f'{username}, your account has been created! You are now able to log in.')

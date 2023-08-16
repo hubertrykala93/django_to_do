@@ -3,11 +3,11 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 
-def validate_username(username):
+def username_validate(username):
     characters = ascii_letters + digits
 
     if len(username) <= 4:
-        raise ValidationError(_('The username should consist of at least 7 characters.'), params={'username': username})
+        raise ValidationError(_('The username should consist of at least 4 characters.'), params={'username': username})
 
     for letter in username:
         if letter not in characters:
@@ -16,7 +16,7 @@ def validate_username(username):
                 params={'username': username})
 
 
-def validate_email(email):
+def email_validate(email):
     if '@' not in email:
         raise ValidationError(message=_("The email should contains @."), params={'email': email})
 
@@ -45,7 +45,7 @@ def validate_email(email):
     return email
 
 
-def validate_password(password):
+def password_validate(password):
     if len(password) < 8:
         print('The password must consists of at least 8 characters.')
 

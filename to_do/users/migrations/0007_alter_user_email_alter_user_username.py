@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 default="",
                 max_length=254,
                 unique=True,
-                validators=[users.validators.validate_email],
+                validators=[users.validators.email_validate],
             ),
         ),
         migrations.AlterField(
@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 default="",
                 max_length=50,
                 unique=True,
-                validators=[users.validators.validate_username],
+                validators=[users.validators.username_validate],
             ),
         ),
     ]

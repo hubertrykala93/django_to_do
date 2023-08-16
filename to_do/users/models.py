@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import UserManager, PermissionsMixin, AbstractBaseUser
 from django.utils.timezone import now
-from .validators import validate_username, validate_email
+from .validators import username_validate, email_validate
 
 
 class CustomUserManager(UserManager):
@@ -37,8 +37,8 @@ class CustomUserManager(UserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50, unique=True, null=False, blank=False, default='',
-                                validators=[validate_username])
-    email = models.EmailField(blank=True, default='', unique=True, validators=[validate_email])
+                                validators=[username_validate])
+    email = models.EmailField(blank=True, default='', unique=True, validators=[email_validate])
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
