@@ -1,11 +1,11 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .models import User
-from string import ascii_letters, digits
+from .validators import validate_username, validate_email
 
 
 class RegistrationForm(UserCreationForm):
-    username = forms.CharField(max_length=255, label='Username', required=True,
+    username = forms.CharField(max_length=255, label='Username', required=True, validators=[validate_username],
                                widget=forms.TextInput(attrs={
                                    'id': 'register-user-name',
                                    'label': 'required',
@@ -13,7 +13,7 @@ class RegistrationForm(UserCreationForm):
                                    'placeholder': 'Your Username'
                                }))
 
-    email = forms.EmailField(max_length=255, label='E-mail Address', required=True,
+    email = forms.EmailField(max_length=255, label='E-mail Address', required=True, validators=[validate_email],
                              widget=forms.TextInput(attrs={
                                  'id': 'register-email',
                                  'label': 'required',
