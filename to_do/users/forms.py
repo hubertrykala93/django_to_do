@@ -40,16 +40,3 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
-
-    # def clean(self):
-    #     cleaned_data = super(RegistrationForm, self).clean()
-    #     username = cleaned_data.get('username')
-    #
-    #     characters = ','.join([ascii_letters + digits])
-    #
-    #     for letter in username:
-    #         if letter not in characters:
-    #             self.add_error(username,
-    #                            'The username can consist only of lowercase letters, uppercase letters, and/or numbers.')
-    #
-    #     return cleaned_data

@@ -6,7 +6,7 @@ from django.contrib import messages
 
 def register(request):
     if request.method == 'POST':
-        registration_form = RegistrationForm(data=request.POST)
+        registration_form = RegistrationForm(data=request.POST or None)
 
         if registration_form.is_valid():
             user = registration_form.save()
@@ -21,10 +21,6 @@ def register(request):
 
     else:
         registration_form = RegistrationForm()
-
-        for field in registration_form:
-            for error in field.errors:
-                pass
 
     return render(request=request, template_name='users/register.html', context={
         'title': 'Sign Up for Free!',
