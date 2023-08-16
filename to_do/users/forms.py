@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .models import User
-from .validators import validate_username, validate_email
+from .validators import validate_username, validate_email, validate_password
 
 
 class RegistrationForm(UserCreationForm):
@@ -21,7 +21,7 @@ class RegistrationForm(UserCreationForm):
                                  'placeholder': 'Your E-mail Address'
                              }))
 
-    password1 = forms.CharField(max_length=50, label='Password', required=True,
+    password1 = forms.CharField(max_length=50, label='Password', required=True, validators=[validate_password],
                                 widget=forms.PasswordInput(attrs={
                                     'id': 'register-password',
                                     'type': 'password',
