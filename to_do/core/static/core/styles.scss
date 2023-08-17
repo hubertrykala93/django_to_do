@@ -31,6 +31,7 @@ body{
 }
 a {
     text-decoration: unset;
+    color: $header-bg;
 }
 .to-do-wrapper{
     width: 100%;
@@ -107,7 +108,7 @@ a {
     font-size: 16px;
 }
 
-#header #header-button {
+#header .header-button {
     margin-left: 60px;
     border: 2px solid white;
     background-color: white;
@@ -177,6 +178,12 @@ a {
     .form-footer {
         display: flex;
         justify-content: space-between;
+    }
+
+    ul.errorlist {
+        margin-bottom: 8px;
+        padding-left: 20px;
+        color: #d21010;
     }
 
 }

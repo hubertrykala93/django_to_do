@@ -21,18 +21,19 @@
 </head>
 <body>
 
-{% if messages %}
-{% for message in messages %}
-<div class="message-container">{{ message }}</div>
-{% endfor %}
-{% endif %}
-
 <section class="to-do-wrapper">
     <div class="row">
         {% block header %}
         {% include 'core/header.html' %}
         {% endblock %}
         <main>
+
+            {% if messages %}
+            {% for message in messages %}
+            <div class="message-container">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+
             {% block content %}{% endblock %}
         </main>
     </div>

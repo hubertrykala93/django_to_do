@@ -7,7 +7,7 @@
 <div id="user-form">
     {% for field in login_form %}
     {% if field.label != 'E-mail Address' and field.label != 'Confirm Password' %}
-    <form class="register-form" method="post" action="">
+    <form class="login-form" method="post" action="">
         {% csrf_token %}
         <div class="input-row">
             <label>{{ field.label }}</label>
