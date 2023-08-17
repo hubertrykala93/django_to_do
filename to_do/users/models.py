@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import UserManager, PermissionsMixin, AbstractBaseUser
 from django.utils.timezone import now
 from .validators import username_validate, email_validate
+from PIL import Image
 
 
 class CustomUserManager(UserManager):
@@ -57,3 +58,27 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(to=User, on_delete=models.CASCADE)
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    first_name = models.CharField(max_length=50, blank=True, null=True)
+    last_name = models.CharField(max_length=50, blank=True, null=True)
+    country = models.CharField(max_length=50, blank=True, null=True)
+    province = models.CharField(max_length=50, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        if self.first_name and self.last_name:
+            return str(self.first_name).capitalize() + ' ' + str(self.last_name).capitalize() + ' Profile.'
+        else:
+            return f'{self.user.username} Profile.'
+
+    def save(self):
+        super().save()
+        image = Image.open(fp=self.image.path)
+
+        if image.height > 300 and image.width > 300:
+            image.thumbnail(size=(300, 300))
+            image.save(fp=self.image.path)
