@@ -3,12 +3,14 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-    {% if user.is_authenticated %}
-        <div class="message-container">Hi, {{ user.username }}! Now You can use Your account to create new to do
-        lists with items You don't want to forget. If You have more questions You can
-        use option "Support" in menu.</div>
-    {% else %}
-        <div class="message-container">To add to do list you have to <a href="{% url 'login' %}">log in</a>
-        to your account or <a href="{% url 'register' %}">register a new one</a> if you haven't registered yet.</div>
-    {% endif %}
+{% if user.is_authenticated %}
+<div class="message-container">Hi, {{ user.username }}! Now You can use Your account to create new to do
+    lists with items You don't want to forget. If You have more questions You can
+    use option "Support" in menu.
+</div>
+{% else %}
+<div class="message-container">To add to do list you have to <a href="{% url 'login' %}">log in</a>
+    to your account or <a href="{% url 'register' %}">register a new one</a> if you haven't registered yet.
+</div>
+{% endif %}
 {% endblock %}
