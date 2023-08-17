@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import RegistrationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 def register(request):
@@ -51,3 +52,10 @@ def log_in(request):
 def log_out(request):
     logout(request=request)
     return redirect(to='index')
+
+
+@login_required
+def profile(request):
+    return render(request=request, template_name='users/profile.html', context={
+        'title': 'Profile'
+    })

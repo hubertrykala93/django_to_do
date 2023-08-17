@@ -10,7 +10,7 @@
         </li>
         {% if user.is_authenticated %}
             <li>
-                <a href="#">Profile</a>
+                <a href="{% url 'profile' %}">Profile</a>
             </li>
         {% else %}
             <li>
