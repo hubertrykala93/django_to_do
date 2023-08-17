@@ -2,4 +2,9 @@
 
 {% block title %}{{ title }}{% endblock %}
 
-{% block content %}{% endblock %}
+{% block content %}
+    {% for field in contact_form %}
+        {{ field.label }}
+        {{ field }}
+    {% endfor %}
+{% endblock %}

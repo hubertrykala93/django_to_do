@@ -15,7 +15,9 @@ def support(request):
 
         if contact_form.is_valid():
             messages.success(request=request,
-                             message='Your email message has been sent successfully. We will respond as soon as possible.')
+                             message='Your email message has been sent successfully. '
+                                     'We will respond as soon as possible.')
+
             html_message = render_to_string(template_name='core/email_content.html', context={
                 'full_name': contact_form.cleaned_data['full_name'],
                 'email': contact_form.cleaned_data['email'],
@@ -23,7 +25,7 @@ def support(request):
                 'message': contact_form.cleaned_data['message']
             }, request=request)
 
-            send_mail(subject='Email from the To Do App website.', message='/',
+            send_mail(subject='Email from the To Do App website.', message=contact_form.cleaned_data['message'],
                       from_email=contact_form.cleaned_data['email'], recipient_list=['hubert.rykala@gmail.com'],
                       html_message=html_message)
 
@@ -31,6 +33,7 @@ def support(request):
 
     else:
         contact_form = ContactForm()
+
     return render(request=request, template_name='core/support.html', context={
         'title': 'Support',
         'contact_form': contact_form

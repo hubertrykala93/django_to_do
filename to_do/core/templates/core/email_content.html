@@ -1,3 +1,8 @@
 Email from the To Do App website.
 
-From: {{ email }}
+From e-mail: {{ email }}
+From: {{ full_name }}
+{% if mobile_phone %}
+Mobile Phone:{{ mobile_phone }}
+{% endif %}
+Message: {{ message }}
