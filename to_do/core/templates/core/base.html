@@ -10,34 +10,34 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% compress css %}
-        <link rel="stylesheet" type="text/css" href="{% sass_src 'core/styles.scss' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'core/styles.scss' %}">
     {% endcompress %}
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     {% if title %}
-        <title>{% block title %}{% endblock %} | To Do App</title>
+    <title>{% block title %}{% endblock %} | To Do App</title>
     {% else %}
-        <title>To Do App</title>
+    <title>To Do App</title>
     {% endif %}
 </head>
 <body>
 
-    {% if messages %}
-        {% for message in messages %}
-            <div class="message-container">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
+{% if messages %}
+{% for message in messages %}
+<div class="message-container">{{ message }}</div>
+{% endfor %}
+{% endif %}
 
-    <section class="to-do-wrapper">
-            <div class="row">
-                {% block header %}
-                    {% include 'core/header.html' %}
-                {% endblock %}
-                <main>
-                    {% block content %}{% endblock %}
-                </main>
-            </div>
-    </section>
+<section class="to-do-wrapper">
+    <div class="row">
+        {% block header %}
+        {% include 'core/header.html' %}
+        {% endblock %}
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</section>
 
-    <script src="{% static 'core/scripts.js' %}"></script>
+<script src="{% static 'core/scripts.js' %}"></script>
 </body>
 </html>

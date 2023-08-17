@@ -3,6 +3,7 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
+<h1>{{ request_method }}</h1>
 <div id="user-form">
     {% for field in login_form %}
     {% if field.label != 'E-mail Address' and field.label != 'Confirm Password' %}
@@ -12,7 +13,6 @@
             <label>{{ field.label }}</label>
             {{ field }}
         </div>
-<!--        {{ field.errors }}-->
         {% endif %}
         {% endfor %}
         <div class="submit-row">
