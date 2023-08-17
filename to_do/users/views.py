@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 
 
@@ -9,15 +9,13 @@ def register(request):
         registration_form = RegistrationForm(data=request.POST or None)
 
         if registration_form.is_valid():
-            user = registration_form.save(commit=True)
-            login(request=request, user=user, backend='django.contrib.auth.backends.ModelBackend')
-
-            username = registration_form.cleaned_data.get('username')
+            registration_form.save()
 
             messages.success(request=request,
-                             message=f'{username}, your account has been created! You are now able to log in.')
+                             message=f"{registration_form.cleaned_data.get('username')}, "
+                                     f"your account has been created! You are now able to log in.")
 
-            return redirect(to='index')
+            return redirect(to='login')
 
     else:
         registration_form = RegistrationForm()
@@ -29,8 +27,27 @@ def register(request):
 
 
 def log_in(request):
-    login_form = RegistrationForm(data=request.POST)
+    if request.method == 'POST':
+        user = authenticate(request=request, username=request.POST.get('username'),
+                            password=request.POST.get('password1'))
+
+        if user is not None:
+            login(request=request, user=user)
+
+            messages.success(request=request,
+                             message=f"{request.POST.get('username')}, you have been successfully logged in.")
+
+        return redirect(to='index')
+
+    else:
+        login_form = RegistrationForm()
+
     return render(request=request, template_name='users/login.html', context={
         'title': 'Login',
         'login_form': login_form
     })
+
+
+def log_out(request):
+    logout(request=request)
+    return redirect(to='index')
