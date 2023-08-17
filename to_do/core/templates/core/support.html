@@ -3,8 +3,9 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-    {% for field in contact_form %}
-        {{ field.label }}
-        {{ field }}
-    {% endfor %}
+{% for field in contact_form %}
+{{ field.errors }}
+{{ field.label }}
+{{ field }}
+{% endfor %}
 {% endblock %}
