@@ -1,7 +1,6 @@
 {% block nav %}
 <nav id="nav">
     <ul>
-        {% if user.is_authenticated %}
         <li>
             <a href="{% url 'index' %}">Home</a>
         </li>
@@ -11,17 +10,8 @@
         </li>
 
         <li>
-            <a href="#">Sign in</a>
+            <a href="#">Login</a>
         </li>
-        {% else %}
-        <li>
-            <a href="#">Profile</a>
-        </li>
-
-        <li>
-            <a href="#">Log out</a>
-        </li>
-        {% endif %}
     </ul>
 </nav>
 {% endblock %}

@@ -11,7 +11,7 @@ def register(request):
         if registration_form.is_valid():
             user = registration_form.save(commit=True)
             login(request=request, user=user, backend='django.contrib.auth.backends.ModelBackend')
-            
+
             username = registration_form.cleaned_data.get('username')
 
             messages.success(request=request,
