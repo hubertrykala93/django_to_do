@@ -26,3 +26,11 @@ def register(request):
         'title': 'Sign Up for Free!',
         'registration_form': registration_form
     })
+
+
+def log_in(request):
+    login_form = RegistrationForm(data=request.POST)
+    return render(request=request, template_name='users/login.html', context={
+        'title': 'Login',
+        'login_form': login_form
+    })
