@@ -3,9 +3,19 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-{% for field in contact_form %}
-{{ field.errors }}
-{{ field.label }}
-{{ field }}
-{% endfor %}
+<div id="user-form">
+    {% for field in contact_form %}
+    <form class="contact-form" method="post" action="">
+        {% csrf_token %}
+        <div class="input-row">
+            <label>{{ field.label }}</label>
+            {{ field }}
+        </div>
+        {{ field.errors }}
+        {% endfor %}
+        <div class="submit-row">
+            <button class="btn" type="submit">Send E-mail</button>
+        </div>
+    </form>
+</div>
 {% endblock %}

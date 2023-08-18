@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import ContactForm
+from django.contrib import messages
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from django.contrib import messages
 
 
 def index(request):
@@ -18,16 +18,19 @@ def support(request):
                              message='Your email message has been sent successfully. '
                                      'We will respond as soon as possible.')
 
-            html_message = render_to_string(template_name='core/email_content.html', context={
-                'full_name': contact_form.cleaned_data['full_name'],
-                'email': contact_form.cleaned_data['email'],
-                'mobile_phone': contact_form.cleaned_data['mobile_phone'],
-                'message': contact_form.cleaned_data['message']
-            }, request=request)
-
-            send_mail(subject='Email from the To Do App website.', message=contact_form.cleaned_data['message'],
-                      from_email=contact_form.cleaned_data['email'], recipient_list=['hubert.rykala@gmail.com'],
-                      html_message=html_message)
+            send_mail(
+                subject=f"Message from {contact_form.cleaned_data['full_name']}.",
+                message=contact_form.cleaned_data['message'],
+                from_email=contact_form.cleaned_data['email'],
+                recipient_list=['hubert.rykala@gmail.com', 'szymon.levy123@gmail.com'],
+                html_message=render_to_string(template_name='core/email_content.html', context={
+                    'full_name': contact_form.cleaned_data['full_name'],
+                    'email': contact_form.cleaned_data['email'],
+                    'mobile_phone': contact_form.cleaned_data['mobile_phone'],
+                    'message': contact_form.cleaned_data['message'],
+                    'file': contact_form.cleaned_data['file']
+                }, request=request)
+            )
 
             return redirect(to='index')
 
