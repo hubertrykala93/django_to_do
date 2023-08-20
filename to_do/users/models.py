@@ -75,11 +75,13 @@ class Profile(models.Model):
         else:
             return f'{self.user.username} Profile.'
 
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-    #     image = Image.open(fp=self.image.path)
-    #     image.convert(mode='RGB')
-    #
-    #     if image.height > 300 and image.width > 300:
-    #         image.thumbnail(size=(300, 300))
-    #         image.save(fp=self.image.path)
+    def save(self, **kwargs):
+        super().save()
+        img = Image.open(fp=self.image.path)
+
+        if img.mode == 'RGBA':
+            img = img.convert(mode='RGB')
+
+        if img.width > 300 or img.height > 300:
+            img.thumbnail(size=(300, 300))
+            img.save(fp=self.image.path)
