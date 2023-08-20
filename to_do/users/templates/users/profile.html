@@ -3,7 +3,9 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
+
 {% if user.profile.first_name and user.profile.last_name %}
+<div class="user-settings">
 {{ user.profile.first_name }} {{ user.profile.last_name }}
 {% else %}
 {{ user.username }}
@@ -20,4 +22,5 @@
 {{ field.label }}
 {{ field }}
 {% endfor %}
+</div>
 {% endblock %}

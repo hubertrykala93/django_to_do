@@ -1,15 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 //variables
-$container-400: 1100px;
-$side-space: 60px;
+
+
 $body-bg: #DFCCFB;
 $header-bg: #663aff;
 $app-bg: #D0BFFF;
 $main-color: #BEADFA;
+$message-bg: #9cd39c;
 $radius-400: 7px;
 $radius-600: 15px;
 $text-font: 'Poppins', sans-serif;
+
+//container
+$container-400: 1100px;
+$side-space: 15px;
 
 
 //reset
@@ -41,17 +46,23 @@ a {
 .to-do-wrapper > .row{
     background-color: $main-color;
     border-radius: $radius-600;
-    padding: 50px;
+    padding: 20px;
     box-shadow: 5px 5px 15px #533da06e;
+    min-height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
 }
 
 .to-do-wrapper main{
     background-color: $app-bg;
     margin-top: 20px;
-    padding: 35px;
+    padding: 20px;
     border-radius: $radius-600;
+    flex-grow: 1;
 }
 .btn{
+    display: inline-block;
     line-height: 40px;
     padding: 0 25px;
     border-radius: $radius-400;
@@ -63,7 +74,7 @@ a {
 //header
 #header {
     background-color: $header-bg;
-    padding: 20px 35px;
+    padding: 10px 15px;
     border-radius: $radius-400;
 }
 
@@ -91,6 +102,8 @@ a {
 
 #header nav{
     margin-left: auto;
+    display: flex;
+    align-items: center;
 }
 
 #header nav ul {
@@ -108,17 +121,135 @@ a {
     font-size: 16px;
 }
 
+#offcanvas-close {
+    display: none;
+}
+
+#header .header-buttons {
+    margin-left: 40px;
+}
+
 #header .header-button {
-    margin-left: 60px;
     border: 2px solid white;
     background-color: white;
     color: black;
 }
 
+@media (max-width: 1099px) {
+
+    #offcanvas-toggler {
+        margin-left: auto;
+        width: 30px;
+        height: 18px;
+        background-color: transparent;
+        border: none;
+        position: relative;
+        cursor: pointer;
+
+        &::before, &::after {
+            content: '';
+        }
+
+        &::before, &::after, span {
+            width: 100%;
+            height: 2px;
+            background-color: white;
+            position: absolute;
+            left: 0;
+        }
+
+        &::before{
+            top: 0;
+        }
+
+        &::after{
+            bottom: 0;
+        }
+
+        span {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    #nav{
+        position: fixed;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        left: 100%;
+        top: 0;
+        padding: 50px;
+        background-color: $header-bg;
+        transition: transform .3s;
+        z-index: 5;
+
+        #offcanvas-close {
+            width: 30px;
+            height: 30px;
+            background-color: transparent;
+            border: none;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            display: block;
+            cursor: pointer;
+
+            &::before, &:after {
+                content: "";
+                width: 100%;
+                height: 2px;
+                background-color: white;
+                position: absolute;
+                left: 0;
+                top: 50%;
+            }
+
+            &::before {
+                transform: translateY(-50%) rotate(-45deg);
+            }
+
+            &::after {
+                transform: translateY(-50%) rotate(45deg);
+            }
+        }
+
+        &.active{
+            transform: translateX(-100%);
+        }
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 30px;
+
+            li{
+                margin: 10px 0 !important;
+            }
+        }
+
+        .header-buttons {
+            margin: 0;
+        }
+    }
+}
+
+
 //messages
 .message-container{
     text-align: center;
+    background-color: $message-bg;
+    padding: 30px;
+    border-radius: $radius-600;
+    margin: 20px 0;
+
+    &:first-child{
+        margin-top: 0;
+    }
 }
+
+
 
 //user form
 #user-form form {
@@ -127,7 +258,7 @@ a {
         margin-bottom: 15px;
     }
 
-    input {
+    input, textarea {
         width: 100%;
         background-color: $body-bg;
         border-radius: $radius-400;
@@ -140,6 +271,17 @@ a {
         &:focus{
             border-color: $header-bg;
         }
+    }
+
+    input[type="file"] {
+        background-color: transparent;
+        height: unset;
+        padding: 0;
+    }
+
+    textarea{
+        height: 120px;
+        padding-top: 15px;
     }
 
     label{
@@ -158,6 +300,7 @@ a {
 
     .submit-row {
         margin-top: 30px;
+        margin-bottom: 0;
 
         button {
             border: 2px solid white;
@@ -177,20 +320,66 @@ a {
 
     .form-footer {
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
+        margin-top: 15px;
+
+        & > div {
+            margin-bottom: 5px;
+        }
     }
 
     ul.errorlist {
         margin-bottom: 8px;
         padding-left: 20px;
         color: #d21010;
+        font-size: 13px;
     }
 
 }
 
 
 
+//breakpoints
 
+@media (min-width: $container-400) {
+  $side-space: 60px;
+  .to-do-wrapper{
+        padding: 0 $side-space;
+    }
+
+    .to-do-wrapper > .row {
+        padding: 50px;
+        min-height: unset;
+    }
+
+    #header {
+        padding: 20px 35px;
+    }
+
+    #offcanvas-toggler {
+        display: none;
+    }
+
+    .to-do-wrapper main {
+        padding: 35px;
+    }
+
+    #user-form {
+
+        form{
+
+            .form-footer {
+            flex-direction: row;
+
+            & > row {
+                margin: 0;
+            }
+            }
+        }
+
+    }
+}
 
 
 
