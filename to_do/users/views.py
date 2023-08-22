@@ -10,11 +10,12 @@ def register(request):
         registration_form = RegistrationForm(data=request.POST or None)
 
         if registration_form.is_valid():
-            registration_form.save()
+            user = registration_form.save()
+            user.is_active = False
 
             messages.success(request=request,
-                             message=f"{registration_form.cleaned_data.get('username')}, "
-                                     f"your account has been created! You are now able to log in.")
+                             message=f"{registration_form.cleaned_data.get('username')}, your account has been successfully created."
+                                     f"Now, please check your email and click on the activation link to activate your account.")
 
             return redirect(to='login')
 
