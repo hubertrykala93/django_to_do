@@ -1,0 +1,11 @@
+{% autoescape off %}
+
+<h2>Thank you for register on To Do App.</h2>
+
+Dear {{ username }}, thank you for registering in the To Do application. Please click the activation link provided below
+to activate your account and access the full functionality of our service!
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+{% endautoescape %}
+

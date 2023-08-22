@@ -1,12 +1,17 @@
 import os
 from dotenv import load_dotenv
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .forms import RegistrationForm, UserUpdateForm, ProfileUpdateForm
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from .tokens import activation_token
+from .models import User
 
 load_dotenv()
 
@@ -16,16 +21,19 @@ def register(request):
         registration_form = RegistrationForm(data=request.POST or None)
 
         if registration_form.is_valid():
-            user = registration_form.save()
+            user = registration_form.save(commit=False)
             user.is_active = False
+            user.save()
 
             messages.success(request=request,
                              message=f"{registration_form.cleaned_data.get('username')}, your account has been successfully created. "
                                      f"Now, please check your email and click on the activation link to activate your account.")
 
-            html_message = render_to_string(template_name='core/register_mail.html', context={
-                'username': registration_form.cleaned_data.get('username'),
-                'message': f"{registration_form.cleaned_data.get('username')}, your account has been created successfully. Here is your activation link.",
+            html_message = render_to_string(template_name='users/user_activation_mail.html', context={
+                'username': registration_form.cleaned_data.get('username').title(),
+                'domain': get_current_site(request=request).domain,
+                'uid': urlsafe_base64_encode(s=force_bytes(s=user.pk)),
+                'token': activation_token(user)
             }, request=request)
 
             send_mail(subject='To Do App Registration.',
@@ -43,6 +51,24 @@ def register(request):
         'title': 'Sign Up for Free!',
         'registration_form': registration_form
     })
+
+
+def activate(request, uidb64, token):
+    user = get_user_model()
+
+    try:
+        uid = force_str(s=urlsafe_base64_decode(s=uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, user.DoesNotExist):
+        user = None
+
+    if user is not None and activation_token.check_token(user=user, token=token):
+        user.is_active = True
+        user.save()
+
+        return HttpResponse(content='Thank you for your email confirmation. Now you can login your account.')
+    else:
+        return HttpResponse(content='Activation link is invalid.')
 
 
 def log_in(request):
