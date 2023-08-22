@@ -31,7 +31,8 @@ def register(request):
             send_mail(subject='To Do App Registration.',
                       message='',
                       from_email=os.environ.get('EMAIL_LOGIN'),
-                      recipient_list=[registration_form.cleaned_data.get('email')], html_message=html_message)
+                      recipient_list=[registration_form.cleaned_data.get('email')], fail_silently=True,
+                      html_message=html_message)
 
             return redirect(to='login')
 
