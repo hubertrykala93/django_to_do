@@ -1,8 +1,8 @@
 import os
 from dotenv import load_dotenv
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, reverse
 from .forms import RegistrationForm, UserUpdateForm, ProfileUpdateForm
-from django.contrib.auth import login, authenticate, logout, get_user_model
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -10,10 +10,31 @@ from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from .tokens import activation_token
 from .models import User
+from .tokens import token_generator
 
 load_dotenv()
+
+
+def send_action_mail(request, user):
+    current_site = get_current_site(request=request)
+    subject = 'Activate your account.'
+    email_body = render_to_string(
+        template_name='users/account_activate_email.html',
+        context={
+            'user': user,
+            'domain': current_site,
+            'uid': urlsafe_base64_encode(s=force_bytes(s=user.pk)),
+            'token': token_generator.make_token(user=user)
+        }
+    )
+
+    send_mail(
+        subject=subject,
+        message=email_body,
+        from_email=os.environ.get('EMAIL_LOGIN'),
+        recipient_list=[user.email]
+    )
 
 
 def register(request):
@@ -21,26 +42,12 @@ def register(request):
         registration_form = RegistrationForm(data=request.POST or None)
 
         if registration_form.is_valid():
-            user = registration_form.save(commit=False)
-            user.is_active = False
-            user.save()
+            user = registration_form.save(commit=True)
+
+            send_action_mail(request=request, user=user)
 
             messages.success(request=request,
-                             message=f"{registration_form.cleaned_data.get('username')}, your account has been successfully created. "
-                                     f"Now, please check your email and click on the activation link to activate your account.")
-
-            html_message = render_to_string(template_name='users/user_activation_mail.html', context={
-                'username': registration_form.cleaned_data.get('username').title(),
-                'domain': get_current_site(request=request).domain,
-                'uid': urlsafe_base64_encode(s=force_bytes(s=user.pk)),
-                'token': activation_token(user)
-            }, request=request)
-
-            send_mail(subject='To Do App Registration.',
-                      message='',
-                      from_email=os.environ.get('EMAIL_LOGIN'),
-                      recipient_list=[registration_form.cleaned_data.get('email')], fail_silently=True,
-                      html_message=html_message)
+                             message=f"{registration_form.cleaned_data.get('username')}, your account has been successfully created.")
 
             return redirect(to='login')
 
@@ -53,40 +60,29 @@ def register(request):
     })
 
 
-def activate(request, uidb64, token):
-    user = get_user_model()
-
-    try:
-        uid = force_str(s=urlsafe_base64_decode(s=uidb64))
-        user = User.objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, user.DoesNotExist):
-        user = None
-
-    if user is not None and activation_token.check_token(user=user, token=token):
-        user.is_active = True
-        user.save()
-
-        return HttpResponse(content='Thank you for your email confirmation. Now you can login your account.')
-    else:
-        return HttpResponse(content='Activation link is invalid.')
-
-
 def log_in(request):
     if request.method == 'POST':
         user = authenticate(request=request, username=request.POST.get('username'),
                             password=request.POST.get('password1'))
 
-        if user:
+        if not user.is_verified:
+            messages.info(request=request,
+                          message=f"{request.POST.get('username')}, your account is not active. Please check your email and activate your account.")
+
+            return redirect('login')
+
+        if not user:
+            messages.info(request=request,
+                          message=f"{request.POST.get('username')} doesn't exists. To log in, you need to register.")
+
+            return redirect('register')
+        else:
             login(request=request, user=user)
 
             messages.success(request=request,
                              message=f"{request.POST.get('username')}, you have been successfully logged in.")
 
             return redirect(to='index')
-        else:
-            username = request.POST.get('username')
-            messages.info(request=request, message=f"{username} doesn't exists. To log in, you need to register.")
-            return redirect('login')
 
     else:
         login_form = RegistrationForm()
@@ -99,6 +95,7 @@ def log_in(request):
 
 def log_out(request):
     logout(request=request)
+
     return redirect(to='index')
 
 
@@ -125,3 +122,17 @@ def profile(request):
         'user_update_form': user_update_form,
         'profile_update_form': profile_update_form
     })
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_str(s=urlsafe_base64_decode(s=uidb64))
+        user = User.objects.get(pk=uid)
+    except Exception as e:
+        user = None
+
+    if user and token_generator.check_token(user=user, token=token):
+        user.is_verified = True
+        user.save()
+
+        return redirect(to=reverse(viewname='login'))
