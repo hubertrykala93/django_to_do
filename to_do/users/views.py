@@ -1,8 +1,14 @@
+import os
+from dotenv import load_dotenv
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+
+load_dotenv()
 
 
 def register(request):
@@ -14,8 +20,18 @@ def register(request):
             user.is_active = False
 
             messages.success(request=request,
-                             message=f"{registration_form.cleaned_data.get('username')}, your account has been successfully created."
+                             message=f"{registration_form.cleaned_data.get('username')}, your account has been successfully created. "
                                      f"Now, please check your email and click on the activation link to activate your account.")
+
+            html_message = render_to_string(template_name='core/register_mail.html', context={
+                'username': registration_form.cleaned_data.get('username'),
+                'message': f"{registration_form.cleaned_data.get('username')}, your account has been created successfully. Here is your activation link.",
+            }, request=request)
+
+            send_mail(subject='To Do App Registration.',
+                      message='',
+                      from_email=os.environ.get('EMAIL_LOGIN'),
+                      recipient_list=[registration_form.cleaned_data.get('email')], html_message=html_message)
 
             return redirect(to='login')
 

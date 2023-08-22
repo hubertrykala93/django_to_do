@@ -22,7 +22,7 @@ def support(request):
                              message='Your email message has been sent successfully. '
                                      'We will respond as soon as possible.')
 
-            html_message = render_to_string(template_name='core/email_content.html', context={
+            html_message = render_to_string(template_name='core/support_mail.html', context={
                 'full_name': contact_form.cleaned_data['full_name'],
                 'email': contact_form.cleaned_data['email'],
                 'mobile_phone': contact_form.cleaned_data['mobile_phone'],
