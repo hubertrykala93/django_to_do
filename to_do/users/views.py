@@ -37,7 +37,8 @@ def register(request):
             )
 
             messages.success(request=request,
-                             message=f"{registration_form.cleaned_data.get('username')}, your account has been successfully created.")
+                             message=f"{registration_form.cleaned_data.get('username')}, your account has been successfully created. "
+                                     f"Now, please check your email and click on the activation link to activate your account.")
 
             return redirect(to='login')
 
@@ -48,6 +49,21 @@ def register(request):
         'title': 'Sign Up for Free!',
         'registration_form': registration_form
     })
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_str(s=urlsafe_base64_decode(s=uidb64))
+        user = User.objects.get(pk=uid)
+    except Exception as e:
+        user = None
+
+    if user and token_generator.check_token(user=user, token=token):
+        messages.success(request=request, message='Your account has been activated. You can now log in.')
+        user.is_verified = True
+        user.save()
+
+        return redirect(to=reverse(viewname='login'))
 
 
 def log_in(request):
@@ -85,6 +101,7 @@ def log_in(request):
 
 def log_out(request):
     logout(request=request)
+    messages.success(request=request, message='You have been successfully logged out.')
 
     return redirect(to='index')
 
@@ -122,6 +139,7 @@ def activate(request, uidb64, token):
         user = None
 
     if user and token_generator.check_token(user=user, token=token):
+        messages.success(request=request, message='Your account has been activated. You can now log in.')
         user.is_verified = True
         user.save()
 
