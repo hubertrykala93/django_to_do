@@ -16,27 +16,6 @@ from .tokens import token_generator
 load_dotenv()
 
 
-def send_action_mail(request, user):
-    current_site = get_current_site(request=request)
-    subject = 'Activate your account.'
-    email_body = render_to_string(
-        template_name='users/account_activate_email.html',
-        context={
-            'user': user,
-            'domain': current_site,
-            'uid': urlsafe_base64_encode(s=force_bytes(s=user.pk)),
-            'token': token_generator.make_token(user=user)
-        }
-    )
-
-    send_mail(
-        subject=subject,
-        message=email_body,
-        from_email=os.environ.get('EMAIL_LOGIN'),
-        recipient_list=[user.email]
-    )
-
-
 def register(request):
     if request.method == 'POST':
         registration_form = RegistrationForm(data=request.POST or None)
@@ -44,7 +23,18 @@ def register(request):
         if registration_form.is_valid():
             user = registration_form.save(commit=True)
 
-            send_action_mail(request=request, user=user)
+            send_mail(
+                subject='Activate your account.',
+                message=render_to_string(template_name='users/account_activate_email.html',
+                                         context={
+                                             'user': user,
+                                             'domain': get_current_site(request=request),
+                                             'uid': urlsafe_base64_encode(s=force_bytes(s=user.pk)),
+                                             'token': token_generator.make_token(user=user)
+                                         }),
+                from_email=os.environ.get('EMAIL_LOGIN'),
+                recipient_list=[user.email]
+            )
 
             messages.success(request=request,
                              message=f"{registration_form.cleaned_data.get('username')}, your account has been successfully created.")
