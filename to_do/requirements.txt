@@ -7,6 +7,7 @@ django-sass==1.1.0
 django-sass-processor==1.2.2
 libsass==0.22.0
 Pillow==10.0.0
+python-dotenv==1.0.0
 rcssmin==1.1.1
 rjsmin==1.2.1
 sqlparse==0.4.4
