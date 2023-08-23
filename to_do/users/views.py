@@ -129,18 +129,3 @@ def profile(request):
         'user_update_form': user_update_form,
         'profile_update_form': profile_update_form
     })
-
-
-def activate(request, uidb64, token):
-    try:
-        uid = force_str(s=urlsafe_base64_decode(s=uidb64))
-        user = User.objects.get(pk=uid)
-    except Exception as e:
-        user = None
-
-    if user and token_generator.check_token(user=user, token=token):
-        messages.success(request=request, message='Your account has been activated. You can now log in.')
-        user.is_verified = True
-        user.save()
-
-        return redirect(to=reverse(viewname='login'))
