@@ -1,20 +1,20 @@
 {% block nav %}
 <nav id="nav">
-    <ul>
-        <li>
-            <a href="{% url 'index' %}">Home</a>
+    <ul class="nav-list">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'index' %}">Home</a>
         </li>
 
-        <li>
-            <a href="{% url 'support' %}">Support</a>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'support' %}">Support</a>
         </li>
         {% if user.is_authenticated %}
-        <li>
-            <a href="{% url 'profile' %}">Profile</a>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
         </li>
         {% else %}
-        <li>
-            <a href="{% url 'login' %}">Login</a>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
         </li>
         {% endif %}
     </ul>

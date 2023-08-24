@@ -4,13 +4,17 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-<div class="message-container welcome">Hi, {{ user.username }}! Now You can use Your account to create new to do
-    lists with items You don't want to forget. If You have more questions You can
-    use option "Support" in menu.
+<div class="messages-container">
+    <div class="message info">Hi, {{ user.username }}! Now You can use Your account to create new to do
+        lists with items You don't want to forget. If You have more questions You can
+        use option "Support" in menu.
+</div>
 </div>
 {% else %}
-<div class="message-container welcome">To add to do list you have to <a href="{% url 'login' %}">log in</a>
-    to your account or <a href="{% url 'register' %}">register a new one</a> if you haven't registered yet.
+<div class="messages-container">
+    <div class="message info">To add to do list you have to <a href="{% url 'login' %}">log in</a>
+        to your account or <a href="{% url 'register' %}">register a new one</a> if you haven't registered yet.
+    </div>
 </div>
 {% endif %}
 {% endblock %}

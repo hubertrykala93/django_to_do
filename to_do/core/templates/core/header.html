@@ -1,11 +1,10 @@
 {% block header %}
 <header id="header">
-    <div class="container">
         <div class="row">
             <div class="logo">
                 <a href="{% url 'index' %}">
                     <i class="ri-list-check-3"></i>
-                    <span>todo list</span>
+                    <span><strong>to do</strong> app</span>
                 </a>
             </div>
 
@@ -13,11 +12,14 @@
             {% include 'core/navbar.html' %}
             {% endblock %}
 
+            <button id="theme-changer">
+                <i class="ri-moon-fill"></i>
+            </button>
+
             <button id="offcanvas-toggler" class="offcanvas-toggler">
                 <span></span>
             </button>
 
         </div>
-    </div>
 </header>
 {% endblock %}

@@ -21,7 +21,7 @@
 </head>
 <body>
 
-<section class="to-do-wrapper">
+<section class="app-container">
     <div class="row">
         {% block header %}
         {% include 'core/header.html' %}
@@ -30,7 +30,7 @@
 
             {% if messages %}
             {% for message in messages %}
-            <div class="message-container">{{ message }}</div>
+            <div class="messages-container">{{ message }}</div>
             {% endfor %}
             {% endif %}
 
