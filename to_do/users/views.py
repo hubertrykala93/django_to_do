@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from django.shortcuts import render, redirect, reverse
-from .forms import RegistrationForm, UserUpdateForm, ProfileUpdateForm
+from .forms import RegistrationForm, UserUpdateForm, ProfileUpdateForm, PasswordChangeForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -12,6 +12,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .models import User
 from .tokens import token_generator
+from django.db.models.query_utils import Q
 
 load_dotenv()
 
@@ -128,4 +129,31 @@ def profile(request):
         'title': 'Profile',
         'user_update_form': user_update_form,
         'profile_update_form': profile_update_form
+    })
+
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        password_change_form = PasswordChangeForm(user=request.user, data=request.POST)
+
+        if password_change_form.is_valid():
+            password_change_form.save()
+
+            messages.success(request=request, message='Your password has been changed.')
+
+            return redirect(to='login')
+        else:
+            for error in list(password_change_form.errors):
+                messages.error(request=request, message=error)
+
+    else:
+        password_change_form = PasswordChangeForm(user=request.user)
+
+        for error in list(password_change_form.errors):
+            print(error)
+
+    return render(request=request, template_name='users/change_password.html', context={
+        'title': 'Reset Password',
+        'password_change_form': password_change_form
     })
