@@ -18,7 +18,7 @@ load_dotenv()
 
 def register(request):
     if request.method == 'POST':
-        registration_form = RegistrationForm(data=request.POST or None)
+        registration_form = RegistrationForm(data=request.POST)
 
         if registration_form.is_valid():
             user = registration_form.save(commit=True)
