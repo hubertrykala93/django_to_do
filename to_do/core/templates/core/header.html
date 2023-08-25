@@ -1,25 +1,25 @@
 {% block header %}
 <header id="header">
-        <div class="row">
-            <div class="logo">
-                <a href="{% url 'index' %}">
-                    <i class="ri-list-check-3"></i>
-                    <span><strong>to do</strong> app</span>
-                </a>
-            </div>
-
-            {% block nav %}
-            {% include 'core/navbar.html' %}
-            {% endblock %}
-
-            <button id="theme-changer">
-                <i class="ri-moon-fill"></i>
-            </button>
-
-            <button id="offcanvas-toggler" class="offcanvas-toggler">
-                <span></span>
-            </button>
-
+    <div class="row">
+        <div class="logo">
+            <a href="{% url 'index' %}">
+                <i class="ri-list-check-3"></i>
+                <span><strong>to do</strong> app</span>
+            </a>
         </div>
+
+        {% block nav %}
+        {% include 'core/navbar.html' %}
+        {% endblock %}
+
+        <button id="theme-changer">
+            <i class="ri-moon-fill"></i>
+        </button>
+
+        <button id="offcanvas-toggler" class="offcanvas-toggler">
+            <span></span>
+        </button>
+
+    </div>
 </header>
 {% endblock %}

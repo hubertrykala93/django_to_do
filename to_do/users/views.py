@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
-from django.shortcuts import render, redirect, reverse
-from .forms import RegistrationForm, UserUpdateForm, ProfileUpdateForm, PasswordChangeForm
+from django.shortcuts import render, redirect, reverse, HttpResponse
+from .forms import RegistrationForm, UserUpdateForm, ProfileUpdateForm, PasswordChangeForm, ResetPasswordForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -13,6 +13,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .models import User
 from .tokens import token_generator
 from django.db.models.query_utils import Q
+from django.contrib.auth.tokens import default_token_generator
 
 load_dotenv()
 
@@ -38,8 +39,10 @@ def register(request):
             )
 
             messages.success(request=request,
-                             message=f"{registration_form.cleaned_data.get('username')}, your account has been successfully created. "
-                                     f"Now, please check your email and click on the activation link to activate your account.")
+                             message=f"{registration_form.cleaned_data.get('username')}, "
+                                     f"your account has been successfully created. "
+                                     f"Now, please check your email and click on the activation link"
+                                     f" to activate your account.")
 
             return redirect(to='login')
 
@@ -72,32 +75,32 @@ def log_in(request):
         user = authenticate(request=request, username=request.POST.get('username'),
                             password=request.POST.get('password1'))
 
-        if not user.is_verified:
-            messages.info(request=request,
-                          message=f"{request.POST.get('username')}, your account is not active. Please check your email and activate your account.")
+        if user is not None:
+            if not user.is_verified:
+                messages.info(request=request,
+                              message=f"{request.POST.get('username')}, your account is not active. "
+                                      f"Please visit your inbox and activate your account.")
 
-            return redirect('login')
+                return redirect(to='login')
+            else:
+                login(request=request, user=user)
 
-        if not user:
-            messages.info(request=request,
-                          message=f"{request.POST.get('username')} doesn't exists. To log in, you need to register.")
+                messages.success(request=request,
+                                 message=f"{request.POST.get('username')}, you have been successfully logged in.")
 
-            return redirect('register')
+                return redirect(to='index')
         else:
-            login(request=request, user=user)
+            messages.info(request=request,
+                          message=f"The user {request.POST.get('username')} does not exist, create an account.")
 
-            messages.success(request=request,
-                             message=f"{request.POST.get('username')}, you have been successfully logged in.")
+            return redirect(to='register')
 
-            return redirect(to='index')
+    login_form = RegistrationForm()
 
-    else:
-        login_form = RegistrationForm()
-
-        return render(request=request, template_name='users/login.html', context={
-            'title': 'Login',
-            'login_form': login_form,
-        })
+    return render(request=request, template_name='users/login.html', context={
+        'title': 'Login',
+        'login_form': login_form
+    })
 
 
 def log_out(request):
@@ -120,6 +123,12 @@ def profile(request):
             messages.success(request=request, message='Your account has been updated!')
 
             return redirect(to='profile')
+        else:
+            for user_error in list(user_update_form.errors):
+                messages.error(request=request, message=user_error)
+
+            for profile_error in list(profile_update_form.errors):
+                messages.error(request=request, message=profile_error)
 
     else:
         user_update_form = UserUpdateForm(instance=request.user)
@@ -140,20 +149,77 @@ def change_password(request):
         if password_change_form.is_valid():
             password_change_form.save()
 
-            messages.success(request=request, message='Your password has been changed.')
+            messages.success(request=request, message='Your password has been changed. Log in to your account.')
 
             return redirect(to='login')
-        else:
-            for error in list(password_change_form.errors):
-                messages.error(request=request, message=error)
 
     else:
         password_change_form = PasswordChangeForm(user=request.user)
 
-        for error in list(password_change_form.errors):
-            print(error)
-
     return render(request=request, template_name='users/change_password.html', context={
         'title': 'Reset Password',
         'password_change_form': password_change_form
+    })
+
+
+def reset_password(request):
+    if request.method == 'POST':
+        reset_form = ResetPasswordForm(data=request.POST)
+
+        if reset_form.is_valid():
+            email = reset_form.cleaned_data['email']
+            user_email = User.objects.filter(Q(email=email))
+
+            if user_email.exists():
+                for user in user_email:
+                    parameters = {
+                        'email': user_email,
+                        'domain': get_current_site(request=request),
+                        'uid': urlsafe_base64_encode(s=force_bytes(s=user.pk)),
+                        'token': default_token_generator.make_token(user=user),
+                        'protocol': 'http'
+                    }
+
+                    html_message = render_to_string(
+                        template_name='users/password_reset_email.html',
+                        context=parameters
+                    )
+
+                    try:
+                        messages.success(request=request,
+                                         message=f"An email with password reset instructions has been sent "
+                                                 f"to your email address {email}.")
+                        send_mail(
+                            subject='Reset your Password',
+                            message=html_message,
+                            from_email=os.environ.get('EMAIL_LOGIN'),
+                            recipient_list=[email],
+                            fail_silently=False
+                        )
+                    except ConnectionError:
+                        HttpResponse('Invalid Header')
+
+                    return redirect(to='done')
+
+    else:
+        reset_form = ResetPasswordForm()
+    return render(request=request, template_name='users/reset_password.html', context={
+        'title': 'Reset Password',
+        'reset_form': reset_form
+    })
+
+
+def confirm(request):
+    if request.method == 'POST':
+        confirm_form = PasswordChangeForm(user=request.user, data=request.POST)
+
+        if confirm_form.is_valid():
+            return redirect(to='confirm')
+
+    else:
+        confirm_form = PasswordChangeForm(user=request.user)
+
+    return render(request=request, template_name='users/confirm.html', context={
+        'title': 'Confirm',
+        'confirm_form': confirm_form
     })
