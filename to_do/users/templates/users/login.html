@@ -8,14 +8,19 @@
     {% if field.label != 'E-mail Address' and field.label != 'Confirm Password' %}
     <form class="login-form" method="post" action="">
         {% csrf_token %}
-        <div class="input-row">
-            <label>{{ field.label }}</label>
-            {{ field }}
+        <div class="form-row">
+            <div class="input-container">
+                <label>{{ field.label }}</label>
+                {{ field }}
+            </div>
         </div>
         {% endif %}
         {% endfor %}
         <div class="submit-row">
-            <button class="btn" type="submit">Login</button>
+            <button class="btn" type="submit">
+                <i class="ri-login-circle-line"></i>
+                Login
+            </button>
         </div>
 
 

@@ -1,85 +1,67 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 /*------------Variables------------*/
-
-/*-----Fonts-----*/
-$body-font: 'Poppins', sans-serif;
-$title-font: 'Poppins', sans-serif;
-
-/*-----Container-----*/
-$container-400: 1000px;
-$side-space: 15px;
-$padding-400: 15px;
-$padding-500: 25px;
-
-/*-----Other-----*/
-$radius-400: 5px;
-$radius-500: 8px;
-$radius-600: 15px;
-
-/*------------Theme colors------------*/
-$colors: (
-    body-bg: #F1F1F1,
-    app-bg: #F8F8F8,
-    white: #fff,
-    primary: #1079B5,
-    primary-alt: #0D4B6D,
-    text-body: #383838,
-    light-bg: #DAEEFA,
-    placeholder: #A7A7A7,
-    message-info: #D7F7F9,
-    message-succes: #DDF2C8,
-    message-error: #FFC6C6,
-    theme-changer:#161616,
-    border: #0000001a,
-    dark: #161616,
-    black: #000,
-);
-
-$colors-dark: (
-    body-bg: #0e0e0e,
-    app-bg: #121212,
-    white: #242424,
-    primary: #1079B5,
-    primary-alt: #0D4B6D,
-    text-body: white,
-    light-bg: #DAEEFA,
-    placeholder: #A7A7A7,
-    message-info: #D7F7F9,
-    message-succes: #DDF2C8,
-    message-error: #FFC6C6,
-    theme-changer:#fff,
-    border: #ffffff45,
-    dark: #fff,
-    black: #fff,
-);
-
-
 html {
-    @each $color_name, $color in $colors{
-        --color-#{$color-name}: #{$color};
-    }
+
+    /*-----Fonts-----*/
+    --body-font: 'Poppins', sans-serif;
+    --title-font: 'Poppins', sans-serif;
+
+    /*-----Container-----*/
+    --container-400: 1000px;
+    --side-space: 15px;
+    --padding-400: 15px;
+    --padding-500: 25px;
+
+    /*-----Other-----*/
+    --radius-400: 5px;
+    --radius-500: 8px;
+    --radius-600: 15px;
+
+    /*-----Theme-----*/
+    --body-bg: #F1F1F1;
+    --app-bg: #F8F8F8;
+    --white: #fff;
+    --primary: #1079B5;
+    --primary-alt: #0D4B6D;
+    --text-body: #383838;
+    --light-bg: #DAEEFA;
+    --placeholder: #A7A7A7;
+    --message-info: #D7F7F9;
+    --message-succes: #DDF2C8;
+    --message-error: #FFC6C6;
+    --theme-changer:#161616;
+    --border: #0000001a;
+    --dark: #161616;
+    --black: #000;
 }
 
 html[theme="dark"] {
-    @each $color_name, $color in $colors-dark{
-        --color-#{$color-name}: #{$color};
-    }
-}
-
-@function getColor( $color ){
-    @return var(--color-#{$color});
+    --body-bg: #0e0e0e;
+    --app-bg: #121212;
+    --white: #242424;
+    --primary: #1079B5;
+    --primary-alt: #0D4B6D;
+    --text-body: white;
+    --light-bg: #DAEEFA;
+    --placeholder: #A7A7A7;
+    --message-info: #D7F7F9;
+    --message-succes: #DDF2C8;
+    --message-error: #FFC6C6;
+    --theme-changer:#fff;
+    --border: #ffffff45;
+    --dark: #fff;
+    --black: #fff;
 }
 
 #theme-changer{
     background-color: transparent;
-    color: getColor(theme-changer);
+    color: var(--theme-changer);
     border: none;
     margin-left: auto;
     font-size: 20px;
     cursor: pointer;
 }
-
 
 /*------------Reset------------*/
 *{
@@ -90,32 +72,34 @@ html[theme="dark"] {
 
 /*------------Global------------*/
 body{
-    background-color: getColor(body-bg);
-    padding: $side-space;
-    color: getColor(text-body);
+    background-color: var(--body-bg);
+    padding: var(--side-space);
+    color: var(--text-body);
     font-size: 15px;
     line-height: 1.4;
-    font-family: $body-font;
+    font-family: var(--body-font);
     font-weight: 400;
+    position: relative;
 }
 
 .app-container{
     width: 100%;
-    max-width: $container-400 + $side-space * 2;
+    max-width: calc( var(--container-400) + var(--side-space) * 2);
     margin: 0 auto;
 
     > .row{
-        background-color: getColor(white);
-        border-radius: $radius-600;
-        padding: $padding-500;
+        background-color: var(--white);
+        border-radius: var(--radius-600);
+        padding: var(--padding-500);
         display: flex;
         flex-direction: column;
 
         main{
-            margin-top: $padding-400;
-            padding: $padding-400;
-            background-color: getColor(app-bg);
-            border-radius: $radius-600;
+            margin-top: var(--padding-400);
+            padding: var(--padding-400);
+            background-color: var(--app-bg);
+            border-radius: var(--radius-600);
+            display: flex;
             flex-grow: 1;
         }
     }
@@ -123,23 +107,31 @@ body{
 
 a {
     text-decoration: none;
-    color: getColor(primary);
+    color: var(--primary);
 }
 
 
 /*-----Buttons-----*/
 .btn{
     display: inline-flex;
+    justify-content: center;
     align-items: center;
     line-height: 40px;
     padding: 0 20px;
-    font-family: $body-font;
+    font-family: var(--body-font);
     text-transform: uppercase;
     font-size: 12px;
     font-weight: 600;
-    background-color: getColor(primary);
+    background-color: var(--primary);
     color: white;
-    border-radius: $radius-400;
+    border-radius: var(--radius-400);
+    border: none;
+    cursor: pointer;
+    transition: background-color .3s;
+
+    &:hover{
+        background-color: var(--primary-alt);
+    }
 
     i {
         font-weight: 400;
@@ -154,9 +146,9 @@ a {
     display: flex;
     align-items: center;
     height: 45px;
-    border: 1px solid getColor(border);
-    border-radius: $radius-600;
-    padding: 0 $padding-400;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-600);
+    padding: 0 var(--padding-400);
 
     > .row {
         width: 100%;
@@ -180,7 +172,7 @@ a {
 
             strong{
                 font-weight: 700;
-                color: getColor(black)
+                color: var(--black)
             }
         }
     }
@@ -203,7 +195,7 @@ a {
     display: none;
 }
 
-@media (max-width: $container-400 - 1) {
+@media (max-width: 999px ) {
 
     #offcanvas-toggler {
         display: block;
@@ -222,7 +214,7 @@ a {
         &::before, &::after, span {
             width: 100%;
             height: 2px;
-            background-color: getColor(dark);
+            background-color: var(--dark);
             position: absolute;
             left: 0;
         }
@@ -250,7 +242,7 @@ a {
         left: 100%;
         top: 0;
         padding: 50px;
-        background-color: getColor(primary);
+        background-color: var(--primary);
         transition: transform .3s;
         z-index: 5;
 
@@ -316,12 +308,13 @@ a {
 /*------------Messages------------*/
 .messages-container{
     text-align: center;
+    width: 100%;
 
     .message {
         margin-bottom: 15px;
-        padding: $padding-400 10px;
+        padding: var(--padding-400) 10px;
         text-align: center;
-        border-radius: $radius-500;
+        border-radius: var(--radius-500);
         color: #383838;
 
         &:last-child{
@@ -329,16 +322,102 @@ a {
         }
 
         &.info{
-            background-color: getColor(message-info);
+            background-color: var(--message-info);
         }
 
         &.succes{
-            background-color: getColor(message-succes);
+            background-color: var(--message-succes);
         }
 
         a{
             font-weight: bold;
         }
+    }
+}
+
+
+
+/*-----Regular Form, Login and Register-----*/
+
+#user-form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    form {
+        width: 100%;
+        max-width: 375px;
+        padding: var(--padding-400);
+        background-color: var(--white);
+        border-radius: var(--radius-500);
+    }
+}
+
+form {
+    .form-row{
+        margin-bottom: 15px;
+    }
+
+    .submit-row{
+        margin-top: 20px;
+
+        .btn {
+            width: 100%;
+            text-align: center;
+
+            i{
+                font-size: 14px;
+            }
+        }
+    }
+
+    .form-footer {
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-between;
+        font-weight: 400;
+        font-size: 10px;
+    }
+
+    label {
+        font-weight: 500;
+        font-size: 11px;
+        margin-bottom: 3px;
+        color: var(--black);
+        display: block;
+    }
+
+    input[type="text"],
+    input[type="password"]{
+        height: 35px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    textarea{
+        width: 100%;
+        font-family: inherit;
+        background-color: var(--light-bg);
+        font-size: 12px;
+        color: black;
+        padding: 0 20px;
+        outline: none;
+        border: 1px solid transparent;
+        border-radius: var(--radius-400);
+
+        &::placeholder{
+            color: var(--placeholder);
+        }
+
+        &:focus {
+            border-color: var(--primary-alt);
+        }
+    }
+
+    textarea {
+        padding-top: 10px;
+        height: 150px;
     }
 }
 
@@ -351,27 +430,19 @@ a {
 
 
 
-
-
-
-
-
-
-
 /*------------Breakpoints------------*/
 
-@media (min-width: $container-400) {
+@media (min-width: 1000px ) {
 
-    /*-----Container-----*/
-    $padding-400: 25px;
-    $padding-500: 40px;
-
-    /*-----Other-----*/
-    $radius-500: 10px;
-    $radius-600: 20px;
+    html{
+        --padding-400: 25px;
+        --padding-500: 40px;
+        --radius-500: 10px;
+        --radius-600: 20px;
+    }
 
     body {
-        background-color: var(--color-body-bg);
+        background-color: var(--body-bg);
         padding: 15px;
         min-height: 100vh;
         display: flex;
@@ -387,21 +458,11 @@ a {
     .app-container{
         > .row{
             min-height: 650px;
-            border-radius: $radius-600;
-            padding: $padding-500;
-
-            main{
-                margin-top: $padding-400;
-                padding: $padding-400;
-                border-radius: $radius-600;
-            }
         }
     }
 
     #header {
         height: 60px;
-        border-radius: $radius-600;
-        padding: 0 $padding-400;
 
         #nav {
             margin-left: auto;
@@ -420,7 +481,7 @@ a {
                 }
 
                 .nav-link{
-                    color: getColor(black);
+                    color: var(--black);
                     font-size: 13px;
                     font-weight: 400;
                 }
@@ -428,13 +489,6 @@ a {
         }
     }
 
-    .messages-container{
-
-        .message {
-            padding: $padding-400 10px;
-            border-radius: $radius-500;
-        }
-    }
 
 }
 

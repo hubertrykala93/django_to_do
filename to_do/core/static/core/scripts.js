@@ -11,17 +11,43 @@ offcanvasClose.addEventListener('click', () => {
 })
 
 
-//theme change
+//dark mode
+let darkMode = localStorage.getItem('darkMode') || false
 const themeToggler = document.querySelector('#theme-changer')
 
+function setDarkMode () {
+    document.documentElement.setAttribute('theme', 'dark')
+    themeToggler.querySelector('i').classList.remove('ri-moon-fill')
+    themeToggler.querySelector('i').classList.add('ri-sun-line')
+}
+
+function setLightMode () {
+    document.documentElement.removeAttribute('theme')
+    themeToggler.querySelector('i').classList.remove('ri-sun-line')
+    themeToggler.querySelector('i').classList.add('ri-moon-fill')
+}
+
+//if ( localStorage.getItem('darkMode') == false ) {
+//    setLightMode ()
+//} else {
+//    setDarkMode ()
+//}
+
 themeToggler.addEventListener('click', () => {
-    if ( document.documentElement.getAttribute('theme') === 'dark' ){
-        document.documentElement.removeAttribute('theme')
-        themeToggler.querySelector('i').classList.remove('ri-sun-line')
-        themeToggler.querySelector('i').classList.add('ri-moon-fill')
-    }else {
-        document.documentElement.setAttribute('theme', 'dark')
-        themeToggler.querySelector('i').classList.remove('ri-moon-fill')
-        themeToggler.querySelector('i').classList.add('ri-sun-line')
+
+    if ( darkMode == false ) {
+        setDarkMode ()
+        darkMode = true
+        localStorage.setItem('darkMode', 'true')
+    } else {
+        setLightMode ()
+        darkMode = false
+        localStorage.setItem('darkMode', 'false')
     }
 })
+
+
+
+
+
+

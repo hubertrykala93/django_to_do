@@ -30,7 +30,8 @@
 
             {% if messages %}
             {% for message in messages %}
-            <div class="messages-container">{{ message }}</div>
+<!--            <div class="messages-container">{{ message }}</div>-->
+            <div class="{{message.tags}}" >{{ message }}</div>
             {% endfor %}
             {% endif %}
 
