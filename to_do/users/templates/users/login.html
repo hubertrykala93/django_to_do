@@ -5,7 +5,7 @@
 {% block content %}
 <div id="user-form">
     {% for field in login_form %}
-    {% if field.label != 'E-mail Address' and field.label != 'Confirm Password' %}
+    {% if field.label != 'E-mail Address' and field.label != 'Confirm Password' and field.label != 'Sex' %}
     <form class="login-form" method="post" action="">
         {% csrf_token %}
         <div class="form-row">

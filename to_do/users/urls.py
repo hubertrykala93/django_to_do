@@ -1,16 +1,14 @@
-from django.urls import path, reverse_lazy, reverse
-from django.shortcuts import redirect
+from django.urls import path, reverse_lazy
 from . import views
 from django.contrib.auth import views as auth_views
 from .forms import PasswordChangeForm
 from .models import User
-from django.contrib import messages
 
 urlpatterns = [
     path(route='register/', view=views.register, name='register'),
     path(route='login/', view=views.log_in, name='login'),
     path(route='logout/', view=views.log_out, name='logout'),
-    path(route='profile/', view=views.profile, name='profile'),
+    path(route='account-settings/', view=views.account_settings, name='account-settings'),
     path(route='activate/<uidb64>/<token>', view=views.activate, name='activate'),
     path(route='change_password/', view=views.change_password, name='change-password'),
     path(route='reset_password/', view=views.reset_password, name='reset-password'),

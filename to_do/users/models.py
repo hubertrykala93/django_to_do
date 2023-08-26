@@ -40,6 +40,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50, unique=True, null=False, blank=False, default='',
                                 validators=[username_validate])
     email = models.EmailField(blank=True, default='', unique=True, validators=[email_validate])
+    sex = models.CharField(default='Unisex', max_length=20, choices=(
+        ('F', 'Female'),
+        ('M', 'Male'),
+        ('U', 'Unisex')
+    ))
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
@@ -63,7 +68,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Profile(models.Model):
     user = models.OneToOneField(to=User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    image = models.ImageField(default='default_female_pic.jpg' if User.sex == 'Female' else 'default_male_pic.jpg',
+                              upload_to='profile_pics')
     first_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50, blank=True, null=True)
     country = models.CharField(max_length=50, blank=True, null=True)

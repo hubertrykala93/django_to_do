@@ -44,7 +44,7 @@ def register(request):
                                      f"Now, please check your email and click on the activation link"
                                      f" to activate your account.")
 
-            return redirect(to='login')
+            return redirect(to='index')
 
     else:
         registration_form = RegistrationForm()
@@ -111,10 +111,13 @@ def log_out(request):
 
 
 @login_required
-def profile(request):
+def account_settings(request):
     if request.method == 'POST':
         user_update_form = UserUpdateForm(data=request.POST, instance=request.user)
         profile_update_form = ProfileUpdateForm(data=request.POST, files=request.FILES, instance=request.user.profile)
+
+        first_name = profile_update_form.cleaned_data.get('first_name')
+        last_name = profile_update_form.cleaned_data.get('last_name')
 
         if user_update_form.is_valid() and profile_update_form.is_valid():
             user_update_form.save()
@@ -122,22 +125,18 @@ def profile(request):
 
             messages.success(request=request, message='Your account has been updated!')
 
-            return redirect(to='profile')
-        else:
-            for user_error in list(user_update_form.errors):
-                messages.error(request=request, message=user_error)
-
-            for profile_error in list(profile_update_form.errors):
-                messages.error(request=request, message=profile_error)
+            return redirect(to='users/account-settings.html')
 
     else:
         user_update_form = UserUpdateForm(instance=request.user)
         profile_update_form = ProfileUpdateForm(instance=request.user.profile)
 
-    return render(request=request, template_name='users/profile.html', context={
+    return render(request=request, template_name='users/account-settings.html', context={
         'title': 'Profile',
         'user_update_form': user_update_form,
-        'profile_update_form': profile_update_form
+        'profile_update_form': profile_update_form,
+        'first_name': first_name,
+        'last_name': last_name
     })
 
 

@@ -8,26 +8,60 @@
             </a>
         </div>
 
-        {% block nav %}
-        {% include 'core/navbar.html' %}
-        {% endblock %}
+        <nav id="nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'support' %}">Support</a>
+                </li>
+
+                {% if not user.is_authenticated %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+
+                {% endif %}
+            </ul>
+
+            {% if not user.is_authenticated %}
+
+            <div class="header-buttons">
+
+                <a href="{% url 'register' %}" class="btn header-button">
+                    <i class="ri-user-add-fill"></i>
+                    <span>Register</span>
+                </a>
+
+            </div>
+
+            {% endif %}
+
+            <button id="offcanvas-close" class="offcanvas-close"></button>
+
+        </nav>
 
         <button id="theme-changer">
             <i class="ri-moon-fill"></i>
         </button>
+
+        {% if user.is_authenticated %}
 
         <div id="header-user">
             <div class="header-user-wrapper">
 
                 <div class="user-toggle">
                     <div class="user-info">
-                        <a href="" class="user-avatar">
+                        <a href="{% url 'account-settings' %}" class="user-avatar">
                             <img src="https://source.unsplash.com/random/100x100/?img=2" alt="">
                         </a>
 
                         <div class="user-greeting">
                             Hello,
-                            <a href="" class="user-name">User</a>
+                            <a href="{% url 'account-settings' %}" class="user-name">User</a>
                         </div>
                     </div>
 
@@ -36,14 +70,14 @@
 
                 <ul class="user-menu">
                     <li class="user-menu-item">
-                        <a href="#" class="user-menu-link">
+                        <a href="{% url 'account-settings' %}" class="user-menu-link">
                             <i class="ri-user-settings-line"></i>
                             Settings
                         </a>
                     </li>
 
                     <li class="user-menu-item">
-                        <a href="#" class="user-menu-link">
+                        <a href="{% url 'logout' %}" class="user-menu-link">
                             <i class="ri-logout-box-r-line"></i>
                             Logout
                         </a>
@@ -51,6 +85,8 @@
                 </ul>
             </div>
         </div>
+
+        {% endif %}
 
         <button id="offcanvas-toggler" class="offcanvas-toggler">
             <span></span>
