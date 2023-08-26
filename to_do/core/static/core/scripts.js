@@ -66,7 +66,21 @@ themeToggler.addEventListener('click', () => {
     }
 })
 
+//message popup
+const messagePopup = document.querySelector('.message-popup')
 
+if (messagePopup) {
+    setTimeout(()=>{
+        messagePopup.classList.add('active')
+
+        setTimeout(()=>{
+            messagePopup.classList.remove('active')
+            messagePopup.remove()
+        }, 5000)
+    }, 700)
+
+
+}
 
 
 

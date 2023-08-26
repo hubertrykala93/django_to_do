@@ -29,7 +29,7 @@
         <main>
             {% if messages %}
             {% for message in messages %}
-            {{ message }}
+            <div class="message-popup {{ message.tags }}">{{ message }}</div>
             {% endfor %}
             {% endif %}
 

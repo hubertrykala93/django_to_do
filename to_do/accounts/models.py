@@ -41,9 +41,8 @@ class User(AbstractBaseUser, PermissionsMixin):
                                 validators=[username_validate])
     email = models.EmailField(blank=True, default='', unique=True, validators=[email_validate])
     gender = models.CharField(default='Not Defined', max_length=20, choices=(
-        ('M', 'Male'),
-        ('F', 'Female'),
-        ('ND', 'Not Defined')
+        ('Male', 'Male'),
+        ('Female', 'Female'),
     ))
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

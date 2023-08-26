@@ -23,8 +23,9 @@ html {
   --light-bg: #DAEEFA;
   --placeholder: #A7A7A7;
   --message-info: #D7F7F9;
-  --message-succes: #DDF2C8;
+  --message-success: #DDF2C8;
   --message-error: #FFC6C6;
+  --message-warning: yellow;
   --theme-changer:#161616;
   --border: #0000001a;
   --dark: #161616;
@@ -40,7 +41,7 @@ html[theme="dark"] {
   --light-bg: #DAEEFA;
   --placeholder: #A7A7A7;
   --message-info: #D7F7F9;
-  --message-succes: #DDF2C8;
+  --message-success: #DDF2C8;
   --message-error: #FFC6C6;
   --theme-changer:#fff;
   --border: #ffffff45;
@@ -89,7 +90,9 @@ body {
       background-color: var(--app-bg);
       border-radius: var(--radius-600);
       display: flex;
-      flex-grow: 1; }
+      flex-grow: 1;
+      position: relative;
+      overflow: hidden; }
 
 a {
   text-decoration: none;
@@ -274,6 +277,7 @@ img {
     list-style: none;
     visibility: hidden;
     opacity: 0;
+    z-index: 2;
     transform: translateY(30px);
     transition: transform .3s, opacity .4s; }
     #header-user .user-menu .user-menu-item {
@@ -311,9 +315,33 @@ img {
     .messages-container .message.info {
       background-color: var(--message-info); }
     .messages-container .message.succes {
-      background-color: var(--message-succes); }
+      background-color: var(--message-success); }
     .messages-container .message a {
       font-weight: bold; }
+
+.message-popup {
+  position: absolute;
+  bottom: var(--padding-400);
+  right: var(--padding-400);
+  background-color: pink;
+  padding: 15px 20px;
+  border-radius: var(--radius-500);
+  transform: translateY(calc(var(--padding-400) + 100%));
+  opacity: 0;
+  width: 100%;
+  max-width: 400px;
+  transition: transform .3s; }
+  .message-popup.active {
+    transform: translateY(0%);
+    opacity: 1; }
+  .message-popup.success {
+    background-color: var(--message-success); }
+  .message-popup.info {
+    background-color: var(--message-info); }
+  .message-popup.error {
+    background-color: var(--message-error); }
+  .message-popup.warning {
+    background-color: var(--message-warning); }
 
 /*-----Regular Form, Login and Register-----*/
 #user-form {
