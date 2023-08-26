@@ -2,4 +2,21 @@
 
 {% block title %}{{ title }}{% endblock %}
 
-{% block content %}{% endblock %}
+{% block content %}
+<div id="user-form">
+    {% for field in password_change_form %}
+    <form class="login-form" method="post" action="">
+        {% csrf_token %}
+        <div class="input-row">
+            <label>{{ field.label }}</label>
+            {{ field }}
+        </div>
+        {% endfor %}
+        <div class="submit-row">
+            <button class="btn" type="submit">Set New Password</button>
+        </div>
+
+
+    </form>
+</div>
+{% endblock %}

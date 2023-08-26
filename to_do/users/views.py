@@ -209,17 +209,8 @@ def reset_password(request):
     })
 
 
-def confirm(request):
-    if request.method == 'POST':
-        confirm_form = PasswordChangeForm(user=request.user, data=request.POST)
+def complete(request):
+    messages.success(request=request,
+                     message=f'Your password has been changed successfully. You can now to log in again.')
 
-        if confirm_form.is_valid():
-            return redirect(to='confirm')
-
-    else:
-        confirm_form = PasswordChangeForm(user=request.user)
-
-    return render(request=request, template_name='users/confirm.html', context={
-        'title': 'Confirm',
-        'confirm_form': confirm_form
-    })
+    return redirect(to='login')
