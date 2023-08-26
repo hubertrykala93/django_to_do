@@ -1,3 +1,4 @@
+//offcanvas menu toggle
 const nav = document.querySelector('#nav')
 const offcanvasToggler = document.querySelector('#offcanvas-toggler')
 const offcanvasClose = document.querySelector('#offcanvas-close')
@@ -9,6 +10,24 @@ offcanvasToggler.addEventListener('click', () => {
 offcanvasClose.addEventListener('click', () => {
     nav.classList.remove('active')
 })
+
+//header user menu toggle
+const headerUserElement = document.getElementById('header-user')
+
+if(headerUserElement){
+    const headerUserWrapper = headerUserElement.querySelector('.header-user-wrapper')
+    const headerUserMenuToggler = headerUserElement.querySelector('#header-user-toggler')
+
+    headerUserMenuToggler.addEventListener('click', () => {
+        headerUserWrapper.classList.toggle('active')
+
+        window.addEventListener('click', (e) => {
+            if ( e.target.id ==! 'header-user-toggler' && !e.target.closest('#header-user') ) {
+                headerUserWrapper.classList.remove('active')
+            }
+        })
+    })
+}
 
 
 //dark mode

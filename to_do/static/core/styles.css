@@ -8,7 +8,7 @@ html {
   --container-400: 1000px;
   --side-space: 15px;
   --padding-400: 15px;
-  --padding-500: 25px;
+  --padding-500: 20px;
   /*-----Other-----*/
   --radius-400: 5px;
   --radius-500: 8px;
@@ -81,7 +81,8 @@ body {
     border-radius: var(--radius-600);
     padding: var(--padding-500);
     display: flex;
-    flex-direction: column; }
+    flex-direction: column;
+    box-shadow: 10px 10px 30px #00000008; }
     .app-container > .row main {
       margin-top: var(--padding-400);
       padding: var(--padding-400);
@@ -93,6 +94,9 @@ body {
 a {
   text-decoration: none;
   color: var(--primary); }
+
+img {
+  max-width: 100%; }
 
 /*-----Buttons-----*/
 .btn {
@@ -139,7 +143,8 @@ a {
     #header .logo a span {
       font-size: 20px;
       font-weight: 400;
-      text-transform: uppercase; }
+      text-transform: uppercase;
+      display: none; }
       #header .logo a span strong {
         font-weight: 700;
         color: var(--black); }
@@ -225,6 +230,71 @@ a {
       margin: 0; }
       #nav .header-buttons .btn {
         border: 1px solid white; } }
+
+#header-user {
+  margin-left: 20px; }
+  #header-user .user-toggle {
+    display: flex;
+    align-items: center; }
+    #header-user .user-toggle .user-info {
+      display: flex;
+      align-items: center; }
+      #header-user .user-toggle .user-info .user-avatar {
+        display: none;
+        margin-right: 10px; }
+        #header-user .user-toggle .user-info .user-avatar img {
+          width: 30px;
+          height: 30px;
+          object-fit: cover;
+          border-radius: 50%; }
+      #header-user .user-toggle .user-info .user-greeting {
+        font-size: 13px;
+        font-weight: 300; }
+        #header-user .user-toggle .user-info .user-greeting .user-name {
+          font-weight: 500; }
+    #header-user .user-toggle #header-user-toggler {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 20px;
+      color: var(--primary);
+      margin-left: 5px;
+      cursor: pointer;
+      transition: transform .3s; }
+  #header-user .user-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 5px);
+    width: 130px;
+    padding: 15px;
+    border-radius: var(--radius-500);
+    border: 1px solid var(--border);
+    background-color: var(--white);
+    box-shadow: 2px 6px 20px #0000001f;
+    list-style: none;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: transform .3s, opacity .4s; }
+    #header-user .user-menu .user-menu-item {
+      margin-bottom: 10px; }
+      #header-user .user-menu .user-menu-item:last-child {
+        margin: 0; }
+      #header-user .user-menu .user-menu-item .user-menu-link {
+        font-size: 12px;
+        color: var(--black); }
+        #header-user .user-menu .user-menu-item .user-menu-link i {
+          font-size: 14px;
+          color: var(--primary);
+          margin-right: 5px; }
+  #header-user .header-user-wrapper {
+    position: relative; }
+    #header-user .header-user-wrapper.active #header-user-toggler {
+      transform: rotate(180deg); }
+    #header-user .header-user-wrapper.active .user-menu {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0px); }
 
 /*------------Messages------------*/
 .messages-container {
@@ -317,8 +387,7 @@ form textarea {
   html {
     --padding-400: 25px;
     --padding-500: 40px;
-    --radius-500: 10px;
-    --radius-600: 20px; }
+    --radius-500: 10px; }
   body {
     background-color: var(--body-bg);
     padding: 15px;
@@ -333,6 +402,8 @@ form textarea {
     min-height: 650px; }
   #header {
     height: 60px; }
+    #header .logo a span {
+      display: block; }
     #header #nav {
       margin-left: auto;
       display: flex;
@@ -346,6 +417,13 @@ form textarea {
         #header .nav-list .nav-item .nav-link {
           color: var(--black);
           font-size: 13px;
-          font-weight: 400; } }
+          font-weight: 400; }
+  #header-user {
+    margin-left: 0px; }
+    #header-user .user-toggle .user-info .user-avatar {
+      display: block; }
+    #header-user .user-menu {
+      width: 100%;
+      min-width: max-content; } }
 
 /*# sourceMappingURL=styles.css.map */
