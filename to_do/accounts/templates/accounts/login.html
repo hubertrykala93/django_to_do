@@ -1,0 +1,34 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div id="user-form">
+    {% for field in login_form %}
+    {% if field.label != 'E-mail Address' and field.label != 'Confirm Password' and field.label != 'Gender' %}
+    <form class="login-form" method="post" action="">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="input-container">
+                <label>{{ field.label }}</label>
+                {{ field }}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        <div class="submit-row">
+            <button class="btn" type="submit">
+                <i class="ri-login-circle-line"></i>
+                Login
+            </button>
+        </div>
+
+
+        <div class="form-footer">
+            <div class="login-question">Don't have an account? <a href="{% url 'register' %}">Register</a>.</div>
+            <div class="forgot-password"><a href="{% url 'reset-password' %}">Forgot Password?</a></div>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

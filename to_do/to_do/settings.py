@@ -43,10 +43,10 @@ INSTALLED_APPS = [
     'compressor',
     'sass_processor',
     'core',
-    'users',
+    'accounts',
 ]
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'accounts.User'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
