@@ -83,6 +83,12 @@ class Profile(models.Model):
 
     def save(self, **kwargs):
         super().save()
+
+        if User.gender == 'Male':
+            self.image.default = 'default_male_pic.jpg'
+
+        self.image.default = 'default_female_pic.jpg'
+
         img = Image.open(fp=self.image.path)
 
         if img.mode == 'RGBA':
