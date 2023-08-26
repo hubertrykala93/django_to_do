@@ -12,8 +12,14 @@ offcanvasClose.addEventListener('click', () => {
 
 
 //dark mode
-let darkMode = localStorage.getItem('darkMode') || false
+let darkMode = JSON.parse(localStorage.getItem('darkMode'))
 const themeToggler = document.querySelector('#theme-changer')
+
+if ( darkMode == 'false' ) {
+    setLightMode ()
+} else {
+    setDarkMode ()
+}
 
 function setDarkMode () {
     document.documentElement.setAttribute('theme', 'dark')
@@ -27,22 +33,17 @@ function setLightMode () {
     themeToggler.querySelector('i').classList.add('ri-moon-fill')
 }
 
-//if ( localStorage.getItem('darkMode') == false ) {
-//    setLightMode ()
-//} else {
-//    setDarkMode ()
-//}
 
 themeToggler.addEventListener('click', () => {
-
-    if ( darkMode == false ) {
+    let darkMode = JSON.parse(localStorage.getItem('darkMode'))
+    if ( darkMode == 'false' ) {
         setDarkMode ()
         darkMode = true
-        localStorage.setItem('darkMode', 'true')
+        localStorage.setItem('darkMode', JSON.stringify('true'))
     } else {
         setLightMode ()
         darkMode = false
-        localStorage.setItem('darkMode', 'false')
+        localStorage.setItem('darkMode', JSON.stringify('false'))
     }
 })
 
