@@ -58,12 +58,35 @@ class RegistrationForm(UserCreationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
+    first_name = forms.CharField(max_length=255, label='First Name', required=True,
+                                 widget=forms.TextInput(attrs={
+                                     'id': 'register-user-first-name',
+                                     'label': 'required',
+                                     'type': 'text',
+                                     'placeholder': 'Your First Name'
+                                 }))
+
+    username = forms.CharField(max_length=255, label='Username', required=True, validators=[username_validate],
+                               widget=forms.TextInput(attrs={
+                                   'id': 'register-user-name',
+                                   'label': 'required',
+                                   'type': 'text',
+                                   'placeholder': 'Your Username'
+                               }))
+
+    email = forms.EmailField(max_length=255, label='E-mail Address', required=True, validators=[email_validate],
+                             error_messages=None,
+                             widget=forms.TextInput(attrs={
+                                 'id': 'register-email',
+                                 'label': 'required',
+                                 'type': 'text',
+                                 'placeholder': 'Your New E-mail Address'
+                             }))
     image = forms.ImageField()
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'image']
+        fields = ['username', 'email', 'image', 'first_name']
 
 
 class ProfileUpdateForm(forms.ModelForm):
@@ -82,12 +105,12 @@ class PasswordChangeForm(SetPasswordForm):
                                     }))
 
     new_password2 = forms.CharField(max_length=50, label='Confirm New Password', required=True,
-                                    widget=forms.PasswordInput(attrs={
-                                        'id': 'register-password-2',
-                                        'type': 'password',
-                                        'label': 'required',
-                                        'placeholder': 'Confirm Your New Password'
-                                    }))
+                                    validators=[password_validate], widget=forms.PasswordInput(attrs={
+            'id': 'register-password-2',
+            'type': 'password',
+            'label': 'required',
+            'placeholder': 'Confirm Your New Password'
+        }))
 
     class Meta:
         model = User

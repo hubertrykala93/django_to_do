@@ -113,8 +113,8 @@ def log_out(request):
 @login_required
 def account_settings(request):
     if request.method == 'POST':
-        user_update_form = UserUpdateForm(data=request.POST, instance=request.user)
-        profile_update_form = ProfileUpdateForm(data=request.POST, files=request.FILES, instance=request.user.profile)
+        user_update_form = UserUpdateForm(data=request.POST, files=request.FILES, instance=request.user)
+        profile_update_form = ProfileUpdateForm(data=request.POST, instance=request.user.profile)
 
         if user_update_form.is_valid() and profile_update_form.is_valid():
             user_update_form.save()
@@ -132,6 +132,48 @@ def account_settings(request):
         'title': 'Account Settings',
         'user_update_form': user_update_form,
         'profile_update_form': profile_update_form,
+    })
+
+
+@login_required
+def password_settings(request):
+    if request.method == 'POST':
+        user_password_change_form = PasswordChangeForm(user=request.user, data=request.POST)
+
+        if user_password_change_form.is_valid():
+            user_password_change_form.save()
+
+            messages.success(request=request, message='The password has been successfully changed.')
+
+            return redirect(to='account-settings')
+
+    else:
+        user_password_change_form = PasswordChangeForm(user=request.user)
+
+    return render(request=request, template_name='accounts/password-settings.html', context={
+        'title': 'Set New Password',
+        'user_password_change_form': user_password_change_form
+    })
+
+
+@login_required
+def image_settings(request):
+    if request.method == 'POST':
+        user_image_change_form = UserUpdateForm(data=request.POST, files=request.FILES, instance=request.user)
+
+        if user_image_change_form.is_valid():
+            user_image_change_form.save()
+
+            messages.success(request=request, message='The profile picture has been changed successfully.')
+
+            return redirect(to='account-settings')
+
+    else:
+        user_image_change_form = UserUpdateForm(instance=request.user)
+
+    return render(request=request, template_name='accounts/image-settings.html', context={
+        'title': 'Set New Image',
+        'user_image_change_form': user_image_change_form
     })
 
 
@@ -183,6 +225,7 @@ def reset_password(request):
                         messages.success(request=request,
                                          message=f"An email with password reset instructions has been sent "
                                                  f"to your email address {email}.")
+                        messages.warning(request=request, message='Your activation link will expire after two days.')
                         send_mail(
                             subject='Reset your Password',
                             message=html_message,
@@ -193,7 +236,7 @@ def reset_password(request):
                     except ConnectionError:
                         HttpResponse('Invalid Header')
 
-                    return redirect(to='done')
+                    return redirect(to='index')
 
     else:
         reset_form = ResetPasswordForm()

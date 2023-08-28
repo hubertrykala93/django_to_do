@@ -3,24 +3,32 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-
-{% if user.profile.first_name and user.profile.last_name %}
 <div class="user-settings">
-    {{ user.profile.first_name }} {{ user.profile.last_name }}
-    {% else %}
-    {{ user.username }}
-    {% endif %}
-    {{ user.email }}
-    {{ user.image }}
-
-    {% for field in user_update_form %}
-    {{ field.label }}
-    {{ field }}
-    {% endfor %}
-
-    {% for field in profile_update_form %}
-    {{ field.label }}
-    {{ field }}
-    {% endfor %}
+    <form class="register-form" method="post" action="">
+        {% csrf_token %}
+        <div class="form-row">
+            {{ user_update_form.first_name.label }}
+            {{ user_update_form.first_name }}
+        </div>
+        <div class="form-row">
+            {{ profile_update_form.last_name.label }}
+            {{ profile_update_form.last_name }}
+        </div>
+        <div class="form-row">
+            {{ user_update_form.username.label }}
+            {{ user_update_form.username }}
+        </div>
+        <div class="form-row">
+            {{ user_update_form.email.label }}
+            {{ user_update_form.email }}
+        </div>
+        <div class="form-row">
+            {{ user_update_form.image.label }}
+            {{ user_update_form.image }}
+        </div>
+        <div class="submit-row">
+            <button class="btn" type="submit">Change</button>
+        </div>
+    </form>
 </div>
 {% endblock %}
