@@ -5,9 +5,9 @@
 {% block content %}
 {% if user.is_authenticated %}
 <div class="messages-container">
-    <div class="message info">Hi, {{ user.username }}! Now You can use Your account to create new to do
-        lists with items You don't want to forget. If You have more questions You can
-        use option "Support" in menu.
+    <div class="message info">Hi, {{ user.first_name }}! Now you can use your account to create new to do
+        lists with items you don't want to forget. If you have more questions you can
+        use option <a href="{% url 'support' %}">Support</a> in menu.
     </div>
 </div>
 {% else %}

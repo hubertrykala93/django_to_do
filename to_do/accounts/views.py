@@ -1,8 +1,9 @@
 import os
 from dotenv import load_dotenv
 from django.shortcuts import render, redirect, reverse, HttpResponse
-from .forms import RegistrationForm, UserUpdateForm, ProfileUpdateForm, PasswordChangeForm, ResetPasswordForm
-from django.contrib.auth import login, authenticate, logout
+from .forms import RegistrationForm, UserUpdateForm, ProfileUpdateForm, ResetPasswordForm, UserImageUpdateForm, \
+    PasswordChangeForm
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -112,89 +113,35 @@ def log_out(request):
 
 @login_required
 def account_settings(request):
+    form_1 = UserUpdateForm(data=request.POST, files=request.FILES, instance=request.user)
+    form_2 = PasswordChangeForm(user=request.user, data=request.POST)
+
     if request.method == 'POST':
-        user_update_form = UserUpdateForm(data=request.POST, files=request.FILES, instance=request.user)
-        profile_update_form = ProfileUpdateForm(data=request.POST, instance=request.user.profile)
+        if form_1.is_valid():
+            form_1.save()
 
-        if user_update_form.is_valid() and profile_update_form.is_valid():
-            user_update_form.save()
-            profile_update_form.save()
+            messages.success(request=request, message='Your account has been updated successfully.')
 
-            messages.success(request=request, message='Your account has been updated!')
+            return redirect(to='account-settings')
 
-            return redirect(to='accounts/account-settings.html')
+    if request.method == 'POST':
+        if form_2.is_valid():
+            form_2.save()
+
+            update_session_auth_hash(request=request, user=request.user)
+
+            messages.success(request=request, message='Your account has been updated successfully.')
+
+            return redirect(to='account-settings')
 
     else:
-        user_update_form = UserUpdateForm(instance=request.user)
-        profile_update_form = ProfileUpdateForm(instance=request.user.profile)
+        form_1 = UserUpdateForm()
+        form_2 = PasswordChangeForm(user=request.user)
 
     return render(request=request, template_name='accounts/account-settings.html', context={
         'title': 'Account Settings',
-        'user_update_form': user_update_form,
-        'profile_update_form': profile_update_form,
-    })
-
-
-@login_required
-def password_settings(request):
-    if request.method == 'POST':
-        user_password_change_form = PasswordChangeForm(user=request.user, data=request.POST)
-
-        if user_password_change_form.is_valid():
-            user_password_change_form.save()
-
-            messages.success(request=request, message='The password has been successfully changed.')
-
-            return redirect(to='account-settings')
-
-    else:
-        user_password_change_form = PasswordChangeForm(user=request.user)
-
-    return render(request=request, template_name='accounts/password-settings.html', context={
-        'title': 'Set New Password',
-        'user_password_change_form': user_password_change_form
-    })
-
-
-@login_required
-def image_settings(request):
-    if request.method == 'POST':
-        user_image_change_form = UserUpdateForm(data=request.POST, files=request.FILES, instance=request.user)
-
-        if user_image_change_form.is_valid():
-            user_image_change_form.save()
-
-            messages.success(request=request, message='The profile picture has been changed successfully.')
-
-            return redirect(to='account-settings')
-
-    else:
-        user_image_change_form = UserUpdateForm(instance=request.user)
-
-    return render(request=request, template_name='accounts/image-settings.html', context={
-        'title': 'Set New Image',
-        'user_image_change_form': user_image_change_form
-    })
-
-
-@login_required
-def change_password(request):
-    if request.method == 'POST':
-        password_change_form = PasswordChangeForm(user=request.user, data=request.POST)
-
-        if password_change_form.is_valid():
-            password_change_form.save()
-
-            messages.success(request=request, message='Your password has been changed. Log in to your account.')
-
-            return redirect(to='login')
-
-    else:
-        password_change_form = PasswordChangeForm(user=request.user)
-
-    return render(request=request, template_name='accounts/change_password.html', context={
-        'title': 'Reset Password',
-        'password_change_form': password_change_form
+        'form_1': form_1,
+        'form_2': form_2
     })
 
 
@@ -240,7 +187,8 @@ def reset_password(request):
 
     else:
         reset_form = ResetPasswordForm()
-    return render(request=request, template_name='accounts/reset_password.html', context={
+
+    return render(request=request, template_name='accounts/reset-password.html', context={
         'title': 'Reset Password',
         'reset_form': reset_form
     })

@@ -41,6 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                                 validators=[username_validate])
     email = models.EmailField(blank=True, default='', unique=True, validators=[email_validate])
     first_name = models.CharField(max_length=50, unique=False, null=False, blank=False, default='User')
+    last_name = models.CharField(max_length=50, blank=True, null=True)
     gender = models.CharField(default='Not Defined', max_length=20, choices=(
         ('Male', 'Male'),
         ('Female', 'Female'),
@@ -87,7 +88,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Profile(models.Model):
     user = models.OneToOneField(to=User, on_delete=models.CASCADE)
-    last_name = models.CharField(max_length=50, blank=True, null=True)
     country = models.CharField(max_length=50, blank=True, null=True)
     province = models.CharField(max_length=50, blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)

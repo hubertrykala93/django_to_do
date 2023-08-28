@@ -66,15 +66,22 @@ class UserUpdateForm(forms.ModelForm):
                                      'placeholder': 'Your First Name'
                                  }))
 
-    username = forms.CharField(max_length=255, label='Username', required=True, validators=[username_validate],
+    last_name = forms.CharField(max_length=255, label='Last Name', required=False,
+                                widget=forms.TextInput(attrs={
+                                    'id': 'register-user-last-name',
+                                    'type': 'text',
+                                    'placeholder': 'Your Last Name'
+                                }))
+
+    username = forms.CharField(max_length=255, label='Username', required=False, validators=[username_validate],
                                widget=forms.TextInput(attrs={
                                    'id': 'register-user-name',
                                    'label': 'required',
                                    'type': 'text',
-                                   'placeholder': 'Your Username'
+                                   'placeholder': 'Your New Username'
                                }))
 
-    email = forms.EmailField(max_length=255, label='E-mail Address', required=True, validators=[email_validate],
+    email = forms.EmailField(max_length=255, label='E-mail Address', required=False, validators=[email_validate],
                              error_messages=None,
                              widget=forms.TextInput(attrs={
                                  'id': 'register-email',
@@ -82,17 +89,10 @@ class UserUpdateForm(forms.ModelForm):
                                  'type': 'text',
                                  'placeholder': 'Your New E-mail Address'
                              }))
-    image = forms.ImageField()
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'image', 'first_name']
-
-
-class ProfileUpdateForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = '__all__'
+        fields = ['username', 'email', 'first_name', 'last_name']
 
 
 class PasswordChangeForm(SetPasswordForm):
@@ -115,6 +115,41 @@ class PasswordChangeForm(SetPasswordForm):
     class Meta:
         model = User
         fields = ['new_password1', 'new_password2']
+
+
+class UserImageUpdateForm(forms.ModelForm):
+    image = forms.ImageField(max_length=100, label='New Profile Image', required=True)
+
+    class Meta:
+        model = User
+        fields = ['image']
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    country = forms.CharField(max_length=255, label='Country', required=False,
+                              widget=forms.TextInput(attrs={
+                                  'id': 'register-user-country',
+                                  'type': 'text',
+                                  'placeholder': 'Your Country'
+                              }))
+
+    province = forms.CharField(max_length=255, label='Province', required=False,
+                               widget=forms.TextInput(attrs={
+                                   'id': 'register-user-province',
+                                   'type': 'text',
+                                   'placeholder': 'Your Province'
+                               }))
+
+    city = forms.CharField(max_length=255, label='City', required=False,
+                           widget=forms.TextInput(attrs={
+                               'id': 'register-user-city',
+                               'type': 'text',
+                               'placeholder': 'Your City'
+                           }))
+
+    class Meta:
+        model = Profile
+        fields = ['country', 'province', 'city']
 
 
 class ResetPasswordForm(PasswordResetForm):

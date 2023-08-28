@@ -3,29 +3,59 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<div class="user-settings">
+{% if country %}
+<h1>{{ user.country }}</h1>
+{% endif %}
+<h1>No Country</h1>
+
+<div id="user-form">
     <form class="register-form" method="post" action="">
         {% csrf_token %}
+
         <div class="form-row">
-            {{ user_update_form.first_name.label }}
-            {{ user_update_form.first_name }}
+            <label>{{ form_1.first_name.label }}</label>
+            {{ form_1.first_name }}
+            {{ form_1.first_name.errors }}
         </div>
+
         <div class="form-row">
-            {{ profile_update_form.last_name.label }}
-            {{ profile_update_form.last_name }}
+            <label>{{ form_1.last_name.label }}</label>
+            {{ form_1.last_name }}
+            {{ form_1.last_name.errors }}
         </div>
+
         <div class="form-row">
-            {{ user_update_form.username.label }}
-            {{ user_update_form.username }}
+            <label>{{ form_1.username.label }}</label>
+            {{ form_1.username }}
+            {{ form_1.username.errors }}
         </div>
+
         <div class="form-row">
-            {{ user_update_form.email.label }}
-            {{ user_update_form.email }}
+            <label>{{ form_1.email.label }}</label>
+            {{ form_1.email }}
+            {{ form_1.email.errors }}
         </div>
+
+        <div class="submit-row">
+            <button class="btn" type="submit">Change</button>
+        </div>
+    </form>
+
+    <form class="register-form" method="post" action="">
+        {% csrf_token %}
+
         <div class="form-row">
-            {{ user_update_form.image.label }}
-            {{ user_update_form.image }}
+            <label>{{ form_2.new_password1.label }}</label>
+            {{ form_2.new_password1 }}
+            {{ form_2.new_password1.errors }}
         </div>
+
+        <div class="form-row">
+            <label>{{ form_2.new_password2.label }}</label>
+            {{ form_2.new_password2 }}
+            {{ form_2.new_password2.errors }}
+        </div>
+
         <div class="submit-row">
             <button class="btn" type="submit">Change</button>
         </div>
