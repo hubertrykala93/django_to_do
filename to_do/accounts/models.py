@@ -40,10 +40,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50, unique=True, null=False, blank=False, default='',
                                 validators=[username_validate])
     email = models.EmailField(blank=True, default='', unique=True, validators=[email_validate])
+    first_name = models.CharField(max_length=50, unique=False, null=False, blank=False, default='User')
     gender = models.CharField(default='Not Defined', max_length=20, choices=(
         ('Male', 'Male'),
         ('Female', 'Female'),
     ))
+    image = models.ImageField(
+        default='', upload_to='profile_pics')
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
@@ -64,30 +67,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
+    def save(self, *args, **kwargs):
+        if self.gender == 'Male':
+            self.image = 'default_male_pic.jpg'
+        elif self.gender == 'Female':
+            self.image = 'default_female_pic.jpg'
 
-class Profile(models.Model):
-    user = models.OneToOneField(to=User, on_delete=models.CASCADE)
-    image = models.ImageField(
-        default='default.jpg', upload_to='profile_pics')
-    first_name = models.CharField(max_length=50, blank=True, null=True)
-    last_name = models.CharField(max_length=50, blank=True, null=True)
-    country = models.CharField(max_length=50, blank=True, null=True)
-    province = models.CharField(max_length=50, blank=True, null=True)
-    city = models.CharField(max_length=50, blank=True, null=True)
-
-    def __str__(self):
-        if self.first_name and self.last_name:
-            return str(self.first_name).capitalize() + ' ' + str(self.last_name).capitalize() + ' Profile.'
-        else:
-            return f'{self.user.username} Profile.'
-
-    def save(self, **kwargs):
-        super().save()
-
-        if User.gender == 'Male':
-            self.image.default = 'default_male_pic.jpg'
-
-        self.image.default = 'default_female_pic.jpg'
+        super(User, self).save(*args, **kwargs)
 
         img = Image.open(fp=self.image.path)
 
@@ -97,3 +83,14 @@ class Profile(models.Model):
         if img.width > 300 or img.height > 300:
             img.thumbnail(size=(300, 300))
             img.save(fp=self.image.path)
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(to=User, on_delete=models.CASCADE)
+    last_name = models.CharField(max_length=50, blank=True, null=True)
+    country = models.CharField(max_length=50, blank=True, null=True)
+    province = models.CharField(max_length=50, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.user.username} Profile.'

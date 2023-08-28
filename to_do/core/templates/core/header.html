@@ -56,12 +56,12 @@
                 <div class="user-toggle">
                     <div class="user-info">
                         <a href="{% url 'account-settings' %}" class="user-avatar">
-                            <img src="{{ user.profile.image.url }}" alt="profile picture">
+                            <img src="{{ user.image.url }}" alt="profile picture">
                         </a>
 
                         <div class="user-greeting">
                             Hello,
-                            <a href="{% url 'account-settings' %}" class="user-name">{{ user.username }}</a>
+                            <a href="{% url 'account-settings' %}" class="user-name">{{ user.first_name }}</a>
                         </div>
                     </div>
 

@@ -4,15 +4,38 @@
 
 {% block content %}
 <div id="user-form">
-    {% for field in registration_form %}
     <form class="register-form" method="post" action="">
         {% csrf_token %}
         <div class="form-row">
-            <label>{{ field.label }}</label>
-            {{ field }}
+            <label>{{ registration_form.username.label }}</label>
+            {{ registration_form.username }}
+            {{ registration_form.username.errors }}
         </div>
-        {{ field.errors }}
-        {% endfor %}
+        <div class="form-row">
+            <label>{{ registration_form.email.label }}</label>
+            {{ registration_form.email }}
+            {{ registration_form.email.errors }}
+        </div>
+        <div class="form-row">
+            <label>{{ registration_form.password1.label }}</label>
+            {{ registration_form.password1 }}
+            {{ registration_form.password1.errors }}
+        </div>
+        <div class="form-row">
+            <label>{{ registration_form.password2.label }}</label>
+            {{ registration_form.password2 }}
+            {{ registration_form.password2.errors }}
+        </div>
+        <div class="form-row">
+            <label>{{ registration_form.first_name.label }}</label>
+            {{ registration_form.first_name }}
+            {{ registration_form.first_name.errors }}
+        </div>
+        <div class="form-row">
+            <label>{{ registration_form.gender.label }}</label>
+            {{ registration_form.gender }}
+            {{ registration_form.gender.errors }}
+        </div>
         <div class="submit-row">
             <button class="btn" type="submit">Register</button>
         </div>

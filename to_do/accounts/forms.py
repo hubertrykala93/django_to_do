@@ -37,18 +37,33 @@ class RegistrationForm(UserCreationForm):
                                     'label': 'required',
                                     'placeholder': 'Confirm Password'
                                 }))
+    first_name = forms.CharField(max_length=255, label='First Name', required=True,
+                                 widget=forms.TextInput(attrs={
+                                     'id': 'register-user-first-name',
+                                     'label': 'required',
+                                     'type': 'text',
+                                     'placeholder': 'Your First Name'
+                                 }))
+
+    gender = forms.Select(attrs={
+        'class': 'form-control'
+    }, choices=(
+        ('Male', 'Male'),
+        ('Female', 'Female')
+    ))
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2', 'gender']
+        fields = ['username', 'email', 'password1', 'password2', 'first_name', 'gender']
 
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
+    image = forms.ImageField()
 
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['username', 'email', 'image']
 
 
 class ProfileUpdateForm(forms.ModelForm):
