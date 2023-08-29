@@ -113,8 +113,7 @@ def log_out(request):
 
 @login_required
 def account_settings(request):
-    form_1 = UserUpdateForm(data=request.POST, files=request.FILES, instance=request.user)
-    form_2 = PasswordChangeForm(user=request.user, data=request.POST)
+    form_1 = UserUpdateForm(data=request.POST, instance=request.user)
 
     if request.method == 'POST':
         if form_1.is_valid():
@@ -124,24 +123,12 @@ def account_settings(request):
 
             return redirect(to='account-settings')
 
-    if request.method == 'POST':
-        if form_2.is_valid():
-            form_2.save()
-
-            update_session_auth_hash(request=request, user=request.user)
-
-            messages.success(request=request, message='Your account has been updated successfully.')
-
-            return redirect(to='account-settings')
-
     else:
         form_1 = UserUpdateForm()
-        form_2 = PasswordChangeForm(user=request.user)
 
     return render(request=request, template_name='accounts/account-settings.html', context={
         'title': 'Account Settings',
-        'form_1': form_1,
-        'form_2': form_2
+        'form_1': form_1
     })
 
 

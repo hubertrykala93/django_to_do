@@ -3,11 +3,6 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-{% if country %}
-<h1>{{ user.country }}</h1>
-{% endif %}
-<h1>No Country</h1>
-
 <div id="user-form">
     <form class="register-form" method="post" action="">
         {% csrf_token %}
@@ -34,26 +29,6 @@
             <label>{{ form_1.email.label }}</label>
             {{ form_1.email }}
             {{ form_1.email.errors }}
-        </div>
-
-        <div class="submit-row">
-            <button class="btn" type="submit">Change</button>
-        </div>
-    </form>
-
-    <form class="register-form" method="post" action="">
-        {% csrf_token %}
-
-        <div class="form-row">
-            <label>{{ form_2.new_password1.label }}</label>
-            {{ form_2.new_password1 }}
-            {{ form_2.new_password1.errors }}
-        </div>
-
-        <div class="form-row">
-            <label>{{ form_2.new_password2.label }}</label>
-            {{ form_2.new_password2 }}
-            {{ form_2.new_password2.errors }}
         </div>
 
         <div class="submit-row">
