@@ -538,7 +538,8 @@ form {
 
     input[type="text"],
     input[type="password"],
-    textarea{
+    textarea,
+    select{
         width: 100%;
         font-family: inherit;
         background-color: var(--light-bg);
@@ -565,8 +566,20 @@ form {
 }
 
 
+/*-----Tabs component-----*/
+.tabs-wrapper {
 
+    .tabs-contents {
 
+        .tab-content{
+            display: none;
+
+            &.active{
+                display: block;
+            }
+        }
+    }
+}
 
 
 

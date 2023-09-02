@@ -387,7 +387,8 @@ form input[type="password"] {
 
 form input[type="text"],
 form input[type="password"],
-form textarea {
+form textarea,
+form select {
   width: 100%;
   font-family: inherit;
   background-color: var(--light-bg);
@@ -399,16 +400,24 @@ form textarea {
   border-radius: var(--radius-400); }
   form input[type="text"]::placeholder,
   form input[type="password"]::placeholder,
-  form textarea::placeholder {
+  form textarea::placeholder,
+  form select::placeholder {
     color: var(--placeholder); }
   form input[type="text"]:focus,
   form input[type="password"]:focus,
-  form textarea:focus {
+  form textarea:focus,
+  form select:focus {
     border-color: var(--primary-alt); }
 
 form textarea {
   padding-top: 10px;
   height: 150px; }
+
+/*-----Tabs component-----*/
+.tabs-wrapper .tabs-contents .tab-content {
+  display: none; }
+  .tabs-wrapper .tabs-contents .tab-content.active {
+    display: block; }
 
 /*------------Breakpoints------------*/
 @media (min-width: 1000px) {

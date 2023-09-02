@@ -7,15 +7,15 @@
     <form class="login-form" method="post" action="">
         {% csrf_token %}
         <div class="form-row">
-            <div class="input-container">
-                <label>{{ login_form.username.label }}</label>
-                {{ login_form.username }}
-            </div>
-            <div class="input-container">
-                <label>{{ login_form.password1.label }}</label>
-                {{ login_form.password1 }}
-            </div>
+            <label>{{ login_form.username.label }}</label>
+            {{ login_form.username }}
         </div>
+
+        <div class="form-row">
+            <label>{{ login_form.password1.label }}</label>
+            {{ login_form.password1 }}
+        </div>
+
         <div class="submit-row">
             <button class="btn" type="submit">
                 <i class="ri-login-circle-line"></i>
