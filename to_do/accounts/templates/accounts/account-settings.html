@@ -9,66 +9,41 @@
     <aside>
         <ul class="tabs-nav">
             <li>
-                Opcja 1
+                Account
             </li>
 
             <li>
-                Opcja 2
+                Password
             </li>
 
             <li>
-                Opcja 3
+                Avatar
             </li>
         </ul>
     </aside>
 
     <div class="tabs-contents">
         <div class="tab-content">
-            Zawartość opcji 1
+            <form class="register-form" method="post" action="">
+                {% csrf_token %}
+                <div class="form-row">
+                    <label>{{ form_3.image.label }}</label>
+                    {{ form_3.image }}
+                    {{ form_3.image.errors }}
+                </div>
+                <div class="submit-row">
+                    <button class="btn" type="submit">Update</button>
+                </div>
+            </form>
         </div>
 
         <div class="tab-content">
             Zawartość opcji 2
         </div>
+
         <div class="tab-content">
             Zawartość opcji 3
         </div>
     </div>
-
 </div>
-
-<!--<div id="user-form">-->
-<!--    <form class="register-form" method="post" action="">-->
-<!--        {% csrf_token %}-->
-
-<!--        <div class="form-row">-->
-<!--            <label>{{ form_1.first_name.label }}</label>-->
-<!--            {{ form_1.first_name }}-->
-<!--            {{ form_1.first_name.errors }}-->
-<!--        </div>-->
-
-<!--        <div class="form-row">-->
-<!--            <label>{{ form_1.last_name.label }}</label>-->
-<!--            {{ form_1.last_name }}-->
-<!--            {{ form_1.last_name.errors }}-->
-<!--        </div>-->
-
-<!--        <div class="form-row">-->
-<!--            <label>{{ form_1.username.label }}</label>-->
-<!--            {{ form_1.username }}-->
-<!--            {{ form_1.username.errors }}-->
-<!--        </div>-->
-
-<!--        <div class="form-row">-->
-<!--            <label>{{ form_1.email.label }}</label>-->
-<!--            {{ form_1.email }}-->
-<!--            {{ form_1.email.errors }}-->
-<!--        </div>-->
-
-<!--        <div class="submit-row">-->
-<!--            <button class="btn" type="submit">Change</button>-->
-<!--        </div>-->
-<!--    </form>-->
-<!--</div>-->
-
 {% endblock %}

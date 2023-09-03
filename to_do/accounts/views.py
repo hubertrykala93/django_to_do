@@ -113,22 +113,35 @@ def log_out(request):
 
 @login_required
 def account_settings(request):
-    form_1 = UserUpdateForm(data=request.POST, instance=request.user)
+    # form_1 = UserUpdateForm(data=request.POST, instance=request.user)
+    form_3 = UserImageUpdateForm(data=request.POST, files=request.FILES)
 
     if request.method == 'POST':
-        if form_1.is_valid():
-            form_1.save()
+        # if form_1.is_valid():
+        #     form_1.save()
+        #
+        #     messages.success(request=request, message='Your account has been updated successfully.')
+        #
+        #     return redirect(to='account-settings')
+
+        if form_3.is_valid():
+            form_3.save()
 
             messages.success(request=request, message='Your account has been updated successfully.')
 
             return redirect(to='account-settings')
 
+        else:
+            messages.error(request=request, message='Star Medyka.')
+
     else:
-        form_1 = UserUpdateForm()
+        # form_1 = UserUpdateForm()
+        form_3 = UserImageUpdateForm(data=request.POST, files=request.FILES, instance=request.user)
 
     return render(request=request, template_name='accounts/account-settings.html', context={
         'title': 'Account Settings',
-        'form_1': form_1
+        # 'form_1': form_1,
+        'form_3': form_3
     })
 
 

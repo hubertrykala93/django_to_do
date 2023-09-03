@@ -59,7 +59,7 @@ class RegistrationForm(UserCreationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=255, label='First Name', required=True,
+    first_name = forms.CharField(max_length=255, label='First Name', required=False,
                                  widget=forms.TextInput(attrs={
                                      'id': 'register-user-first-name',
                                      'label': 'required',
@@ -74,7 +74,7 @@ class UserUpdateForm(forms.ModelForm):
                                     'placeholder': 'Your Last Name'
                                 }))
 
-    username = forms.CharField(max_length=255, label='Username', required=True, validators=[username_validate],
+    username = forms.CharField(max_length=255, label='Username', required=False, validators=[username_validate],
                                widget=forms.TextInput(attrs={
                                    'id': 'register-user-name',
                                    'label': 'required',
@@ -82,8 +82,7 @@ class UserUpdateForm(forms.ModelForm):
                                    'placeholder': 'Your New Username'
                                }))
 
-    email = forms.EmailField(max_length=255, label='E-mail Address', required=True, validators=[email_validate],
-                             error_messages=None,
+    email = forms.EmailField(max_length=255, label='E-mail Address', required=False, validators=[email_validate],
                              widget=forms.TextInput(attrs={
                                  'id': 'register-email',
                                  'label': 'required',
