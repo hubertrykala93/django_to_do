@@ -18,7 +18,13 @@
                     <a class="nav-link" href="{% url 'support' %}">Support</a>
                 </li>
 
-                {% if not user.is_authenticated %}
+                {% if user.is_authenticated %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'lists' %}">Lists</a>
+                </li>
+
+                {% else %}
 
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Login</a>

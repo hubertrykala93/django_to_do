@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'sass_processor',
     'core',
     'accounts',
+    'lists',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
