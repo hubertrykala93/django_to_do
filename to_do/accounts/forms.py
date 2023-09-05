@@ -132,7 +132,7 @@ class ProfileUpdateForm(forms.ModelForm):
         'placeholder': 'Your Date of Birth'
     }))
 
-    phone_number = forms.CharField(max_length=50, label='Phone Number', required=False, widget=forms.NumberInput(attrs={
+    phone_number = forms.CharField(max_length=50, label='Phone Number', required=False, widget=forms.TextInput(attrs={
         'id': 'register-user-phone-number',
         'type': 'text',
         'placeholder': 'Your Phone Number'
