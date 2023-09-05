@@ -3,6 +3,7 @@ from django.contrib.auth.models import UserManager, PermissionsMixin, AbstractBa
 from django.utils.timezone import now
 from .validators import username_validate, email_validate
 from PIL import Image
+from django.conf.urls.static import static
 
 
 class CustomUserManager(UserManager):
@@ -46,8 +47,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('Male', 'Male'),
         ('Female', 'Female'),
     ))
-    image = models.ImageField(
-        default='', upload_to='profile_pics')
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics', null=True)
+
+    image_mapping = {
+        'Male': 'default_male_pic.jpg',
+        'Female': 'default_female_pic.jpg'
+    }
+
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
@@ -68,12 +74,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
-    def save(self, *args, **kwargs):
-        if self.gender == 'Male':
-            self.image = 'default_male_pic.jpg'
-        elif self.gender == 'Female':
-            self.image = 'default_female_pic.jpg'
+    def get_profile_image_url(self):
+        if not self.image:
+            return static(prefix=f'img/{self.image_mapping[self.gender]}')
 
+    def save(self, *args, **kwargs):
         super(User, self).save(*args, **kwargs)
 
         img = Image.open(fp=self.image.path)

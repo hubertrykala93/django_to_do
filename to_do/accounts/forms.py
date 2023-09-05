@@ -118,7 +118,7 @@ class PasswordChangeForm(SetPasswordForm):
 
 
 class UserImageUpdateForm(forms.ModelForm):
-    image = forms.ImageField(max_length=100, label='New Profile Image', required=True)
+    image = forms.ImageField(max_length=100, label='New Profile Image', required=False)
 
     class Meta:
         model = User

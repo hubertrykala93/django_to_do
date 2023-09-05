@@ -115,7 +115,8 @@ def log_out(request):
 def account_settings(request):
     form_1 = UserUpdateForm(data=request.POST, instance=request.user, prefix='user-update')
     form_2 = PasswordChangeForm(user=request.user, data=request.POST, prefix='user-password-change')
-
+    form_3 = UserImageUpdateForm(data=request.POST, files=request.FILES, instance=request.user,
+                                 prefix='user-image-update')
     form_4 = ProfileUpdateForm(data=request.POST, files=request.FILES, prefix='profile-update',
                                instance=request.user.profile)
 
@@ -144,6 +145,17 @@ def account_settings(request):
             else:
                 messages.error(request=request, message='Your account has not been updated successfully.')
 
+        elif 'user-image-update' in request.POST:
+            if form_3.is_valid():
+                form_3.save()
+
+                messages.success(request=request, message='Your account has been updated successfully.')
+
+                return redirect(to='account-settings')
+
+            else:
+                messages.error(request=request, message='Your account has not been updated successfully.')
+
         elif 'profile-update' in request.POST:
             if form_4.is_valid():
                 form_4.save()
@@ -158,9 +170,12 @@ def account_settings(request):
     else:
         form_1 = UserUpdateForm(instance=request.user, prefix='user-update')
         form_2 = PasswordChangeForm(user=request.user, prefix='user-password-change')
+        form_3 = UserImageUpdateForm(instance=request.user, files=request.FILES, prefix='user-image-update')
         form_4 = ProfileUpdateForm(instance=request.user.profile, prefix='profile-update')
 
-        # print(form_4.date_of_birth.error_messages)
+        print(form_3.errors)
+
+    print(form_3.errors)
 
     # current_user_id = User.objects.get(id=request.user.id)
 
@@ -168,6 +183,7 @@ def account_settings(request):
         'title': 'Account Settings',
         'form_1': form_1,
         'form_2': form_2,
+        'form_3': form_3,
         'form_4': form_4
     })
 

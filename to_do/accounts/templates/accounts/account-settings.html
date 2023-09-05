@@ -70,7 +70,16 @@
         </div>
 
         <div class="tab-content">
-            Zawartość opcji 3
+            <form class="register-form" method="post" enctype="multipart/form-data" action="">
+                {% csrf_token %}
+                <div class="form-row">
+                    <label>{{ form_3.image.label }}</label>
+                    {{ form_3.image }} {{ form_3.image.errors }}
+                </div>
+                <div class="submit-row">
+                    <button class="btn" name="{{ form_3.prefix }}" type="submit">Update</button>
+                </div>
+            </form>
         </div>
 
         <div class="tab-content">
