@@ -43,16 +43,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(blank=True, default='', unique=True, validators=[email_validate])
     first_name = models.CharField(max_length=50, unique=False, null=False, blank=False, default='User')
     last_name = models.CharField(max_length=50, blank=True, null=True)
-    gender = models.CharField(default='Not Defined', max_length=20, choices=(
-        ('Male', 'Male'),
-        ('Female', 'Female'),
-    ))
     image = models.ImageField(default='default.jpg', upload_to='profile_pics', null=True)
-
-    image_mapping = {
-        'Male': 'default_male_pic.jpg',
-        'Female': 'default_female_pic.jpg'
-    }
 
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -74,10 +65,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
-    def get_profile_image_url(self):
-        if not self.image:
-            return static(prefix=f'img/{self.image_mapping[self.gender]}')
-
     def save(self, *args, **kwargs):
         super(User, self).save(*args, **kwargs)
 
@@ -93,6 +80,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Profile(models.Model):
     user = models.OneToOneField(to=User, on_delete=models.CASCADE)
+    gender = models.CharField(default='Not Defined', max_length=20, choices=(
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+    ))
     date_of_birth = models.CharField(max_length=20, blank=True, null=True)
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     country = models.CharField(max_length=50, blank=True, null=True)

@@ -46,16 +46,9 @@ class RegistrationForm(UserCreationForm):
                                      'placeholder': 'Your First Name'
                                  }))
 
-    gender = forms.Select(attrs={
-        'class': 'form-control'
-    }, choices=(
-        ('Male', 'Male'),
-        ('Female', 'Female')
-    ))
-
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2', 'first_name', 'gender']
+        fields = ['username', 'email', 'password1', 'password2', 'first_name']
 
 
 class UserUpdateForm(forms.ModelForm):
@@ -126,6 +119,13 @@ class UserImageUpdateForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
+    gender = forms.Select(attrs={
+        'class': 'form-control'
+    }, choices=(
+        ('Male', 'Male'),
+        ('Female', 'Female')
+    ))
+
     date_of_birth = forms.CharField(label='Date of Birth', required=False, widget=forms.TextInput(attrs={
         'id': 'register-user-date-of-birth',
         'type': 'text',
@@ -161,7 +161,7 @@ class ProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['date_of_birth', 'phone_number', 'country', 'province', 'city']
+        fields = ['gender', 'date_of_birth', 'phone_number', 'country', 'province', 'city']
 
 
 class ResetPasswordForm(PasswordResetForm):

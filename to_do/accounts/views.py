@@ -11,7 +11,7 @@ from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from .models import User, Profile
+from .models import User
 from .tokens import token_generator
 from django.db.models.query_utils import Q
 from django.contrib.auth.tokens import default_token_generator
@@ -172,12 +172,6 @@ def account_settings(request):
         form_2 = PasswordChangeForm(user=request.user, prefix='user-password-change')
         form_3 = UserImageUpdateForm(instance=request.user, files=request.FILES, prefix='user-image-update')
         form_4 = ProfileUpdateForm(instance=request.user.profile, prefix='profile-update')
-
-        print(form_3.errors)
-
-    print(form_3.errors)
-
-    # current_user_id = User.objects.get(id=request.user.id)
 
     return render(request=request, template_name='accounts/account-settings.html', context={
         'title': 'Account Settings',
