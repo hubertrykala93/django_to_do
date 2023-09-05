@@ -14,7 +14,6 @@ class RegistrationForm(UserCreationForm):
                                }))
 
     email = forms.EmailField(max_length=255, label='E-mail Address', required=True, validators=[email_validate],
-                             error_messages=None,
                              widget=forms.TextInput(attrs={
                                  'id': 'register-email',
                                  'label': 'required',
@@ -171,7 +170,6 @@ class ResetPasswordForm(PasswordResetForm):
         super(ResetPasswordForm, self).__init__(*args, **kwargs)
 
     email = forms.EmailField(max_length=255, label='E-mail Address', required=True, validators=[email_validate],
-                             error_messages=None,
                              widget=forms.TextInput(attrs={
                                  'id': 'register-email',
                                  'label': 'required',
