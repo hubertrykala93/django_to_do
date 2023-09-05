@@ -123,9 +123,7 @@ class UserImageUpdateForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
-    gender = forms.Select(attrs={
-        'class': 'form-control'
-    }, choices=(
+    gender = forms.Select(choices=(
         ('Male', 'Male'),
         ('Female', 'Female')
     ))
