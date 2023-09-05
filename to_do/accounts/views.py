@@ -116,10 +116,8 @@ def account_settings(request):
     form_1 = UserUpdateForm(data=request.POST, instance=request.user, prefix='user-update')
     form_2 = PasswordChangeForm(user=request.user, data=request.POST, prefix='user-password-change')
 
-    profile = Profile.objects.get(id=request.user)
-    user = get_object_or_404(klass=profile, pk=request.user, user=profile.user.id)
-
-    form_4 = ProfileUpdateForm(data=request.POST, prefix='profile-update', instance=profile)
+    form_4 = ProfileUpdateForm(data=request.POST, files=request.FILES, prefix='profile-update',
+                               instance=request.user.profile)
 
     if request.method == 'POST':
         if 'user-update' in request.POST:
@@ -148,6 +146,8 @@ def account_settings(request):
 
         elif 'profile-update' in request.POST:
             if form_4.is_valid():
+                print(form_4.is_valid())
+                print(form_4.errors)
                 form_4.save()
 
                 messages.success(request=request, message='Your account has been updated successfully.')
@@ -155,12 +155,19 @@ def account_settings(request):
                 return redirect(to='account-settings')
 
             else:
+                print(form_4.is_valid())
+                print(form_4.errors)
                 messages.error(request=request, message='Your account has not been updated successfully.')
 
     else:
         form_1 = UserUpdateForm(instance=request.user, prefix='user-update')
         form_2 = PasswordChangeForm(user=request.user, prefix='user-password-change')
-        form_4 = ProfileUpdateForm(instance=user, prefix='profile-update')
+        form_4 = ProfileUpdateForm(instance=request.user.profile, prefix='profile-update')
+
+        print(form_4.is_valid())
+        print(form_4.errors)
+
+    # current_user_id = User.objects.get(id=request.user.id)
 
     return render(request=request, template_name='accounts/account-settings.html', context={
         'title': 'Account Settings',

@@ -77,6 +77,14 @@
             <form class="register-form" method="post" action="">
                 {% csrf_token %}
                 <div class="form-row">
+                    <label>{{ form_4.date_of_birth.label }}</label>
+                    {{ form_4.date_of_birth }} {{ form_4.date_of_birth.errors }}
+                </div>
+                <div class="form-row">
+                    <label>{{ form_4.phone_number.label }}</label>
+                    {{ form_4.phone_number }} {{ form_4.phone_number.errors }}
+                </div>
+                <div class="form-row">
                     <label>{{ form_4.country.label }}</label>
                     {{ form_4.country }} {{ form_4.country.errors }}
                 </div>

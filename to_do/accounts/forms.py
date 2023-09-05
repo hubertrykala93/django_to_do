@@ -126,6 +126,18 @@ class UserImageUpdateForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
+    date_of_birth = forms.CharField(label='Date of Birth', required=False, widget=forms.TextInput(attrs={
+        'id': 'register-user-date-of-birth',
+        'type': 'text',
+        'placeholder': 'Your Date of Birth'
+    }))
+
+    phone_number = forms.CharField(max_length=50, label='Phone Number', required=False, widget=forms.NumberInput(attrs={
+        'id': 'register-user-phone-number',
+        'type': 'text',
+        'placeholder': 'Your Phone Number'
+    }))
+
     country = forms.CharField(max_length=255, label='Country', required=False,
                               widget=forms.TextInput(attrs={
                                   'id': 'register-user-country',
