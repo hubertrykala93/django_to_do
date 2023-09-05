@@ -111,7 +111,11 @@ class PasswordChangeForm(SetPasswordForm):
 
 
 class UserImageUpdateForm(forms.ModelForm):
-    image = forms.ImageField(max_length=100, label='New Profile Image', required=False)
+    image = forms.ImageField(max_length=100, required=False, widget=forms.FileInput(attrs={
+        'type': 'file',
+        'name': 'file',
+        'id': 'id_file',
+    }))
 
     class Meta:
         model = User
