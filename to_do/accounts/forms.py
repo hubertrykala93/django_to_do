@@ -161,7 +161,7 @@ class ProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['country', 'province', 'city']
+        fields = ['date_of_birth', 'phone_number', 'country', 'province', 'city']
 
 
 class ResetPasswordForm(PasswordResetForm):

@@ -146,8 +146,6 @@ def account_settings(request):
 
         elif 'profile-update' in request.POST:
             if form_4.is_valid():
-                print(form_4.is_valid())
-                print(form_4.errors)
                 form_4.save()
 
                 messages.success(request=request, message='Your account has been updated successfully.')
@@ -155,8 +153,6 @@ def account_settings(request):
                 return redirect(to='account-settings')
 
             else:
-                print(form_4.is_valid())
-                print(form_4.errors)
                 messages.error(request=request, message='Your account has not been updated successfully.')
 
     else:
@@ -164,8 +160,7 @@ def account_settings(request):
         form_2 = PasswordChangeForm(user=request.user, prefix='user-password-change')
         form_4 = ProfileUpdateForm(instance=request.user.profile, prefix='profile-update')
 
-        print(form_4.is_valid())
-        print(form_4.errors)
+        # print(form_4.date_of_birth.error_messages)
 
     # current_user_id = User.objects.get(id=request.user.id)
 
