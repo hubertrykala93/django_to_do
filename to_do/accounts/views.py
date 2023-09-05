@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from django.shortcuts import render, redirect, reverse, HttpResponse
+from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
 from .forms import RegistrationForm, UserUpdateForm, ProfileUpdateForm, ResetPasswordForm, UserImageUpdateForm, \
     PasswordChangeForm
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
@@ -11,7 +11,7 @@ from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from .models import User
+from .models import User, Profile
 from .tokens import token_generator
 from django.db.models.query_utils import Q
 from django.contrib.auth.tokens import default_token_generator
@@ -113,35 +113,60 @@ def log_out(request):
 
 @login_required
 def account_settings(request):
-    # form_1 = UserUpdateForm(data=request.POST, instance=request.user)
-    form_3 = UserImageUpdateForm(data=request.POST, files=request.FILES)
+    form_1 = UserUpdateForm(data=request.POST, instance=request.user, prefix='user-update')
+    form_2 = PasswordChangeForm(user=request.user, data=request.POST, prefix='user-password-change')
+
+    profile = Profile.objects.get(id=request.user)
+    user = get_object_or_404(klass=profile, pk=request.user, user=profile.user.id)
+
+    form_4 = ProfileUpdateForm(data=request.POST, prefix='profile-update', instance=profile)
 
     if request.method == 'POST':
-        # if form_1.is_valid():
-        #     form_1.save()
-        #
-        #     messages.success(request=request, message='Your account has been updated successfully.')
-        #
-        #     return redirect(to='account-settings')
+        if 'user-update' in request.POST:
+            if form_1.is_valid():
+                form_1.save()
 
-        if form_3.is_valid():
-            form_3.save()
+                messages.success(request=request, message='Your account has been updated successfully.')
 
-            messages.success(request=request, message='Your account has been updated successfully.')
+                return redirect(to='account-settings')
 
-            return redirect(to='account-settings')
+            else:
+                messages.error(request=request, message='Your account has not been updated successfully.')
 
-        else:
-            messages.error(request=request, message='Star Medyka.')
+        elif 'user-password-change' in request.POST:
+            if form_2.is_valid():
+                form_2.save()
+
+                update_session_auth_hash(request=request, user=request.user)
+
+                messages.success(request=request, message='Your account has been updated successfully.')
+
+                return redirect(to='account-settings')
+
+            else:
+                messages.error(request=request, message='Your account has not been updated successfully.')
+
+        elif 'profile-update' in request.POST:
+            if form_4.is_valid():
+                form_4.save()
+
+                messages.success(request=request, message='Your account has been updated successfully.')
+
+                return redirect(to='account-settings')
+
+            else:
+                messages.error(request=request, message='Your account has not been updated successfully.')
 
     else:
-        # form_1 = UserUpdateForm()
-        form_3 = UserImageUpdateForm(data=request.POST, files=request.FILES, instance=request.user)
+        form_1 = UserUpdateForm(instance=request.user, prefix='user-update')
+        form_2 = PasswordChangeForm(user=request.user, prefix='user-password-change')
+        form_4 = ProfileUpdateForm(instance=user, prefix='profile-update')
 
     return render(request=request, template_name='accounts/account-settings.html', context={
         'title': 'Account Settings',
-        # 'form_1': form_1,
-        'form_3': form_3
+        'form_1': form_1,
+        'form_2': form_2,
+        'form_4': form_4
     })
 
 

@@ -31,18 +31,42 @@
             <form class="register-form" method="post" action="">
                 {% csrf_token %}
                 <div class="form-row">
-                    <label>{{ form_3.image.label }}</label>
-                    {{ form_3.image }}
-                    {{ form_3.image.errors }}
+                    <label>{{ form_1.first_name.label }}</label>
+                    {{ form_1.first_name }} {{ form_1.first_name.errors }}
+                </div>
+                <div class="form-row">
+                    <label>{{ form_1.last_name.label }}</label>
+                    {{ form_1.last_name }} {{ form_1.last_name.errors }}
+                </div>
+                <div class="form-row">
+                    <label>{{ form_1.username.label }}</label>
+                    {{ form_1.username }} {{ form_1.username.errors }}
+                </div>
+                <div class="form-row">
+                    <label>{{ form_1.email.label }}</label>
+                    {{ form_1.email }} {{ form_1.email.errors }}
                 </div>
                 <div class="submit-row">
-                    <button class="btn" type="submit">Update</button>
+                    <button class="btn" name="{{ form_1.prefix }}" type="submit">Update</button>
                 </div>
             </form>
         </div>
 
         <div class="tab-content">
-            Zawartość opcji 2
+            <form class="register-form" method="post" action="">
+                {% csrf_token %}
+                <div class="form-row">
+                    <label>{{ form_2.new_password1.label }}</label>
+                    {{ form_2.new_password1 }} {{ form_2.new_password1.errors }}
+                </div>
+                <div class="form-row">
+                    <label>{{ form_2.new_password2.label }}</label>
+                    {{ form_2.new_password2 }} {{ form_2.new_password2.errors }}
+                </div>
+                <div class="submit-row">
+                    <button class="btn" name="{{ form_2.prefix }}" type="submit">Update</button>
+                </div>
+            </form>
         </div>
 
         <div class="tab-content">
@@ -50,7 +74,24 @@
         </div>
 
         <div class="tab-content">
-            Zawartość opcji 4
+            <form class="register-form" method="post" action="">
+                {% csrf_token %}
+                <div class="form-row">
+                    <label>{{ form_4.country.label }}</label>
+                    {{ form_4.country }} {{ form_4.country.errors }}
+                </div>
+                <div class="form-row">
+                    <label>{{ form_4.province.label }}</label>
+                    {{ form_4.province }} {{ form_4.province.errors }}
+                </div>
+                <div class="form-row">
+                    <label>{{ form_4.city.label }}</label>
+                    {{ form_4.city }} {{ form_4.city.errors }}
+                </div>
+                <div class="submit-row">
+                    <button class="btn" name="{{ form_4.prefix }}" type="submit">Update</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
