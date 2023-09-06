@@ -88,6 +88,7 @@ if(tabsElement){
     const tabsContentItems = tabsElement.querySelectorAll('.tabs-contents .tab-content')
 
     tabsContentItems[0].classList.add('active')
+    tabsNavItems[0].classList.add('active')
 
     tabsNavItems.forEach((item, index) => {
         item.addEventListener('click', () => {
@@ -95,6 +96,9 @@ if(tabsElement){
                 content.classList.remove('active')
             })
             tabsContentItems[index].classList.add('active')
+
+            tabsNavItems.forEach(item =>{item.classList.remove('active')})
+            tabsNavItems[index].classList.add('active')
         })
     })
 }

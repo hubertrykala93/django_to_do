@@ -4,33 +4,53 @@
 
 {% block content %}
 
-{% if user.is_authenticated %}
-{{ user.last_login }}
-{% endif %}
 
-<div class="tabs-wrapper">
+
+<div class="side-content tabs-wrapper user-settings">
 
     <aside>
+
+        <div class="user-avatar">
+            <img src="https://source.unsplash.com/random/800x800/?img=1" alt="user avatar">
+        </div>
+
+        <h4 class="user-name">
+            User
+        </h4>
+
+        <div class="last-seen">
+            Last seen:
+            <span>
+                    {% if user.is_authenticated %}
+                    {{ user.last_login }}
+                    {% endif %}
+            </span>
+        </div>
+
         <ul class="tabs-nav">
             <li>
+                <i class="ri-settings-2-line"></i>
                 Account
             </li>
 
             <li>
+                <i class="ri-lock-password-line"></i>
                 Password
             </li>
 
             <li>
+                <i class="ri-image-line"></i>
                 Avatar
             </li>
 
             <li>
+                <i class="ri-information-line"></i>
                 Informations
             </li>
         </ul>
     </aside>
 
-    <div class="tabs-contents">
+    <div class="side-content-body tabs-contents">
         <div class="tab-content">
             <form class="register-form" method="post" action="">
                 {% csrf_token %}
@@ -56,7 +76,10 @@
                 </div>
 
                 <div class="submit-row">
-                    <button class="btn" name="{{ form_1.prefix }}" type="submit">Update</button>
+                    <button class="btn" name="{{ form_1.prefix }}" type="submit">
+                        <i class="ri-loop-left-line"></i>
+                        Update
+                    </button>
                 </div>
 
             </form>
@@ -77,7 +100,10 @@
                 </div>
 
                 <div class="submit-row">
-                    <button class="btn" name="{{ form_2.prefix }}" type="submit">Update</button>
+                    <button class="btn" name="{{ form_2.prefix }}" type="submit">
+                        <i class="ri-loop-left-line"></i>
+                        Update
+                    </button>
                 </div>
 
             </form>
@@ -93,7 +119,10 @@
                 </div>
 
                 <div class="submit-row">
-                    <button class="btn" name="{{ form_3.prefix }}" type="submit">Update</button>
+                    <button class="btn" name="{{ form_3.prefix }}" type="submit">
+                        <i class="ri-loop-left-line"></i>
+                        Update
+                    </button>
                 </div>
 
             </form>
@@ -134,7 +163,10 @@
                 </div>
 
                 <div class="submit-row">
-                    <button class="btn" name="{{ form_4.prefix }}" type="submit">Update</button>
+                    <button class="btn" name="{{ form_4.prefix }}" type="submit">
+                        <i class="ri-loop-left-line"></i>
+                        Update
+                    </button>
                 </div>
 
             </form>
