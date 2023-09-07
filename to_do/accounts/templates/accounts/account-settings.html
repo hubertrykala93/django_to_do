@@ -5,17 +5,16 @@
 {% block content %}
 
 
-
 <div class="side-content tabs-wrapper user-settings">
 
     <aside>
 
         <div class="user-avatar">
-            <img src="https://source.unsplash.com/random/800x800/?img=1" alt="user avatar">
+            <img src="{{ user.image.url }}" alt="user avatar">
         </div>
 
         <h4 class="user-name">
-            User
+            {{ user.first_name }} {{ user.last_name }}
         </h4>
 
         <div class="last-seen">
@@ -114,7 +113,6 @@
                 {% csrf_token %}
 
                 <div class="form-row">
-<!--                    <label>{{ form_3.image.label }}</label>-->
                     {{ form_3.image }} {{ form_3.image.errors }}
                 </div>
 

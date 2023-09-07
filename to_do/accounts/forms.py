@@ -1,11 +1,10 @@
 from django.contrib.auth.forms import UserCreationForm, SetPasswordForm, PasswordResetForm
 from django import forms
 from .models import User, Profile
-from .validators import username_validate, email_validate, password_validate
 
 
 class RegistrationForm(UserCreationForm):
-    username = forms.CharField(max_length=255, label='Username', required=True, validators=[username_validate],
+    username = forms.CharField(max_length=255, label='Username', required=True,
                                widget=forms.TextInput(attrs={
                                    'id': 'register-user-name',
                                    'label': 'required',
@@ -13,7 +12,7 @@ class RegistrationForm(UserCreationForm):
                                    'placeholder': 'Your Username'
                                }))
 
-    email = forms.EmailField(max_length=255, label='E-mail Address', required=True, validators=[email_validate],
+    email = forms.EmailField(max_length=255, label='E-mail Address', required=True,
                              widget=forms.TextInput(attrs={
                                  'id': 'register-email',
                                  'label': 'required',
@@ -21,7 +20,7 @@ class RegistrationForm(UserCreationForm):
                                  'placeholder': 'Your E-mail Address'
                              }))
 
-    password1 = forms.CharField(max_length=50, label='Password', required=True, validators=[password_validate],
+    password1 = forms.CharField(max_length=50, label='Password', required=True,
                                 widget=forms.PasswordInput(attrs={
                                     'id': 'register-password',
                                     'type': 'password',
@@ -66,7 +65,7 @@ class UserUpdateForm(forms.ModelForm):
                                     'placeholder': 'Your Last Name'
                                 }))
 
-    username = forms.CharField(max_length=255, label='Username', required=False, validators=[username_validate],
+    username = forms.CharField(max_length=255, label='Username', required=False,
                                widget=forms.TextInput(attrs={
                                    'id': 'register-user-name',
                                    'label': 'required',
@@ -74,7 +73,7 @@ class UserUpdateForm(forms.ModelForm):
                                    'placeholder': 'Your New Username'
                                }))
 
-    email = forms.EmailField(max_length=255, label='E-mail Address', required=False, validators=[email_validate],
+    email = forms.EmailField(max_length=255, label='E-mail Address', required=False,
                              widget=forms.TextInput(attrs={
                                  'id': 'register-email',
                                  'label': 'required',
@@ -88,7 +87,7 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class PasswordChangeForm(SetPasswordForm):
-    new_password1 = forms.CharField(max_length=50, label='New Password', required=True, validators=[password_validate],
+    new_password1 = forms.CharField(max_length=50, label='New Password', required=True,
                                     widget=forms.PasswordInput(attrs={
                                         'id': 'register-password',
                                         'type': 'password',
@@ -97,12 +96,12 @@ class PasswordChangeForm(SetPasswordForm):
                                     }))
 
     new_password2 = forms.CharField(max_length=50, label='Confirm New Password', required=True,
-                                    validators=[password_validate], widget=forms.PasswordInput(attrs={
-            'id': 'register-password-2',
-            'type': 'password',
-            'label': 'required',
-            'placeholder': 'Confirm Your New Password'
-        }))
+                                    widget=forms.PasswordInput(attrs={
+                                        'id': 'register-password-2',
+                                        'type': 'password',
+                                        'label': 'required',
+                                        'placeholder': 'Confirm Your New Password'
+                                    }))
 
     class Meta:
         model = User
@@ -169,7 +168,7 @@ class ResetPasswordForm(PasswordResetForm):
     def __init__(self, *args, **kwargs):
         super(ResetPasswordForm, self).__init__(*args, **kwargs)
 
-    email = forms.EmailField(max_length=255, label='E-mail Address', required=True, validators=[email_validate],
+    email = forms.EmailField(max_length=255, label='E-mail Address', required=True,
                              widget=forms.TextInput(attrs={
                                  'id': 'register-email',
                                  'label': 'required',

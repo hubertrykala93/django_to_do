@@ -1,9 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import UserManager, PermissionsMixin, AbstractBaseUser
 from django.utils.timezone import now
-from .validators import username_validate, email_validate
 from PIL import Image
-from django.conf.urls.static import static
 
 
 class CustomUserManager(UserManager):
@@ -38,9 +36,8 @@ class CustomUserManager(UserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=50, unique=True, null=False, blank=False, default='',
-                                validators=[username_validate])
-    email = models.EmailField(blank=True, default='', unique=True, validators=[email_validate])
+    username = models.CharField(max_length=50, unique=True, null=False, blank=False, default='')
+    email = models.EmailField(blank=True, default='', unique=True)
     first_name = models.CharField(max_length=50, unique=False, null=False, blank=False, default='User')
     last_name = models.CharField(max_length=50, blank=True, null=True)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics', null=True)
