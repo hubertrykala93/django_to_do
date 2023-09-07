@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, SetPasswordForm, PasswordResetForm
 from django import forms
 from .models import User, Profile
+from django.core.validators import EmailValidator
 
 
 class RegistrationForm(UserCreationForm):
@@ -13,6 +14,7 @@ class RegistrationForm(UserCreationForm):
                                }))
 
     email = forms.EmailField(max_length=255, label='E-mail Address', required=True,
+                             validators=[EmailValidator],
                              widget=forms.TextInput(attrs={
                                  'id': 'register-email',
                                  'label': 'required',
@@ -74,6 +76,7 @@ class UserUpdateForm(forms.ModelForm):
                                }))
 
     email = forms.EmailField(max_length=255, label='E-mail Address', required=False,
+                             validators=[EmailValidator],
                              widget=forms.TextInput(attrs={
                                  'id': 'register-email',
                                  'label': 'required',
@@ -169,6 +172,7 @@ class ResetPasswordForm(PasswordResetForm):
         super(ResetPasswordForm, self).__init__(*args, **kwargs)
 
     email = forms.EmailField(max_length=255, label='E-mail Address', required=True,
+                             validators=[EmailValidator],
                              widget=forms.TextInput(attrs={
                                  'id': 'register-email',
                                  'label': 'required',
