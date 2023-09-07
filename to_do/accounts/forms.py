@@ -50,6 +50,22 @@ class RegistrationForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2', 'first_name']
 
+    def clean_username(self):
+        username = self.cleaned_data['username']
+
+        if User.objects.filter(username__iexact=username, is_active=True).exists():
+            raise ValidationError(message='The user with this name already exists.')
+
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+
+        if User.objects.filter(email__iexact=email, is_active=True).exists():
+            raise ValidationError(message='The user with this address e-mail already exists.')
+
+        return email
+
 
 class UserUpdateForm(forms.ModelForm):
     first_name = forms.CharField(max_length=255, label='First Name', required=False,
