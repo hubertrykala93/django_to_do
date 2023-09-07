@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, SetPasswordForm, PasswordResetForm
 from django import forms
 from .models import User, Profile
-from django.core.validators import EmailValidator
+from django.core.validators import ValidationError
 
 
 class RegistrationForm(UserCreationForm):
@@ -14,7 +14,7 @@ class RegistrationForm(UserCreationForm):
                                }))
 
     email = forms.EmailField(max_length=255, label='E-mail Address', required=True,
-                             validators=[EmailValidator],
+                             validators=[ValidationError],
                              widget=forms.TextInput(attrs={
                                  'id': 'register-email',
                                  'label': 'required',
@@ -76,7 +76,7 @@ class UserUpdateForm(forms.ModelForm):
                                }))
 
     email = forms.EmailField(max_length=255, label='E-mail Address', required=False,
-                             validators=[EmailValidator],
+                             validators=[ValidationError],
                              widget=forms.TextInput(attrs={
                                  'id': 'register-email',
                                  'label': 'required',
@@ -172,10 +172,18 @@ class ResetPasswordForm(PasswordResetForm):
         super(ResetPasswordForm, self).__init__(*args, **kwargs)
 
     email = forms.EmailField(max_length=255, label='E-mail Address', required=True,
-                             validators=[EmailValidator],
+                             validators=[ValidationError],
                              widget=forms.TextInput(attrs={
                                  'id': 'register-email',
                                  'label': 'required',
                                  'type': 'text',
                                  'placeholder': 'Your E-mail Address'
                              }))
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+
+        if not User.objects.filter(email__iexact=email, is_active=True).exists():
+            raise ValidationError(f"This address e-mail doesn't exists.")
+
+        return email
