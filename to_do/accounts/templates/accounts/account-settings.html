@@ -51,27 +51,35 @@
 
     <div class="side-content-body tabs-contents">
         <div class="tab-content">
-            <form class="register-form" method="post" action="">
+            <form method="post" action="">
                 {% csrf_token %}
 
                 <div class="form-row">
-                    <label>{{ form_1.first_name.label }}</label>
-                    {{ form_1.first_name }} {{ form_1.first_name.errors }}
+                    <div class="input-wrapper">
+                        <label>{{ form_1.first_name.label }}</label>
+                        {{ form_1.first_name }} {{ form_1.first_name.errors }}
+                    </div>
                 </div>
 
                 <div class="form-row">
-                    <label>{{ form_1.last_name.label }}</label>
-                    {{ form_1.last_name }} {{ form_1.last_name.errors }}
+                    <div class="input-wrapper">
+                        <label>{{ form_1.last_name.label }}</label>
+                        {{ form_1.last_name }} {{ form_1.last_name.errors }}
+                    </div>
                 </div>
 
                 <div class="form-row">
-                    <label>{{ form_1.username.label }}</label>
-                    {{ form_1.username }} {{ form_1.username.errors }}
+                    <div class="input-wrapper">
+                        <label>{{ form_1.username.label }}</label>
+                        {{ form_1.username }} {{ form_1.username.errors }}
+                    </div>
                 </div>
 
                 <div class="form-row">
-                    <label>{{ form_1.email.label }}</label>
-                    {{ form_1.email }} {{ form_1.email.errors }}
+                    <div class="input-wrapper">
+                        <label>{{ form_1.email.label }}</label>
+                        {{ form_1.email }} {{ form_1.email.errors }}
+                    </div>
                 </div>
 
                 <div class="submit-row">
@@ -85,17 +93,21 @@
         </div>
 
         <div class="tab-content">
-            <form class="register-form" method="post" action="">
+            <form method="post" action="">
                 {% csrf_token %}
 
                 <div class="form-row">
-                    <label>{{ form_2.new_password1.label }}</label>
-                    {{ form_2.new_password1 }} {{ form_2.new_password1.errors }}
+                    <div class="input-wrapper">
+                        <label>{{ form_2.new_password1.label }}</label>
+                        {{ form_2.new_password1 }} {{ form_2.new_password1.errors }}
+                    </div>
                 </div>
 
                 <div class="form-row">
-                    <label>{{ form_2.new_password2.label }}</label>
-                    {{ form_2.new_password2 }} {{ form_2.new_password2.errors }}
+                    <div class="input-wrapper">
+                        <label>{{ form_2.new_password2.label }}</label>
+                        {{ form_2.new_password2 }} {{ form_2.new_password2.errors }}
+                    </div>
                 </div>
 
                 <div class="submit-row">
@@ -109,11 +121,13 @@
         </div>
 
         <div class="tab-content">
-            <form class="register-form" method="post" enctype="multipart/form-data" action="">
+            <form method="post" enctype="multipart/form-data" action="">
                 {% csrf_token %}
 
                 <div class="form-row">
-                    {{ form_3.image }} {{ form_3.image.errors }}
+                    <div class="input-wrapper">
+                        {{ form_3.image }} {{ form_3.image.errors }}
+                    </div>
                 </div>
 
                 <div class="submit-row">
@@ -127,37 +141,47 @@
         </div>
 
         <div class="tab-content">
-            <form class="register-form" method="post" action="">
+            <form method="post" action="">
                 {% csrf_token %}
 
                 <div class="form-row">
-                    <label>{{ form_4.gender.label }}</label>
-                    {{ form_4.gender }} {{ form_4.gender.errors }}
+                    <div class="input-wrapper">
+                        <label>{{ form_4.gender.label }}</label>
+                        {{ form_4.gender }} {{ form_4.gender.errors }}
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label>{{ form_4.date_of_birth.label }}</label>
+                        {{ form_4.date_of_birth }} {{ form_4.date_of_birth.errors }}
+                    </div>
                 </div>
 
                 <div class="form-row">
-                    <label>{{ form_4.date_of_birth.label }}</label>
-                    {{ form_4.date_of_birth }} {{ form_4.date_of_birth.errors }}
+                    <div class="input-wrapper">
+                        <label>{{ form_4.phone_number.label }}</label>
+                        {{ form_4.phone_number }} {{ form_4.phone_number.errors }}
+                    </div>
                 </div>
 
                 <div class="form-row">
-                    <label>{{ form_4.phone_number.label }}</label>
-                    {{ form_4.phone_number }} {{ form_4.phone_number.errors }}
+                    <div class="input-wrapper">
+                        <label>{{ form_4.country.label }}</label>
+                        {{ form_4.country }} {{ form_4.country.errors }}
+                    </div>
                 </div>
 
                 <div class="form-row">
-                    <label>{{ form_4.country.label }}</label>
-                    {{ form_4.country }} {{ form_4.country.errors }}
+                    <div class="input-wrapper">
+                        <label>{{ form_4.province.label }}</label>
+                        {{ form_4.province }} {{ form_4.province.errors }}
+                    </div>
                 </div>
 
                 <div class="form-row">
-                    <label>{{ form_4.province.label }}</label>
-                    {{ form_4.province }} {{ form_4.province.errors }}
-                </div>
-
-                <div class="form-row">
-                    <label>{{ form_4.city.label }}</label>
-                    {{ form_4.city }} {{ form_4.city.errors }}
+                    <div class="input-wrapper">
+                        <label>{{ form_4.city.label }}</label>
+                        {{ form_4.city }} {{ form_4.city.errors }}
+                    </div>
                 </div>
 
                 <div class="submit-row">

@@ -7,25 +7,38 @@
     <form class="contact-form" method="post" action="">
         {% csrf_token %}
         <div class="form-row">
-            <label>{{ contact_form.full_name.label }}</label>
-            {{ contact_form.full_name }}
+            <div class="input-wrapper">
+                <label>{{ contact_form.full_name.label }}</label>
+                {{ contact_form.full_name }}
+            </div>
+
+            <div class="input-wrapper">
+                <label>{{ contact_form.email.label }}</label>
+                {{ contact_form.email }}
+            </div>
         </div>
+
         <div class="form-row">
-            <label>{{ contact_form.email.label }}</label>
-            {{ contact_form.email }}
+            <div class="input-wrapper">
+                <label>{{ contact_form.mobile_phone.label }}</label>
+                {{ contact_form.mobile_phone }}
+            </div>
         </div>
+
         <div class="form-row">
-            <label>{{ contact_form.mobile_phone.label }}</label>
-            {{ contact_form.mobile_phone }}
+            <div class="input-wrapper">
+                <label>{{ contact_form.message.label }}</label>
+                {{ contact_form.message }}
+            </div>
         </div>
+
         <div class="form-row">
-            <label>{{ contact_form.message.label }}</label>
-            {{ contact_form.message }}
+            <div class="input-wrapper">
+                <label>{{ contact_form.file.label }}</label>
+                {{ contact_form.file }}
+            </div>
         </div>
-        <div class="form-row">
-            <label>{{ contact_form.file.label }}</label>
-            {{ contact_form.file }}
-        </div>
+
         <div class="submit-row">
             <button class="btn" type="submit">
                 <i class="ri-mail-send-line"></i>

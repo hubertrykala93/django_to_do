@@ -501,6 +501,20 @@ img{
 form {
     .form-row{
         margin-bottom: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: -5px;
+        margin-right: -5px;
+
+        .input-wrapper {
+            flex: 100%;
+            margin-top: 15px;
+            padding: 0 5px;
+
+            &:first-child{
+                margin-top: 0;
+            }
+        }
     }
 
     .submit-row{
@@ -563,13 +577,13 @@ form {
 
     textarea {
         padding-top: 10px;
-        height: 150px;
+        height: 100px;
     }
 
     .errorlist{
         list-style: none;
         color: var(--error-color);
-        font-size: 13px;
+        font-size: 11px;
         margin-top: 5px;
     }
 }
@@ -771,6 +785,16 @@ form {
 
         .side-content-body{
             flex-grow: 1;
+        }
+    }
+
+    form {
+        .form-row{
+
+            .input-wrapper {
+                flex: 1;
+                margin-top: 0;
+            }
         }
     }
 }

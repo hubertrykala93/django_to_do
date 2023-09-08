@@ -7,35 +7,41 @@
     <form class="register-form" method="post" action="">
         {% csrf_token %}
         <div class="form-row">
-            <label>{{ registration_form.username.label }}</label>
-            {{ registration_form.username }}
-            {{ registration_form.username.errors }}
+            <div class="input-wrapper">
+                <label>{{ registration_form.username.label }}</label>
+                {{ registration_form.username }}
+                {{ registration_form.username.errors }}
+            </div>
         </div>
         <div class="form-row">
-            <label>{{ registration_form.email.label }}</label>
-            {{ registration_form.email }}
-            {{ registration_form.email.errors }}
+            <div class="input-wrapper">
+                <label>{{ registration_form.email.label }}</label>
+                {{ registration_form.email }}
+                {{ registration_form.email.errors }}
+            </div>
         </div>
         <div class="form-row">
-            <label>{{ registration_form.password1.label }}</label>
-            {{ registration_form.password1 }}
-            {{ registration_form.password1.errors }}
+            <div class="input-wrapper">
+                <label>{{ registration_form.password1.label }}</label>
+                {{ registration_form.password1 }}
+                {{ registration_form.password1.errors }}
+            </div>
+
+            <div class="input-wrapper">
+                <label>{{ registration_form.password2.label }}</label>
+                {{ registration_form.password2 }}
+                {{ registration_form.password2.errors }}
+            </div>
         </div>
+
         <div class="form-row">
-            <label>{{ registration_form.password2.label }}</label>
-            {{ registration_form.password2 }}
-            {{ registration_form.password2.errors }}
+            <div class="input-wrapper">
+                <label>{{ registration_form.first_name.label }}</label>
+                {{ registration_form.first_name }}
+                {{ registration_form.first_name.errors }}
+            </div>
         </div>
-        <div class="form-row">
-            <label>{{ registration_form.first_name.label }}</label>
-            {{ registration_form.first_name }}
-            {{ registration_form.first_name.errors }}
-        </div>
-        <div class="form-row">
-            <label>{{ registration_form.gender.label }}</label>
-            {{ registration_form.gender }}
-            {{ registration_form.gender.errors }}
-        </div>
+
         <div class="submit-row">
             <button class="btn" type="submit">Register</button>
         </div>

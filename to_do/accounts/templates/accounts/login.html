@@ -7,13 +7,17 @@
     <form class="login-form" method="post" action="">
         {% csrf_token %}
         <div class="form-row">
-            <label>{{ login_form.username.label }}</label>
-            {{ login_form.username }}
+            <div class="input-wrapper">
+                <label>{{ login_form.username.label }}</label>
+                {{ login_form.username }}
+            </div>
         </div>
 
         <div class="form-row">
-            <label>{{ login_form.password1.label }}</label>
-            {{ login_form.password1 }}
+            <div class="input-wrapper">
+                <label>{{ login_form.password1.label }}</label>
+                {{ login_form.password1 }}
+            </div>
         </div>
 
         <div class="submit-row">

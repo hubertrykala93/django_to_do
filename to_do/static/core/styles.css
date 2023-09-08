@@ -358,7 +358,17 @@ img {
     border-radius: var(--radius-500); }
 
 form .form-row {
-  margin-bottom: 15px; }
+  margin-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px; }
+  form .form-row .input-wrapper {
+    flex: 100%;
+    margin-top: 15px;
+    padding: 0 5px; }
+    form .form-row .input-wrapper:first-child {
+      margin-top: 0; }
 
 form .submit-row {
   margin-top: 20px; }
@@ -413,12 +423,12 @@ form select {
 
 form textarea {
   padding-top: 10px;
-  height: 150px; }
+  height: 100px; }
 
 form .errorlist {
   list-style: none;
   color: var(--error-color);
-  font-size: 13px;
+  font-size: 11px;
   margin-top: 5px; }
 
 /*-----Tabs component-----*/
@@ -536,6 +546,9 @@ form .errorlist {
       margin: 0 var(--padding-400) 0 0;
       flex: 0 0 195px; }
     .side-content .side-content-body {
-      flex-grow: 1; } }
+      flex-grow: 1; }
+  form .form-row .input-wrapper {
+    flex: 1;
+    margin-top: 0; } }
 
 /*# sourceMappingURL=styles.css.map */
