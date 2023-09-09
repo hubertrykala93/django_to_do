@@ -39,8 +39,6 @@ class CustomUserManager(UserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50, unique=True, null=False, blank=False, default='')
     email = models.EmailField(blank=True, default='', unique=True, validators=[ValidationError])
-    first_name = models.CharField(max_length=50, unique=False, null=False, blank=False, default='User')
-    last_name = models.CharField(max_length=50, blank=True, null=True)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics', null=True)
 
     is_verified = models.BooleanField(default=False)
@@ -78,12 +76,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Profile(models.Model):
     user = models.OneToOneField(to=User, on_delete=models.CASCADE)
-    gender = models.CharField(default='Not Defined', max_length=20, choices=(
+    first_name = models.CharField(max_length=50, unique=False, null=True, blank=True)
+    last_name = models.CharField(max_length=50, blank=True, null=True)
+    gender = models.CharField(default='', max_length=20, choices=(
+        ('Not Defined', 'Not Defined'),
         ('Male', 'Male'),
         ('Female', 'Female'),
     ))
     date_of_birth = models.CharField(max_length=20, blank=True, null=True)
-    phone_number = models.CharField(max_length=20, blank=True, null=True)
     country = models.CharField(max_length=50, blank=True, null=True)
     province = models.CharField(max_length=50, blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)

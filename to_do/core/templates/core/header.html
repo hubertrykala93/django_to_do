@@ -67,7 +67,11 @@
 
                         <div class="user-greeting">
                             Hello,
+                            {% if user.first_name %}
                             <a href="{% url 'account-settings' %}" class="user-name">{{ user.first_name }}</a>
+                            {% else %}
+                            <a href="{% url 'account-settings' %}" class="user-name">{{ user.username }}</a>
+                            {% endif %}
                         </div>
                     </div>
 

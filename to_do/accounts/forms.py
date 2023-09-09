@@ -38,17 +38,9 @@ class RegistrationForm(UserCreationForm):
                                     'placeholder': 'Confirm Password'
                                 }))
 
-    first_name = forms.CharField(max_length=255, label='First Name', required=True,
-                                 widget=forms.TextInput(attrs={
-                                     'id': 'register-user-first-name',
-                                     'label': 'required',
-                                     'type': 'text',
-                                     'placeholder': 'Your First Name'
-                                 }))
-
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2', 'first_name']
+        fields = ['username', 'email', 'password1', 'password2']
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -68,21 +60,6 @@ class RegistrationForm(UserCreationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=255, label='First Name', required=False,
-                                 widget=forms.TextInput(attrs={
-                                     'id': 'register-user-first-name',
-                                     'label': 'required',
-                                     'type': 'text',
-                                     'placeholder': 'Your First Name'
-                                 }))
-
-    last_name = forms.CharField(max_length=255, label='Last Name', required=False,
-                                widget=forms.TextInput(attrs={
-                                    'id': 'register-user-last-name',
-                                    'type': 'text',
-                                    'placeholder': 'Your Last Name'
-                                }))
-
     username = forms.CharField(max_length=255, label='Username', required=False,
                                widget=forms.TextInput(attrs={
                                    'id': 'register-user-name',
@@ -102,7 +79,7 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name']
+        fields = ['username', 'email']
 
 
 class PasswordChangeForm(SetPasswordForm):
@@ -140,7 +117,23 @@ class UserImageUpdateForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=255, label='First Name', required=False,
+                                 widget=forms.TextInput(attrs={
+                                     'id': 'register-user-first-name',
+                                     'label': 'required',
+                                     'type': 'text',
+                                     'placeholder': 'Your First Name'
+                                 }))
+
+    last_name = forms.CharField(max_length=255, label='Last Name', required=False,
+                                widget=forms.TextInput(attrs={
+                                    'id': 'register-user-last-name',
+                                    'type': 'text',
+                                    'placeholder': 'Your Last Name'
+                                }))
+
     gender = forms.Select(choices=(
+        ('Not Defined', 'Not Defined'),
         ('Male', 'Male'),
         ('Female', 'Female')
     ))
@@ -149,12 +142,6 @@ class ProfileUpdateForm(forms.ModelForm):
         'id': 'register-user-date-of-birth',
         'type': 'text',
         'placeholder': 'Your Date of Birth'
-    }))
-
-    phone_number = forms.CharField(max_length=50, label='Phone Number', required=False, widget=forms.TextInput(attrs={
-        'id': 'register-user-phone-number',
-        'type': 'text',
-        'placeholder': 'Your Phone Number'
     }))
 
     country = forms.CharField(max_length=255, label='Country', required=False,
@@ -180,7 +167,7 @@ class ProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['gender', 'date_of_birth', 'phone_number', 'country', 'province', 'city']
+        fields = ['first_name', 'last_name', 'gender', 'date_of_birth', 'country', 'province', 'city']
 
 
 class ResetPasswordForm(PasswordResetForm):

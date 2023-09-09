@@ -14,7 +14,11 @@
         </div>
 
         <h4 class="user-name">
-            {{ user.first_name }} {{ user.last_name }}
+            {% if user.first_name %}
+            {{ user.first_name }}
+            {% else %}
+            {{ user.username }}
+            {% endif %}
         </h4>
 
         <div class="last-seen">
@@ -53,20 +57,6 @@
         <div class="tab-content">
             <form method="post" action="">
                 {% csrf_token %}
-
-                <div class="form-row">
-                    <div class="input-wrapper">
-                        <label>{{ form_1.first_name.label }}</label>
-                        {{ form_1.first_name }} {{ form_1.first_name.errors }}
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="input-wrapper">
-                        <label>{{ form_1.last_name.label }}</label>
-                        {{ form_1.last_name }} {{ form_1.last_name.errors }}
-                    </div>
-                </div>
 
                 <div class="form-row">
                     <div class="input-wrapper">
@@ -146,20 +136,29 @@
 
                 <div class="form-row">
                     <div class="input-wrapper">
-                        <label>{{ form_4.gender.label }}</label>
-                        {{ form_4.gender }} {{ form_4.gender.errors }}
-                    </div>
-
-                    <div class="input-wrapper">
-                        <label>{{ form_4.date_of_birth.label }}</label>
-                        {{ form_4.date_of_birth }} {{ form_4.date_of_birth.errors }}
+                        <label>{{ form_4.first_name.label }}</label>
+                        {{ form_4.first_name }} {{ form_4.first_name.errors }}
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="input-wrapper">
-                        <label>{{ form_4.phone_number.label }}</label>
-                        {{ form_4.phone_number }} {{ form_4.phone_number.errors }}
+                        <label>{{ form_4.last_name.label }}</label>
+                        {{ form_4.last_name }} {{ form_4.last_name.errors }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-wrapper">
+                        <label>{{ form_4.gender.label }}</label>
+                        {{ form_4.gender }} {{ form_4.gender.errors }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-wrapper">
+                        <label>{{ form_4.date_of_birth.label }}</label>
+                        {{ form_4.date_of_birth }} {{ form_4.date_of_birth.errors }}
                     </div>
                 </div>
 
