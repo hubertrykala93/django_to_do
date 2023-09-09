@@ -92,14 +92,14 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
-# AUTH_PASSWORD_VALIDATORS = [
-#     {
-#         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-#     },
-#     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", },
-#     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", },
-#     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", },
-# ]
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", },
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", },
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", },
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -141,5 +141,7 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_LOGIN')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_LOGIN')
 
 PASSWORD_RESET_TIMEOUT_DAYS = 2
