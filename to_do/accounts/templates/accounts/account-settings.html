@@ -61,14 +61,28 @@
                 <div class="form-row">
                     <div class="input-wrapper">
                         <label>{{ form_1.username.label }}</label>
-                        {{ form_1.username }} {{ form_1.username.errors }}
+                        {{ form_1.username }}
+                        <ul>
+                            {% if form_1.username.errors %}
+                            {% for error in form_1.username.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="input-wrapper">
                         <label>{{ form_1.email.label }}</label>
-                        {{ form_1.email }} {{ form_1.email.errors }}
+                        {{ form_1.email }}
+                        <ul>
+                            {% if form_1.email.errors %}
+                            {% for error in form_1.email.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
 
@@ -89,14 +103,28 @@
                 <div class="form-row">
                     <div class="input-wrapper">
                         <label>{{ form_2.new_password1.label }}</label>
-                        {{ form_2.new_password1 }} {{ form_2.new_password1.errors }}
+                        {{ form_2.new_password1 }}
+                        <ul>
+                            {% if form_2.new_password1.errors %}
+                            {% for error in form_2.new_password1.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="input-wrapper">
                         <label>{{ form_2.new_password2.label }}</label>
-                        {{ form_2.new_password2 }} {{ form_2.new_password2.errors }}
+                        {{ form_2.new_password2 }}
+                        <ul>
+                            {% if form_2.new_password2.errors %}
+                            {% for error in form_2.new_password2.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
 
@@ -116,7 +144,14 @@
 
                 <div class="form-row">
                     <div class="input-wrapper">
-                        {{ form_3.image }} {{ form_3.image.errors }}
+                        {{ form_3.image }}
+                        <ul>
+                            {% if form_3.image.errors %}
+                            {% for error in form_3.image.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
 
@@ -137,49 +172,98 @@
                 <div class="form-row">
                     <div class="input-wrapper">
                         <label>{{ form_4.first_name.label }}</label>
-                        {{ form_4.first_name }} {{ form_4.first_name.errors }}
+                        {{ form_4.first_name }}
+                        <ul>
+                            {% if form_4.first_name.errors %}
+                            {% for error in form_4.first_name.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="input-wrapper">
                         <label>{{ form_4.last_name.label }}</label>
-                        {{ form_4.last_name }} {{ form_4.last_name.errors }}
+                        {{ form_4.last_name }}
+                        <ul>
+                            {% if form_4.last_name.errors %}
+                            {% for error in form_4.last_name.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="input-wrapper">
                         <label>{{ form_4.gender.label }}</label>
-                        {{ form_4.gender }} {{ form_4.gender.errors }}
+                        {{ form_4.gender }}
+                        <ul>
+                            {% if form_4.gender.errors %}
+                            {% for error in form_4.gender.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="input-wrapper">
                         <label>{{ form_4.date_of_birth.label }}</label>
-                        {{ form_4.date_of_birth }} {{ form_4.date_of_birth.errors }}
+                        {{ form_4.date_of_birth }}
+                        <ul>
+                            {% if form_4.date_of_birth.errors %}
+                            {% for error in form_4.date_of_birth.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="input-wrapper">
                         <label>{{ form_4.country.label }}</label>
-                        {{ form_4.country }} {{ form_4.country.errors }}
+                        {{ form_4.country }}
+                        <ul>
+                            {% if form_4.country.errors %}
+                            {% for error in form_4.country.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="input-wrapper">
                         <label>{{ form_4.province.label }}</label>
-                        {{ form_4.province }} {{ form_4.province.errors }}
+                        {{ form_4.province }}
+                        <ul>
+                            {% if form_4.province.errors %}
+                            {% for error in form_4.province.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="input-wrapper">
                         <label>{{ form_4.city.label }}</label>
-                        {{ form_4.city }} {{ form_4.city.errors }}
+                        {{ form_4.city }}
+                        <ul>
+                            {% if form_4.city.errors %}
+                            {% for error in form_4.city.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
 
