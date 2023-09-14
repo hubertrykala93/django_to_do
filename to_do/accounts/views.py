@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
+from django.shortcuts import render, redirect, reverse, HttpResponse
 from .forms import RegistrationForm, UserUpdateForm, ProfileUpdateForm, ResetPasswordForm, UserImageUpdateForm, \
     PasswordChangeForm
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
