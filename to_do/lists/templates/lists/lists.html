@@ -1,5 +1,61 @@
-{% include 'core/base.html' %}
+{% extends 'core/base.html' %}
 
 {% block title %}{{ title }}{% endblock %}
 
-{% block content %}{% endblock %}
+{% block content %}
+<div class="tab-content">
+    <form method="post" action="">
+        {% csrf_token %}
+
+        <div class="form-row">
+            <div class="input-wrapper">
+                <label>{{ category_form.category.label }}</label>
+                {{ category_form.category }}
+                <ul>
+                    {% if category_form.category.errors %}
+                    {% for error in category_form.category.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="submit-row">
+            <button class="btn" name="{{ category_form.prefix }}" type="submit">
+                <i class="ri-loop-left-line"></i>
+                Add Category
+            </button>
+        </div>
+
+    </form>
+</div>
+
+<div class="tab-content">
+    <form method="post" action="">
+        {% csrf_token %}
+
+        <div class="form-row">
+            <div class="input-wrapper">
+                <label>{{ task_form.content.label }}</label>
+                {{ task_form.content }}
+                <ul>
+                    {% if task_form.content.errors %}
+                    {% for error in task_form.content.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="submit-row">
+            <button class="btn" name="{{ task_form.prefix }}" type="submit">
+                <i class="ri-loop-left-line"></i>
+                Add Task
+            </button>
+        </div>
+
+    </form>
+</div>
+{% endblock %}
