@@ -2,9 +2,6 @@ from django import forms
 from .models import Category, Task
 
 
-# from accounts.models import User
-
-
 class CategoryForm(forms.ModelForm):
     category = forms.CharField(max_length=100, label='Category', required=True, widget=forms.TextInput(attrs={
         'id': 'user-category',
@@ -28,4 +25,4 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ['content']
+        fields = '__all__'
