@@ -754,11 +754,6 @@ form {
 .categories-wrapper{
     aside{
 
-        .no-categories-message{
-            font-size: 11px;
-            color: var(--placeholder);
-        }
-
         .categories-list {
             list-style: none;
             margin-top: 15px;
@@ -808,6 +803,21 @@ form {
 
         .add-category-btn{
             margin-top: auto;
+        }
+    }
+
+    .no-items-message{
+        font-size: 11px;
+        color: var(--placeholder);
+    }
+
+    .categories-content-body{
+
+        .category-title{
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 25px;
+            color: var(--black);
         }
     }
 }

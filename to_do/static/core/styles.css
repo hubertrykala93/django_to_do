@@ -547,10 +547,6 @@ form .errorlist {
   .add-category-popup-wrapper button {
     width: 100%; }
 
-.categories-wrapper aside .no-categories-message {
-  font-size: 11px;
-  color: var(--placeholder); }
-
 .categories-wrapper aside .categories-list {
   list-style: none;
   margin-top: 15px;
@@ -587,6 +583,16 @@ form .errorlist {
 
 .categories-wrapper aside .add-category-btn {
   margin-top: auto; }
+
+.categories-wrapper .no-items-message {
+  font-size: 11px;
+  color: var(--placeholder); }
+
+.categories-wrapper .categories-content-body .category-title {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 25px;
+  color: var(--black); }
 
 /*------------Breakpoints------------*/
 @media (min-width: 1000px) {

@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import User
+from django.utils.timezone import now
 
 
 class Category(models.Model):
@@ -12,6 +13,7 @@ class Category(models.Model):
 
 class Task(models.Model):
     category = models.OneToOneField(to=Category, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=now)
     content = models.CharField(max_length=1000, unique=False, blank=False, null=False)
 
     def __str__(self):
