@@ -13,7 +13,7 @@
             <img src="{{ user.image.url }}" alt="user avatar">
         </div>
 
-        <h4 class="user-name">
+        <h4 class="sidebar-title user-name">
             {% if user.first_name %}
             {{ user.first_name }}
             {% else %}
@@ -21,14 +21,14 @@
             {% endif %}
         </h4>
 
+        {% if user.is_authenticated %}
         <div class="last-seen">
             Last seen:
             <span>
-                    {% if user.is_authenticated %}
                     {{ user.last_login }}
-                    {% endif %}
             </span>
         </div>
+        {% endif %}
 
         <ul class="tabs-nav">
             <li>

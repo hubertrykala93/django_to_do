@@ -103,3 +103,34 @@ if(tabsElement){
     })
 }
 
+
+//add to do category
+const addCategoryBtn = document.querySelector('.add-category-btn')
+
+if(addCategoryBtn){
+    addCategoryBtn.addEventListener('click', ()=> {
+        const addCategoryPopup = document.createElement('div')
+        addCategoryPopup.classList.add('add-category-popup-wrapper')
+        addCategoryPopup.innerHTML = `
+            <div class="add-category-popup-container">
+                <div id="close-add-category-popup">
+                    <i class="ri-close-line"></i>
+                </div>
+
+                <div class="add-to-category-form">
+                    <input type="text" id="add-category-name" placeholder="Category name">
+                    <button class="btn add-new-category-btn" type="submit">
+                        <i class="ri-add-box-line"></i>
+                        Add New Category
+                    </button>
+                </div>
+            </div>
+        `
+        document.body.append(addCategoryPopup)
+
+        const closeAddCategoryPopup = document.querySelector('#close-add-category-popup')
+        closeAddCategoryPopup.addEventListener('click', ()=> {
+            document.querySelector('.add-category-popup-wrapper').remove()
+        })
+    })
+}

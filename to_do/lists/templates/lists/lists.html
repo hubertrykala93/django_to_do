@@ -4,39 +4,63 @@
 
 {% block content %}
 
-{% if categories %}
-<ul>
-    {% for category in categories %}
-    <li>{{ category }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+<div class="side-content categories-wrapper">
+    <aside>
+        <h4 class="sidebar-title categories-title">Categories</h4>
+        {% if categories %}
+        <ul class="categories-list">
+            {% for category in categories %}
+            <li data-id="{{ category.id }}">
+                <span>{{ category }}</span>
+                <button class="remove-category">
+                    <i class="ri-delete-bin-line"></i>
+                </button>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="no-categories-message">No categories</p>
+        {% endif %}
 
-<div class="tab-content">
-    <form method="post" action="">
-        {% csrf_token %}
+        <button class="btn add-category-btn" type="submit">
+            <i class="ri-play-list-add-line"></i>
+            Add Category
+        </button>
+    </aside>
 
-        <div class="form-row">
-            <div class="input-wrapper">
-                <label>{{ category_form.category.label }}</label>
-                {{ category_form.category }}
-                <ul>
-                    {% if category_form.category.errors %}
-                    {% for error in category_form.category.errors %}
-                    <li>{{ error }}</li>
-                    {% endfor %}
-                    {% endif %}
-                </ul>
-            </div>
+    <div class="side-content-body">
+        <div class="category-content">
+
         </div>
+<!--        <div class="tab-content">-->
+<!--            <form method="post" action="">-->
+<!--                {% csrf_token %}-->
 
-        <div class="submit-row">
-            <button class="btn" type="submit">
-                <i class="ri-loop-left-line"></i>
-                Add Category
-            </button>
-        </div>
+<!--                <div class="form-row">-->
+<!--                    <div class="input-wrapper">-->
+<!--                        <label>{{ category_form.category.label }}</label>-->
+<!--                        {{ category_form.category }}-->
+<!--                        <ul>-->
+<!--                            {% if category_form.category.errors %}-->
+<!--                            {% for error in category_form.category.errors %}-->
+<!--                            <li>{{ error }}</li>-->
+<!--                            {% endfor %}-->
+<!--                            {% endif %}-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
 
-    </form>
+<!--                <div class="submit-row">-->
+<!--                    <button class="btn" type="submit">-->
+<!--                        <i class="ri-loop-left-line"></i>-->
+<!--                        Add Category-->
+<!--                    </button>-->
+<!--                </div>-->
+
+<!--            </form>-->
+<!--        </div>-->
+    </div>
 </div>
+
+
 {% endblock %}

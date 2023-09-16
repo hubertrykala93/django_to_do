@@ -619,7 +619,18 @@ form {
     width: 100%;
 
     aside{
+        display: flex;
+        flex-direction: column;
         margin-bottom: var(--padding-400);
+        text-align: center;
+
+        .sidebar-title {
+            margin-top: 10px;
+            margin-bottom: 14px;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--black);
+        }
     }
 
     aside,
@@ -653,12 +664,6 @@ form {
         }
     }
 
-    .user-name {
-        margin-top: 10px;
-        font-size: 16px;
-        font-weight: 500;
-        color: var(--black);
-    }
 
     .last-seen {
         font-size: 13px;
@@ -689,6 +694,123 @@ form {
     }
 }
 
+
+/*-----To do page-----*/
+.add-category-popup-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: #000000ab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .add-category-popup-container {
+        width: 100%;
+        max-width: 350px;
+        background-color: var(--white);
+        padding: var(--padding-400);
+        border-radius: var(--radius-500);
+        position: relative;
+    }
+
+    #close-add-category-popup {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: -10px;
+        right: -10px;
+        font-size: 20px;
+        background-color: var(--primary);
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        color: white;
+        cursor: pointer;
+    }
+
+    input{
+        width: 100%;
+        height: 35px;
+        font-family: inherit;
+        background-color: var(--light-bg);
+        font-size: 12px;
+        color: black;
+        padding: 0 20px;
+        outline: none;
+        border: 1px solid transparent;
+        border-radius: var(--radius-400);
+        margin-bottom: 15px;
+        }
+
+        button{
+            width: 100%;
+        }
+}
+
+.categories-wrapper{
+    aside{
+
+        .no-categories-message{
+            font-size: 11px;
+            color: var(--placeholder);
+        }
+
+        .categories-list {
+            list-style: none;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+
+            li{
+                display: inline-flex;
+                align-items:center;
+                justify-content: center;
+                font-size: 13px;
+                color: var(--placeholder);
+                line-height: 1;
+                margin-bottom: 10px;
+                cursor: pointer;
+                transition: color .4s;
+
+                &.active{
+                    color: var(--primary);
+                    font-weight: 700;
+
+                    i{
+                        font-weight: 400;
+                    }
+                }
+
+                .remove-category{
+                    margin-left: 5px;
+                    background-color: transparent;
+                    color: var(--error-color);
+                    border: none;
+                    opacity: 0;
+                    transition: opacity .4s;
+                    cursor: pointer;
+                }
+
+                &:hover{
+                    color: var(--primary-alt);
+
+                    .remove-category{
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        .add-category-btn{
+            margin-top: auto;
+        }
+    }
+}
 
 
 
@@ -780,7 +902,7 @@ form {
 
         aside{
             margin: 0 var(--padding-400) 0 0;
-            flex: 0 0 195px;
+            flex: 0 0 220px;
         }
 
         .side-content-body{

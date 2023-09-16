@@ -1,14 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CategoryForm, TaskForm
 from django.contrib import messages
 from .models import Category, Task
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def lists(request):
     categories = Category.objects.all()
-    user = request.user
-
-    print(user)
 
     if request.method == 'POST':
         category_form = CategoryForm(data=request.POST, instance=request.user)
