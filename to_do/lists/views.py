@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def lists(request):
-    categories = Category.objects.all()
+    categories = Category.objects.filter(user=request.user)
 
     if request.method == 'POST':
         category_form = CategoryForm(data=request.POST, instance=request.user)
