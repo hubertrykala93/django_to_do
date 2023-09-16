@@ -10,13 +10,13 @@
             <div class="input-wrapper">
                 <label>{{ login_form.username.label }}</label>
                 {{ login_form.username }}
-                <ul>
-                    {% if login_form.username.errors %}
+                {% if login_form.username.errors %}
+                <ul class="errorlist">
                     {% for error in login_form.username.errors %}
                     <li>{{ error }}</li>
                     {% endfor %}
-                    {% endif %}
                 </ul>
+                {% endif %}
             </div>
         </div>
 
@@ -24,13 +24,13 @@
             <div class="input-wrapper">
                 <label>{{ login_form.password1.label }}</label>
                 {{ login_form.password1 }}
-                <ul>
-                    {% if login_form.password1.errors %}
+                {% if login_form.password1.errors %}
+                <ul class="errorlist">
                     {% for error in login_form.password1.errors %}
                     <li>{{ error }}</li>
                     {% endfor %}
-                    {% endif %}
                 </ul>
+                {% endif %}
             </div>
         </div>
 

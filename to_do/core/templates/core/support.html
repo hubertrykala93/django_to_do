@@ -10,7 +10,7 @@
             <div class="input-wrapper">
                 <label>{{ contact_form.full_name.label }}</label>
                 {{ contact_form.full_name }}
-                <ul>
+                <ul class="errorlist">
                     {% if contact_form.full_name.errors %}
                     {% for error in contact_form.full_name.errors %}
                     <li>{{ error }}</li>
@@ -22,7 +22,7 @@
             <div class="input-wrapper">
                 <label>{{ contact_form.email.label }}</label>
                 {{ contact_form.email }}
-                <ul>
+                <ul class="errorlist">
                     {% if contact_form.email.errors %}
                     {% for error in contact_form.email.errors %}
                     <li>{{ error }}</li>
@@ -36,7 +36,7 @@
             <div class="input-wrapper">
                 <label>{{ contact_form.message.label }}</label>
                 {{ contact_form.message }}
-                <ul>
+                <ul class="errorlist">
                     {% if contact_form.message.errors %}
                     {% for error in contact_form.message.errors %}
                     <li>{{ error }}</li>
@@ -50,7 +50,7 @@
             <div class="input-wrapper">
                 <label>{{ contact_form.file.label }}</label>
                 {{ contact_form.file }}
-                <ul>
+                <ul class="errorlist">
                     {% if contact_form.file.errors %}
                     {% for error in contact_form.file.errors %}
                     <li>{{ error }}</li>

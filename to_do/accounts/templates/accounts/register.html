@@ -10,51 +10,51 @@
             <div class="input-wrapper">
                 <label>{{ registration_form.username.label }}</label>
                 {{ registration_form.username }}
-                <ul>
-                    {% if registration_form.username.errors %}
+                {% if registration_form.username.errors %}
+                <ul class="errorlist">
                     {% for error in registration_form.username.errors %}
                     <li>{{ error }}</li>
                     {% endfor %}
-                    {% endif %}
                 </ul>
+                {% endif %}
             </div>
         </div>
         <div class="form-row">
             <div class="input-wrapper">
                 <label>{{ registration_form.email.label }}</label>
                 {{ registration_form.email }}
-                <ul>
-                    {% if registration_form.email.errors %}
+                {% if registration_form.email.errors %}
+                <ul class="errorlist">
                     {% for error in registration_form.email.errors %}
                     <li>{{ error }}</li>
                     {% endfor %}
-                    {% endif %}
                 </ul>
+                {% endif %}
             </div>
         </div>
         <div class="form-row">
             <div class="input-wrapper">
                 <label>{{ registration_form.password1.label }}</label>
                 {{ registration_form.password1 }}
-                <ul>
-                    {% if registration_form.password1.errors %}
+                {% if registration_form.password1.errors %}
+                <ul class="errorlist">
                     {% for error in registration_form.password1.errors %}
                     <li>{{ error }}</li>
                     {% endfor %}
-                    {% endif %}
                 </ul>
+                {% endif %}
             </div>
 
             <div class="input-wrapper">
                 <label>{{ registration_form.password2.label }}</label>
                 {{ registration_form.password2 }}
-                <ul>
-                    {% if registration_form.password2.errors %}
+                {% if registration_form.password2.errors %}
+                <ul class="errorlist">
                     {% for error in registration_form.password2.errors %}
                     <li>{{ error }}</li>
                     {% endfor %}
-                    {% endif %}
                 </ul>
+                {% endif %}
             </div>
         </div>
 
