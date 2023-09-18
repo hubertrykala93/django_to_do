@@ -3,7 +3,7 @@ from accounts.models import User
 
 
 class Category(models.Model):
-    user = models.OneToOneField(to=User, on_delete=models.CASCADE, default='')
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, default='')
     category = models.CharField(max_length=100, unique=True, blank=False, null=False)
 
     def __str__(self):
@@ -11,7 +11,7 @@ class Category(models.Model):
 
 
 class Task(models.Model):
-    category = models.OneToOneField(to=Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(to=Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, unique=True, blank=False, null=False, default='')
     description = models.TextField(max_length=1000, blank=False, null=False, default='')
 
