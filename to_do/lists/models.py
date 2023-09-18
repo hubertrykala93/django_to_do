@@ -12,7 +12,7 @@ class Category(models.Model):
 
 class Task(models.Model):
     category = models.ForeignKey(to=Category, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, unique=True, blank=False, null=False, default='')
+    name = models.CharField(max_length=100, blank=False, null=False, default='')
     description = models.TextField(max_length=1000, blank=False, null=False, default='')
 
     def __str__(self):

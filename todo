@@ -3,3 +3,21 @@ Hubert:
 - żeby klasa errorlist się generowała automatycznie
 
 Szymon:
+
+
+Inne:
+
+    cities = ['New York', 'Warsaw', 'Los Angeles', 'Chicago', 'Miami', 'Las Vegas', 'Toronto', 'Montreal', 'Berlin',
+              'Paris', 'London', 'Rzeszów', 'Poznań', 'Wrocław', 'Kraków', 'Gdańsk', 'Gdynia', 'Sopot', 'Filadelphia',
+              'Washington', 'Phoenix', 'San Francisco', 'Boston', 'San Jose', 'Dallas', 'Seattle', 'Detroit',
+              'Oklahoma City', 'Salt Lake City', 'Houston', 'Austin', 'Denver', 'Indianapolis', 'San Diego', 'Prague',
+              'Roma', 'Monachium', 'Vienna', 'Madrid', 'Istambul', 'Barcelona', 'Petersburg', 'Moscow', 'Amsterdam',
+              'Kiev', 'Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Canberra', 'Birmingham', 'Manchester', 'Briston',
+              'Edinburg', 'Liverpool', 'Sheffield', 'Leeds', 'Bradford', 'Glasgow', 'Leicester', 'Coventry', 'Cardiff',
+              'Cambridge', 'Exeter', 'Belfast', 'Chester', 'Newcastle',
+              'New Jersey', 'Oxford', 'Portsmouth', 'Kingston', 'Nottingham', 'York', 'Derby', 'Southampton',
+              'Sunderland', 'Aberdeen', 'Carlisle', 'Norwich', 'Preston', 'Gwatemala', 'Managua', 'Panama',
+              'Belmopan', 'San Salvador', 'Tegucigalpa', 'Antigua', 'San Pedro Sula', 'Savannah', 'Ann Arbor',
+              'Boulder', 'Pittsburg', 'Portland', 'Charlotte', 'Sacramento', 'Baltimore', 'Orlando', 'Cleveland',
+              'Cincinnati', 'Palmdale', 'Pomona', 'Pembroke', 'Pompano', 'Lima', 'Caracas', 'Buenos Aires',
+              'Santiago', 'Rio de Janeiro', 'Sao Paulo', 'Brasilia', 'Bogota', 'Salvador', 'Fortaleza']
