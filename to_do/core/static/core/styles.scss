@@ -813,6 +813,14 @@ form {
 
     .categories-content-body{
 
+        .category-content{
+            display: none;
+
+            &.active{
+                display: block;
+            }
+        }
+
         .category-title{
             font-size: 20px;
             font-weight: 500;

@@ -588,6 +588,11 @@ form .errorlist {
   font-size: 11px;
   color: var(--placeholder); }
 
+.categories-wrapper .categories-content-body .category-content {
+  display: none; }
+  .categories-wrapper .categories-content-body .category-content.active {
+    display: block; }
+
 .categories-wrapper .categories-content-body .category-title {
   font-size: 20px;
   font-weight: 500;

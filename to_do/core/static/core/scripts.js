@@ -134,3 +134,56 @@ if(addCategoryBtn){
         })
     })
 }
+
+
+//to do tabs
+
+const toDoListWrapper = document.querySelector('.to-do-list-wrapper')
+
+if(toDoListWrapper){
+    const categoriesList = document.querySelector('.categories-list')
+    const firstListItem = categoriesList.querySelector('li')
+    if( firstListItem ) {
+        firstListItem.classList.add('active')
+        const firstListItemId = firstListItem.getAttribute('data-id')
+        const firstCategoryContent = toDoListWrapper.querySelector(`.to-do-list-contents > .category-content[data-id="${firstListItemId}"]`)
+        if (firstCategoryContent ){
+            firstCategoryContent.classList.add('active')
+        }
+    }
+
+    categoriesList.addEventListener('click', e => {
+        if ( e.target.tagName  === "SPAN") {
+            categoriesList.querySelectorAll('li').forEach(item => {item.classList.remove('active')})
+            e.target.parentElement.classList.add('active')
+            const currentCategoryId = e.target.parentElement.getAttribute('data-id')
+
+            const allCategoriesContents = toDoListWrapper.querySelectorAll('.to-do-list-contents > .category-content')
+            allCategoriesContents.forEach(item => {
+                item.classList.remove('active')
+                if ( item.getAttribute('data-id') === currentCategoryId ){
+                    item.classList.add('active')
+                }
+            })
+        }
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

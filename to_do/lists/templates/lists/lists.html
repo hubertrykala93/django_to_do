@@ -3,7 +3,7 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<div class="side-content categories-wrapper" xmlns="http://www.w3.org/1999/html">
+<div class="side-content to-do-list-wrapper categories-wrapper" xmlns="http://www.w3.org/1999/html">
     <aside>
         <h4 class="sidebar-title categories-title">Categories</h4>
         {% if categories %}
@@ -27,7 +27,7 @@
         </button>
     </aside>
 
-    <div class="side-content-body categories-content-body">
+    <div class="side-content-body to-do-list-contents categories-content-body">
         {% if categories %}
         {% for category in categories %}
         <div class="category-content" data-id="{{ category.id }}">
@@ -47,17 +47,17 @@
         {% endfor %}
         {% endif %}
 
-        {% if tasks.has_previous %}
-        <a href="?page=1">&laquo; First</a>
-        <a href="?page={{ tasks.previous_page_number }}">Previous</a>
-        {% endif %}
+<!--        {% if tasks.has_previous %}-->
+<!--        <a href="?page=1">&laquo; First</a>-->
+<!--        <a href="?page={{ tasks.previous_page_number }}">Previous</a>-->
+<!--        {% endif %}-->
 
-        Page {{ tasks.number }} of {{ tasks.paginator.num_pages }}
+<!--        Page {{ tasks.number }} of {{ tasks.paginator.num_pages }}-->
 
-        {% if tasks.has_next %}
-        <a href="?page={{ tasks.next_page_number }}">Next</a>
-        <a href="?page={{ tasks.paginator.num_pages }}">Last &raquo;</a>
-        {% endif %}
+<!--        {% if tasks.has_next %}-->
+<!--        <a href="?page={{ tasks.next_page_number }}">Next</a>-->
+<!--        <a href="?page={{ tasks.paginator.num_pages }}">Last &raquo;</a>-->
+<!--        {% endif %}-->
 
     </div>
 </div>
