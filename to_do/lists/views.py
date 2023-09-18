@@ -10,25 +10,8 @@ def lists(request):
     categories = Category.objects.filter(user=request.user)
     tasks = Task.objects.all()
 
-    if request.method == 'POST':
-        category_form = CategoryForm(data=request.POST, instance=request.user)
-
-        if category_form.is_valid():
-            category_form.save()
-
-            messages.success(request=request, message='The category has been added successfully.')
-
-            return redirect(to='lists')
-
-        else:
-            messages.error(request=request, message='The category has not been added successfully.')
-
-    else:
-        category_form = CategoryForm()
-
     return render(request=request, template_name='lists/lists.html', context={
         'title': 'Lists',
-        'category_form': category_form,
         'categories': categories,
         'tasks': tasks
     })

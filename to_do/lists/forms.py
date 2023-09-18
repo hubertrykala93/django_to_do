@@ -16,14 +16,15 @@ class CategoryForm(forms.ModelForm):
 
 
 class TaskForm(forms.ModelForm):
-    name = forms.CharField(max_length=100, label='Task Name', required=True, widget=forms.TextInput(attrs={
+    category = forms.Select()
+    name = forms.CharField(max_length=100, label='Task Name', required=False, widget=forms.TextInput(attrs={
         'id': 'category-task-name',
         'label': 'required',
         'type': 'text',
         'placeholder': 'Task Name'
     }))
 
-    description = forms.CharField(max_length=1000, label='Task Description', required=True,
+    description = forms.CharField(max_length=1000, label='Task Description', required=False,
                                   widget=forms.Textarea(attrs={
                                       'id': 'category-task-description',
                                       'label': 'required',

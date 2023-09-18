@@ -3,7 +3,7 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<div class="side-content categories-wrapper">
+<div class="side-content categories-wrapper" xmlns="http://www.w3.org/1999/html">
     <aside>
         <h4 class="sidebar-title categories-title">Categories</h4>
         {% if categories %}
@@ -35,40 +35,18 @@
             {% if not tasks %}
             <p class="no-items-message">No items in the current list. Add new ones.</p>
             {% else %}
-
-
-<!--            <form class="login-form" method="post" action="">-->
-<!--                {% csrf_token %}-->
-<!--                <div class="form-row">-->
-<!--                    <div class="input-wrapper">-->
-<!--                        <input type="text" placeholder="Task Name">-->
-<!--                    </div>-->
-
-<!--                    <div class="input-wrapper">-->
-<!--                        <textarea placeholder="Task Description"></textarea>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-
-<!--                <div class="submit-row">-->
-<!--                    <button class="btn" type="submit">-->
-<!--                        <i class="ri-login-circle-line"></i>-->
-<!--                        Add Task-->
-<!--                    </button>-->
-<!--                </div>-->
-
-<!--            </form>-->
-
-
             {% for task in tasks %}
+            {% if task.category == category %}
             <ul class="tasks-list">
                 <li> {{ task.name }}</li>
             </ul>
+            {% endif %}
             {% endfor %}
             {% endif %}
         </div>
         {% endfor %}
         {% endif %}
     </div>
+
 </div>
 {% endblock %}
