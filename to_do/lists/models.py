@@ -9,6 +9,9 @@ class Category(models.Model):
     def __str__(self):
         return self.category
 
+    class Meta:
+        ordering = ['-id']
+
 
 class Task(models.Model):
     category = models.ForeignKey(to=Category, on_delete=models.CASCADE)
@@ -17,3 +20,6 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ['-id']
