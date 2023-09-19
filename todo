@@ -1,5 +1,4 @@
 Hubert:
-- usuniecie z walidacji niemozliwosci podobienstwa hasla do loginu
 - żeby klasa errorlist się generowała automatycznie
 - paginacja powinna być w .category-content a nie globalnie
 
