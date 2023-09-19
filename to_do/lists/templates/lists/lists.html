@@ -32,9 +32,8 @@
         {% for category in categories %}
         <div class="category-content" data-id="{{ category.id }}">
             <h3 class="category-title">{{ category }}</h3>
-            {% if not tasks %}
-            <p class="no-items-message">No items in the current list. Add new ones.</p>
-            {% else %}
+
+            {% if tasks %}
             {% for task in tasks %}
             {% if task.category == category %}
             <ul class="tasks-list">
@@ -43,8 +42,11 @@
             {% endif %}
             {% endfor %}
             {% endif %}
+
         </div>
         {% endfor %}
+        {% else %}
+        <p class="no-items-message">No items in the current list. Add new ones.</p>
         {% endif %}
     </div>
 </div>
