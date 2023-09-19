@@ -5,6 +5,9 @@ from django.core.validators import ValidationError
 
 
 class RegistrationForm(UserCreationForm):
+    error_css_class = 'errorlist'
+    required_css_class = 'required'
+
     username = forms.CharField(max_length=255, label='Username', required=True,
                                widget=forms.TextInput(attrs={
                                    'id': 'register-user-name',
