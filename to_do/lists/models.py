@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import User
+from django.utils.timezone import now
 
 
 class Category(models.Model):
@@ -15,6 +16,7 @@ class Category(models.Model):
 
 class Task(models.Model):
     category = models.ForeignKey(to=Category, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=now)
     name = models.CharField(max_length=100, blank=False, null=False, default='')
     description = models.TextField(max_length=1000, blank=False, null=False, default='')
 
@@ -22,4 +24,4 @@ class Task(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['id']
+        ordering = ['created_at']
