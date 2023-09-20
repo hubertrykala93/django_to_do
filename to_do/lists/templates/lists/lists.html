@@ -37,12 +37,11 @@
             {% for task in tasks %}
             {% if task.category == category %}
             <ul class="tasks-list">
-                <li> {{ task.name }}</li>
+                <li>{{ task.name }}</li>
             </ul>
             {% endif %}
             {% endfor %}
             {% endif %}
-
         </div>
         {% endfor %}
         {% else %}
