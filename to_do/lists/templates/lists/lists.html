@@ -37,7 +37,9 @@
             {% for task in tasks %}
             {% if task.category == category %}
             <ul class="tasks-list">
-                <li>{{ task.name }}</li>
+                <a href="{% url 'task-details' task.id %}">
+                    <li>{{ task.name }}</li>
+                </a>
             </ul>
             {% endif %}
             {% endfor %}

@@ -1,0 +1,11 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<br>
+<p>Task Created At: {{ task.created_at }} </p>
+<p>Task Category: {{ task.category }}. </p>
+<p>Task Name: {{ task.name }}</p><br>
+<p>Task Description: {{ task.description }}</p><br>
+{% endblock %}

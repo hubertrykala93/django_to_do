@@ -13,3 +13,12 @@ def lists(request):
         'categories': categories,
         'tasks': tasks
     })
+
+
+def task_details(request, pk):
+    task = Task.objects.get(pk=pk)
+
+    return render(request=request, template_name='lists/task-details.html', context={
+        'title': 'Task Details',
+        'task': task
+    })
