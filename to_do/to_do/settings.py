@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_sass',
     'compressor',
     'sass_processor',
+    'django_ajax',
     'core',
     'accounts',
     'lists',
