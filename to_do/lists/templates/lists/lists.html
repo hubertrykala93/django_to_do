@@ -33,13 +33,63 @@
         <div class="category-content" data-id="{{ category.id }}">
             <h3 class="category-title">{{ category }}</h3>
 
+            <div id="user-form">
+                <form class="register-form" method="post" action="">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="input-wrapper">
+                            <label>{{ task_form.category.label }}</label>
+                            {{ task_form.category }}
+                            {% if task_form.category.errors %}
+                            <ul class="errorlist">
+                                {% for error in task_form.category.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-wrapper">
+                            <label>{{ task_form.name.label }}</label>
+                            {{ task_form.name }}
+                            {% if task_form.name.errors %}
+                            <ul class="errorlist">
+                                {% for error in task_form.name.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-wrapper">
+                            <label>{{ task_form.description.label }}</label>
+                            {{ task_form.description }}
+                            {% if task_form.description.errors %}
+                            <ul class="errorlist">
+                                {% for error in task_form.description.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="submit-row">
+                        <button class="btn" type="submit" name="{{ task_form.prefix }}">Add Item</button>
+                    </div>
+
+                </form>
+            </div>
+
             {% if tasks %}
             {% for task in tasks %}
             {% if task.category == category %}
             <ul class="tasks-list">
-                <a href="{% url 'task-details' task.id %}">
-                    <li>{{ task.name }}</li>
-                </a>
+                <li>{{ task.name }}</li>
             </ul>
             {% endif %}
             {% endfor %}

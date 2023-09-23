@@ -5,9 +5,6 @@ from django.core.validators import ValidationError
 
 
 class RegistrationForm(UserCreationForm):
-    error_css_class = 'errorlist'
-    required_css_class = 'required'
-
     username = forms.CharField(max_length=255, label='Username', required=True,
                                widget=forms.TextInput(attrs={
                                    'id': 'register-user-name',
@@ -41,10 +38,6 @@ class RegistrationForm(UserCreationForm):
                                     'placeholder': 'Confirm Password'
                                 }))
 
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
-
     def clean_username(self):
         username = self.cleaned_data['username']
 
@@ -60,6 +53,10 @@ class RegistrationForm(UserCreationForm):
             raise ValidationError(message='The user with this address e-mail already exists.')
 
         return email
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
 
 
 class UserUpdateForm(forms.ModelForm):

@@ -1,5 +1,6 @@
 from django import forms
 from .models import Category, Task
+from django.core.validators import ValidationError
 
 
 class CategoryForm(forms.ModelForm):
@@ -17,14 +18,14 @@ class CategoryForm(forms.ModelForm):
 
 class TaskForm(forms.ModelForm):
     category = forms.Select()
-    name = forms.CharField(max_length=100, label='Task Name', required=False, widget=forms.TextInput(attrs={
+    name = forms.CharField(max_length=100, label='Task Name', required=True, widget=forms.TextInput(attrs={
         'id': 'category-task-name',
         'label': 'required',
         'type': 'text',
         'placeholder': 'Task Name'
     }))
 
-    description = forms.CharField(max_length=1000, label='Task Description', required=False,
+    description = forms.CharField(max_length=1000, label='Task Description', required=True,
                                   widget=forms.Textarea(attrs={
                                       'id': 'category-task-description',
                                       'label': 'required',
@@ -34,4 +35,4 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = '__all__'
+        fields = ['category', 'name', 'description']
