@@ -1,0 +1,8 @@
+<form class="add-to-category-form" method="post" action="{% url 'add-category' %}">
+    {% csrf_token %}
+    <input type="text" id="add-category-name" name="category" placeholder="Category name">
+    <button class="btn add-new-category-btn" type="submit">
+        <i class="ri-add-box-line"></i>
+        Add Category
+    </button>
+</form>
