@@ -55,7 +55,7 @@
         <i class="ri-close-line"></i>
     </div>
 
-    <form class="add-to-category-form" method="post" action="{% url 'lists' %}">
+    <form class="add-to-category-form" method="post" action=".">
         {% csrf_token %}
         <input type="text" id="add-category-name" name="category" placeholder="Category name">
         <button class="btn add-new-category-btn" type="submit">

@@ -32,3 +32,25 @@ def lists(request):
         'tasks': tasks,
         'category_form': category_form
     })
+
+# @login_required
+# def lists(request):
+#     categories = Category.objects.filter(user=request.user)
+#     tasks = Task.objects.all()
+#
+#     category = request.POST.get('category', None)
+#     print(category)
+#
+#     if Category.objects.filter(category=category).exists():
+#         messages.info(request=request, message='This category already exists.')
+#     else:
+#         Category.objects.create(user=request.user, category=category)
+#
+#         messages.success(request=request,
+#                          message=f"Category {request.POST.get('category').title()} has been added successfully.")
+#
+#     return render(request=request, template_name='lists/lists.html', context={
+#         'title': 'Lists',
+#         'categories': categories,
+#         'tasks': tasks
+#     })
