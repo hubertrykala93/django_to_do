@@ -616,7 +616,7 @@ form .errorlist {
     right: 30px;
     top: 30px; }
   .app-container > .row {
-    min-height: 650px; }
+    max-height: 650px; }
   #header {
     height: 60px; }
     #header .logo a span {
@@ -648,7 +648,8 @@ form .errorlist {
       margin: 0 var(--padding-400) 0 0;
       flex: 0 0 220px; }
     .side-content .side-content-body {
-      flex-grow: 1; }
+      flex-grow: 1;
+      overflow-y: auto; }
   form .form-row .input-wrapper {
     flex: 1;
     margin-top: 0; } }

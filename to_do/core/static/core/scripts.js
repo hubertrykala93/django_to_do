@@ -105,7 +105,7 @@ if(tabsElement){
 
 
 //add to do category
-const addCategoryBtn = document.querySelector('.add-category-btn')
+const addCategoryBtn = document.querySelector('.add-category-btnc')
 
 if(addCategoryBtn){
     addCategoryBtn.addEventListener('click', ()=> {

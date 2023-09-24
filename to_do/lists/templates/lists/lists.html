@@ -33,58 +33,6 @@
         <div class="category-content" data-id="{{ category.id }}">
             <h3 class="category-title">{{ category }}</h3>
 
-            <div id="user-form">
-                <form class="register-form" method="post" action="">
-                    {% csrf_token %}
-                    <div class="form-row">
-                        <div class="input-wrapper">
-                            <label>{{ task_form.category.label }}</label>
-                            {{ task_form.category }}
-                            {% if task_form.category.errors %}
-                            <ul class="errorlist">
-                                {% for error in task_form.category.errors %}
-                                <li>{{ error }}</li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="input-wrapper">
-                            <label>{{ task_form.name.label }}</label>
-                            {{ task_form.name }}
-                            {% if task_form.name.errors %}
-                            <ul class="errorlist">
-                                {% for error in task_form.name.errors %}
-                                <li>{{ error }}</li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="input-wrapper">
-                            <label>{{ task_form.description.label }}</label>
-                            {{ task_form.description }}
-                            {% if task_form.description.errors %}
-                            <ul class="errorlist">
-                                {% for error in task_form.description.errors %}
-                                <li>{{ error }}</li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                        </div>
-                    </div>
-
-                    <div class="submit-row">
-                        <button class="btn" type="submit" name="{{ task_form.prefix }}">Add Item</button>
-                    </div>
-
-                </form>
-            </div>
-
             {% if tasks %}
             {% for task in tasks %}
             {% if task.category == category %}
@@ -101,4 +49,20 @@
         {% endif %}
     </div>
 </div>
+
+<div class="add-category-popup-container">
+    <div id="close-add-category-popup">
+        <i class="ri-close-line"></i>
+    </div>
+
+    <form class="add-to-category-form" method="post" action="{% url 'lists' %}">
+        {% csrf_token %}
+        <input type="text" id="add-category-name" name="category" placeholder="Category name">
+        <button class="btn add-new-category-btn" type="submit">
+            <i class="ri-add-box-line"></i>
+            Add Category
+        </button>
+    </form>
+</div>
+
 {% endblock %}

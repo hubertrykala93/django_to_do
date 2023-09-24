@@ -11,7 +11,7 @@ class Category(models.Model):
         return self.category
 
     class Meta:
-        ordering = ['category']
+        ordering = ['-id']
 
 
 class Task(models.Model):

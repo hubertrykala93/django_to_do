@@ -858,7 +858,7 @@ form {
 
     .app-container{
         > .row{
-            min-height: 650px;
+            max-height: 650px;
         }
     }
 
@@ -925,6 +925,7 @@ form {
 
         .side-content-body{
             flex-grow: 1;
+            overflow-y: auto;
         }
     }
 

@@ -1,10 +1,9 @@
 from django import forms
 from .models import Category, Task
-from django.core.validators import ValidationError
 
 
 class CategoryForm(forms.ModelForm):
-    category = forms.CharField(max_length=100, label='Category', required=True, widget=forms.TextInput(attrs={
+    category = forms.CharField(max_length=100, label='Category', required=False, widget=forms.TextInput(attrs={
         'id': 'user-category',
         'label': 'required',
         'type': 'text',

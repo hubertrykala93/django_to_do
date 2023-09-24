@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from .models import Category, Task
 from django.contrib.auth.decorators import login_required
-from .forms import TaskForm
+from .forms import TaskForm, CategoryForm
 from django.contrib import messages
+from django.http import JsonResponse
 
 
 @login_required
@@ -11,24 +12,24 @@ def lists(request):
     tasks = Task.objects.all()
 
     if request.method == 'POST':
-        task_form = TaskForm(data=request.POST, prefix='user-task')
+        category_form = CategoryForm(data=request.POST)
 
-        if task_form.is_valid():
-            task_form.save()
+        if category_form.is_valid():
+            category = category_form.save(commit=False)
+            category.user = request.user
+            category.save()
 
-            messages.success(request=request, message='Your task has been added successfully.')
-
-            return redirect(to='lists')
+            messages.success(request=request, message='Your category has been added successfully.')
 
         else:
-            messages.error(request=request, message='Your task has not been added successfully.')
+            messages.error(request=request, message='Your category has not been added successfully')
 
     else:
-        task_form = TaskForm(prefix='user-task')
+        category_form = CategoryForm()
 
     return render(request=request, template_name='lists/lists.html', context={
         'title': 'Lists',
         'categories': categories,
         'tasks': tasks,
-        'task_form': task_form
+        'category_form': category_form
     })
