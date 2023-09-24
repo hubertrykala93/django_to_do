@@ -703,9 +703,13 @@ form {
     left: 0;
     top: 0;
     background-color: #000000ab;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
+
+   &.active{
+        display: flex;
+   }
 
     .add-category-popup-container {
         width: 100%;
@@ -858,12 +862,14 @@ form {
 
     .app-container{
         > .row{
+            height: 100%;
             max-height: 650px;
         }
     }
 
     #header {
-        height: 60px;
+        flex: 0 0 60px;
+        height: unset;
 
         .logo a {
             span{

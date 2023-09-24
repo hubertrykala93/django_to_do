@@ -508,9 +508,11 @@ form .errorlist {
   left: 0;
   top: 0;
   background-color: #000000ab;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center; }
+  .add-category-popup-wrapper.active {
+    display: flex; }
   .add-category-popup-wrapper .add-category-popup-container {
     width: 100%;
     max-width: 350px;
@@ -616,9 +618,11 @@ form .errorlist {
     right: 30px;
     top: 30px; }
   .app-container > .row {
+    height: 100%;
     max-height: 650px; }
   #header {
-    height: 60px; }
+    flex: 0 0 60px;
+    height: unset; }
     #header .logo a span {
       display: block; }
     #header #nav {
