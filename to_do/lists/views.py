@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from .models import Category, Task
 from django.contrib.auth.decorators import login_required
-from .forms import TaskForm, CategoryForm
+from .forms import CategoryForm
 from django.contrib import messages
-from django.http import JsonResponse
 
 
 @login_required
