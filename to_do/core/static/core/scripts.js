@@ -158,7 +158,7 @@ if(toDoListWrapper){
 //JSON TEST
 
 $( document ).ready(function() {
-    console.log( "ready!" );
+    console.log( "jquery działa!" );
 });
 
 const getJson = document.querySelector('#get-json')
@@ -167,20 +167,18 @@ const getJson = document.querySelector('#get-json')
 if(getJson){
     function getJsonFun(){
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "data.json", false);
+        xhr.open("GET", "https://jsonplaceholder.typicode.com/posts", true);
 
         xhr.onload = () => {
             if ( xhr.status === 200){
               let data = JSON.parse(xhr.responseText)
-              alert(data)
-              console.log(data.name)
+              alert(data[1].userId)
             }
         }
 
         xhr.send();
     }
     getJson.addEventListener('click', getJsonFun)
-
 }
 
 
