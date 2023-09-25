@@ -3,11 +3,6 @@ from .models import Category, Task
 from django.contrib.auth.decorators import login_required
 from .forms import CategoryForm
 from django.contrib import messages
-from django.http import HttpResponse
-
-
-def is_ajax(request):
-    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
 
 @login_required
