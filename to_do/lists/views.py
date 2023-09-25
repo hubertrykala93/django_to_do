@@ -3,6 +3,11 @@ from .models import Category, Task
 from django.contrib.auth.decorators import login_required
 from .forms import CategoryForm
 from django.contrib import messages
+from django.http import HttpResponse
+
+
+def is_ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
 
 @login_required
@@ -10,14 +15,6 @@ def lists(request):
     categories = Category.objects.filter(user=request.user)
     tasks = Task.objects.all()
 
-    return render(request=request, template_name='lists/lists.html', context={
-        'title': 'Lists',
-        'categories': categories,
-        'tasks': tasks,
-    })
-
-
-def add_category(request):
     if request.method == 'POST':
         category_form = CategoryForm(data=request.POST)
 
@@ -29,13 +26,23 @@ def add_category(request):
 
                 messages.success(request=request, message='Your category has been added successfully.')
 
+                return redirect(to='lists')
+
             else:
                 messages.error(request=request, message='Your category has not been added successfully.')
 
         else:
             messages.info(request=request, message=f"Category {request.POST.get('category', None)} already exists.")
 
-    return redirect(to='lists')
+    else:
+        category_form = CategoryForm()
+
+    return render(request=request, template_name='lists/lists.html', context={
+        'title': 'Lists',
+        'categories': categories,
+        'tasks': tasks,
+        'category_form': category_form
+    })
 
 
 def delete_category(request, pk):
