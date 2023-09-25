@@ -155,7 +155,33 @@ if(toDoListWrapper){
 
 
 
+//JSON TEST
 
+$( document ).ready(function() {
+    console.log( "ready!" );
+});
+
+const getJson = document.querySelector('#get-json')
+
+
+if(getJson){
+    function getJsonFun(){
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "data.json", false);
+
+        xhr.onload = () => {
+            if ( xhr.status === 200){
+              let data = JSON.parse(xhr.responseText)
+              alert(data)
+              console.log(data.name)
+            }
+        }
+
+        xhr.send();
+    }
+    getJson.addEventListener('click', getJsonFun)
+
+}
 
 
 
