@@ -153,11 +153,21 @@ if(toDoListWrapper){
     })
 }
 
+$(form).on('submit', '#category-form', function(e) {
+    e.preventDefault();
 
-
-
-
-
+    $.ajax({
+        type: 'POST',
+        url: '/add-category',
+        data: {
+            category: $('category').val()
+            csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken]")
+        },
+        success: function(data){
+            $('h2').html(data);
+        }
+    });
+});
 
 
 
