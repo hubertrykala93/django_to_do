@@ -14,6 +14,7 @@ html {
     --padding-500: 20px;
 
     /*-----Other-----*/
+    --radius-100: 5px;
     --radius-400: 5px;
     --radius-500: 8px;
     --radius-600: 15px;
@@ -770,15 +771,18 @@ form {
                 align-items:center;
                 justify-content: center;
                 font-size: 13px;
+                padding: 5px 10px;
+                margin-bottom: 5px;
                 color: var(--placeholder);
-                line-height: 1;
-                margin-bottom: 10px;
+                line-height: 1.3;
+                border-radius: var(--radius-100);
                 cursor: pointer;
                 transition: color .4s;
 
                 &.active{
                     color: var(--primary);
                     font-weight: 700;
+                    background-color: var(--light-bg);
 
                     i{
                         font-weight: 400;
@@ -797,6 +801,7 @@ form {
 
                 &:hover{
                     color: var(--primary-alt);
+                    background-color: var(--light-bg);
 
                     .remove-category{
                         opacity: 1;
@@ -863,6 +868,7 @@ form {
     .app-container{
         > .row{
             height: 100%;
+            min-height: 500px;
             max-height: 650px;
         }
     }
@@ -926,7 +932,8 @@ form {
 
         aside{
             margin: 0 var(--padding-400) 0 0;
-            flex: 0 0 220px;
+            flex: 0 0 250px;
+            overflow-y: auto;
         }
 
         .side-content-body{

@@ -137,10 +137,17 @@ if(toDoListWrapper){
     }
 
     categoriesList.addEventListener('click', e => {
-        if ( e.target.tagName  === "SPAN") {
+        if ( e.target.tagName  === "SPAN" || e.target.tagName  === "LI" ) {
             categoriesList.querySelectorAll('li').forEach(item => {item.classList.remove('active')})
-            e.target.parentElement.classList.add('active')
-            const currentCategoryId = e.target.parentElement.getAttribute('data-id')
+
+            let currentCategoryId
+            if ( e.target.tagName  === "SPAN" ){
+                e.target.parentElement.classList.add('active')
+                currentCategoryId = e.target.parentElement.getAttribute('data-id')
+            } else{
+                e.target.classList.add('active')
+                currentCategoryId = e.target.getAttribute('data-id')
+            }
 
             const allCategoriesContents = toDoListWrapper.querySelectorAll('.to-do-list-contents > .category-content')
             allCategoriesContents.forEach(item => {
@@ -157,17 +164,14 @@ if(toDoListWrapper){
 
 //JSON TEST
 
-//$( document ).ready(function() {
-//    console.log( "jquery działa!" );
-//});
-//
+
 //const getJson = document.querySelector('#get-json')
 //
 //
 //if(getJson){
 //    function getJsonFun(){
 //        const xhr = new XMLHttpRequest();
-//        xhr.open("GET", "https://jsonplaceholder.typicode.com/posts", true);
+//        xhr.open("GET", "data.json", true);
 //
 //        xhr.onload = () => {
 //            if ( xhr.status === 200){

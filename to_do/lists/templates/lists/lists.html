@@ -28,22 +28,80 @@
     </aside>
 
     <div class="side-content-body to-do-list-contents categories-content-body">
-        <!--        <button id="get-json">Get Json Object</button>-->
         {% if categories %}
         {% for category in categories %}
         <div class="category-content" data-id="{{ category.id }}">
             <h3 class="category-title">{{ category }}</h3>
 
+            <div class="add-task-form-wrapper">
+                <button class="btn" type="submit">
+                    <i class="ri-add-line"></i>
+                    Add new item
+                </button>
+
+                <form class="add-task-form" id="add-task" method="post" action="">
+                    <div class="form-row">
+                        <div class="input-wrapper">
+                            <input type="text" id="add-task-name" placeholder="Task name">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-wrapper">
+                            <textarea id="add-task-description" placeholder="Task description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="submit-row">
+                        <button class="btn" type="submit">
+                            <i class="ri-play-list-add-line"></i>
+                            Add item
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
             {% if tasks %}
             {% for task in tasks %}
             {% if task.category == category %}
-            <ul class="tasks-list">
-                <li>{{ task.name }}</li>
-            </ul>
+
+            <div class="tasks-list">
+                <div class="task-wrapper">
+                    <div class="task-header">
+                        <span class="task-name">
+                            {{ task.name }}
+                        </span>
+
+                        <div class="task-icons">
+                            <button class="show-task-details">
+                                <i class="ri-corner-down-left-line"></i>
+                            </button>
+
+                            <button class="edit-task">
+                                <i class="ri-edit-2-line"></i>
+                            </button>
+
+                            <button class="delete-task">
+                                <i class="ri-delete-bin-line"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="task-details">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ea exercitationem
+                        impedit inventore labore maiores nam obcaecati repudiandae vitae voluptatem.
+                    </div>
+
+
+                </div>
+            </div>
+
             {% endif %}
             {% endfor %}
             {% endif %}
         </div>
+
         {% endfor %}
         {% else %}
         <p class="no-items-message">No items in the current list. Add new ones.</p>
