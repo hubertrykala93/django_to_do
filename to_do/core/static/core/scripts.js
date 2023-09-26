@@ -157,34 +157,44 @@ if(toDoListWrapper){
 
 //JSON TEST
 
-$( document ).ready(function() {
-    console.log( "jquery działa!" );
-});
+//$( document ).ready(function() {
+//    console.log( "jquery działa!" );
+//});
+//
+//const getJson = document.querySelector('#get-json')
+//
+//
+//if(getJson){
+//    function getJsonFun(){
+//        const xhr = new XMLHttpRequest();
+//        xhr.open("GET", "https://jsonplaceholder.typicode.com/posts", true);
+//
+//        xhr.onload = () => {
+//            if ( xhr.status === 200){
+//              let data = JSON.parse(xhr.responseText)
+//              alert(data[1].userId)
+//            }
+//        }
+//
+//        xhr.send();
+//    }
+//    getJson.addEventListener('click', getJsonFun)
+//}
 
-const getJson = document.querySelector('#get-json')
+//ajax category-form
 
-
-if(getJson){
-    function getJsonFun(){
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", "https://jsonplaceholder.typicode.com/posts", true);
-
-        xhr.onload = () => {
-            if ( xhr.status === 200){
-              let data = JSON.parse(xhr.responseText)
-              alert(data[1].userId)
-            }
+$('#category-form').on('submit', function (e){
+    e.preventDefault();
+        console.log('seks ze starą')
+    $.ajax({
+        type: 'POST',
+        url: '/add-category',
+        data: {
+            category: $('input[name=category]').val(),
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+        },
+        success: function(data){
+            console.log(data);
         }
-
-        xhr.send();
-    }
-    getJson.addEventListener('click', getJsonFun)
-}
-
-
-
-
-
-
-
-
+    });
+});

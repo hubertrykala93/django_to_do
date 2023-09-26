@@ -28,7 +28,7 @@
     </aside>
 
     <div class="side-content-body to-do-list-contents categories-content-body">
-        <button id="get-json">Get Json Object</button>
+        <!--        <button id="get-json">Get Json Object</button>-->
         {% if categories %}
         {% for category in categories %}
         <div class="category-content" data-id="{{ category.id }}">
@@ -57,8 +57,7 @@
             <i class="ri-close-line"></i>
         </div>
 
-
-        <form class="add-to-category-form" id="category-form" method="post" action="{% url 'lists' %}">
+        <form class="add-to-category-form" id="category-form" method="post" action="{% url 'add-category' %}">
             {% csrf_token %}
             <input type="text" id="add-category-name" name="category" placeholder="Category name">
             <button class="btn add-new-category-btn" type="submit">
