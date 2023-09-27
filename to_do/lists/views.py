@@ -1,7 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from .models import Category, Task
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 
 
