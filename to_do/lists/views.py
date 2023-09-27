@@ -31,10 +31,3 @@ def add_category(request):
             messages.success(request=request, message=f'Category {category_name} has been created successfully.')
 
         return HttpResponse(content='')
-
-
-def delete_category(request, pk):
-    category = Category.objects.get(pk=pk)
-    category.delete()
-
-    return redirect(to='lists')
