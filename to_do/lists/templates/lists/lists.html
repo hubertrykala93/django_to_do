@@ -34,21 +34,23 @@
             <h3 class="category-title">{{ category }}</h3>
 
             <div class="add-task-form-wrapper">
-                <button class="btn" type="submit">
+                <button class="btn" type="submit" name="category_id">
                     <i class="ri-add-line"></i>
                     Add new item
                 </button>
 
-                <form class="add-task-form" id="add-task" method="post" action="">
+                <form class="add-task-form" id="add-task" method="post" action="{% url 'add-task' %}">
+                    {% csrf_token %}
                     <div class="form-row">
                         <div class="input-wrapper">
-                            <input type="text" id="add-task-name" placeholder="Task name">
+                            <input type="text" id="add-task-name" name="task-name" placeholder="Task name">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="input-wrapper">
-                            <textarea id="add-task-description" placeholder="Task description"></textarea>
+                            <textarea id="add-task-description" name="task-description"
+                                      placeholder="Task description"></textarea>
                         </div>
                     </div>
 
@@ -70,7 +72,7 @@
                 <div class="task-wrapper">
                     <div class="task-header">
                         <span class="task-name">
-                            {{ task.name }}
+                            Name: {{ task.name }}
                         </span>
 
                         <div class="task-icons">
@@ -89,8 +91,8 @@
                     </div>
 
                     <div class="task-details">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta ea exercitationem
-                        impedit inventore labore maiores nam obcaecati repudiandae vitae voluptatem.
+                        Created at: {{ task.created_at }}
+                        Description: {{ task.description }}
                     </div>
 
 
