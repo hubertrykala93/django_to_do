@@ -704,13 +704,9 @@ form {
     left: 0;
     top: 0;
     background-color: #000000ab;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
-
-   &.active{
-        display: flex;
-   }
 
     .add-category-popup-container {
         width: 100%;
@@ -769,11 +765,11 @@ form {
             li{
                 display: inline-flex;
                 align-items:center;
-                justify-content: center;
                 font-size: 13px;
                 padding: 5px 10px;
                 margin-bottom: 5px;
                 color: var(--placeholder);
+                text-align: left;
                 line-height: 1.3;
                 border-radius: var(--radius-100);
                 cursor: pointer;
@@ -789,21 +785,32 @@ form {
                     }
                 }
 
-                .remove-category{
+                .buttons{
+                    margin-left: auto;
+                }
+
+                button{
                     margin-left: 5px;
                     background-color: transparent;
-                    color: var(--error-color);
                     border: none;
                     opacity: 0;
                     transition: opacity .4s;
                     cursor: pointer;
                 }
 
+                .remove-category{
+                    color: var(--error-color);
+                }
+
+                .edit-category{
+                    color: var(--primary);
+                }
+
                 &:hover{
                     color: var(--primary-alt);
                     background-color: var(--light-bg);
 
-                    .remove-category{
+                    button{
                         opacity: 1;
                     }
                 }
@@ -835,6 +842,15 @@ form {
             font-weight: 500;
             margin-bottom: 25px;
             color: var(--black);
+        }
+
+        .add-task-form-wrapper{
+
+            .add-task-form{
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height .4s;
+            }
         }
     }
 }

@@ -104,23 +104,62 @@ if(tabsElement){
 }
 
 
+////add to do category
+//const addCategoryBtn = document.querySelector('.add-category-btn')
+//
+//if(addCategoryBtn){
+//    addCategoryBtn.addEventListener('click', ()=> {
+//        const addCategoryPopup = document.querySelector('.add-category-popup-wrapper')
+//        addCategoryPopup.classList.add('active')
+//
+//        const closeAddCategoryPopup = document.querySelector('#close-add-category-popup')
+//        closeAddCategoryPopup.addEventListener('click', ()=> {
+//            addCategoryPopup.classList.remove('active')
+//        })
+//    })
+//}
+
+
 //add to do category
 const addCategoryBtn = document.querySelector('.add-category-btn')
 
 if(addCategoryBtn){
     addCategoryBtn.addEventListener('click', ()=> {
-        const addCategoryPopup = document.querySelector('.add-category-popup-wrapper')
-        addCategoryPopup.classList.add('active')
+        const addCategoryPopup = document.createElement('div')
+        addCategoryPopup.classList.add('add-category-popup-wrapper')
+        addCategoryPopup.innerHTML = `
+            <div class="add-category-popup-container">
+                <div id="close-add-category-popup">
+                    <i class="ri-close-line"></i>
+                </div>
+
+                <form class="add-to-category-form" id="category-form" method="post" action="/add-category">
+                    {% csrf_token %}
+                    <input type="text" id="add-category-name" name="category" placeholder="Category name">
+                    <button class="btn add-new-category-btn" type="submit">
+                        <i class="ri-add-box-line"></i>
+                        Add Category
+                    </button>
+                </form>
+            </div>
+        `
+        document.body.append(addCategoryPopup)
 
         const closeAddCategoryPopup = document.querySelector('#close-add-category-popup')
         closeAddCategoryPopup.addEventListener('click', ()=> {
-            addCategoryPopup.classList.remove('active')
+            document.querySelector('.add-category-popup-wrapper').remove()
         })
+
+        addCategory()
+
     })
+    categoriesFunction()
 }
 
 
-//to do tabs
+//lists, tabs, categories, tasks
+
+function categoriesFunction() {
 
 const toDoListWrapper = document.querySelector('.to-do-list-wrapper')
 
@@ -158,35 +197,35 @@ if(toDoListWrapper){
             })
         }
     })
+    }
 }
 
+//toggle add task form
+function toggleTaskForm(){
+    const listsContents = document.querySelector('.to-do-list-contents')
+    listsContents.addEventListener('click', e => {
+        const target = e.target
+        if ( target.classList.contains('toggle-task-form') ){
 
+            if ( target.nextElementSibling.classList.contains('visible') ){
+                target.nextElementSibling.style.maxHeight = "0px"
+                target.nextElementSibling.classList.remove('visible')
+                return
+            }
+            const contentHeight = target.nextElementSibling.scrollHeight
+            target.nextElementSibling.style.maxHeight = contentHeight + "px"
+            target.nextElementSibling.classList.add('visible')
+        }
+    })
+}
+toggleTaskForm()
 
 //JSON TEST
 
 
-//const getJson = document.querySelector('#get-json')
-//
-//
-//if(getJson){
-//    function getJsonFun(){
-//        const xhr = new XMLHttpRequest();
-//        xhr.open("GET", "data.json", true);
-//
-//        xhr.onload = () => {
-//            if ( xhr.status === 200){
-//              let data = JSON.parse(xhr.responseText)
-//              alert(data[1].userId)
-//            }
-//        }
-//
-//        xhr.send();
-//    }
-//    getJson.addEventListener('click', getJsonFun)
-//}
 
 //ajax add category
-
+function addCategory(){
 $('#category-form').on('submit', function (e){
     e.preventDefault();
         console.log('seks ze starą')
@@ -202,22 +241,23 @@ $('#category-form').on('submit', function (e){
         }
     });
 });
+}
 
 //ajax add task
 
-$('#add-task').on('submit', function (e){
-    e.preventDefault();
-        console.log('seks ze starą')
-    $.ajax({
-        type: 'POST',
-        url: '/add-task',
-        data: {
-            name: $('input[name=task-name]').val(),
-            description: $('input[name=task-description]').val(),
-            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-        },
-        success: function(data){
-            console.log(data);
-        }
-    });
-});
+//$('#add-task').on('submit', function (e){
+//    e.preventDefault();
+//        console.log('seks ze starą')
+//    $.ajax({
+//        type: 'POST',
+//        url: '/add-task',
+//        data: {
+//            name: $('input[name=task-name]').val(),
+//            description: $('input[name=task-description]').val(),
+//            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+//        },
+//        success: function(data){
+//            console.log(data);
+//        }
+//    });
+//});
