@@ -185,7 +185,7 @@ if(toDoListWrapper){
 //    getJson.addEventListener('click', getJsonFun)
 //}
 
-//ajax category-form
+//ajax add category
 
 $('#category-form').on('submit', function (e){
     e.preventDefault();
@@ -203,7 +203,7 @@ $('#category-form').on('submit', function (e){
     });
 });
 
-//ajax task-form
+//ajax add task
 
 $('#add-task').on('submit', function (e){
     e.preventDefault();
