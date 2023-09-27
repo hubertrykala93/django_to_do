@@ -55,7 +55,7 @@ def add_task(request):
                     new_task = Task(category_id=category_id, name=task_name.title(), description=task_description)
                     new_task.save()
 
-            return JsonResponse(data={
-                'valid': True,
-                'message': f"Task '{task_name} for category has been created successfully."
-            })
+                    return JsonResponse(data={
+                        'valid': True,
+                        'message': f"Task '{task_name} for category has been created successfully."
+                    })
