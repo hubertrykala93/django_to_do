@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Category, Task
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 
 
 @login_required
@@ -41,19 +41,21 @@ def add_task(request):
         task_name = request.POST.get('task-name', None)
         task_description = request.POST.get('task-description', None)
 
-        return HttpResponse(content='')
+        if Task.objects.filter(name=task_name).exists():
+            return JsonResponse(data={
+                'valid': False,
+                'message': f"Task '{task_name}' already exists."
+            })
 
-        # new_task = Task(name=task_name, description=task_description)
-        #
-        # if Task.objects.filter(name=task_name).exists():
-        #     return JsonResponse(data={
-        #         'valid': False,
-        #         'message': f"Task '{task_name}' already exists."
-        #     })
-        # else:
-        #     new_task.save()
-        #
-        #     return JsonResponse(data={
-        #         'valid': True,
-        #         'message': f"Task '{task_name} for category has been created successfully."
-        #     })
+        else:
+            for name in request.POST.keys():
+                if name.isnumeric():
+                    category_id = int(name)
+
+                    new_task = Task(category_id=category_id, name=task_name.title(), description=task_description)
+                    new_task.save()
+
+            return JsonResponse(data={
+                'valid': True,
+                'message': f"Task '{task_name} for category has been created successfully."
+            })

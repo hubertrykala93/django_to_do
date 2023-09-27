@@ -202,3 +202,22 @@ $('#category-form').on('submit', function (e){
         }
     });
 });
+
+//ajax task-form
+
+$('#add-task').on('submit', function (e){
+    e.preventDefault();
+        console.log('seks ze starą')
+    $.ajax({
+        type: 'POST',
+        url: '/add-task',
+        data: {
+            name: $('input[name=task-name]').val(),
+            description: $('input[name=task-description]').val(),
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+        },
+        success: function(data){
+            console.log(data);
+        }
+    });
+});

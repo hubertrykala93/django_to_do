@@ -34,13 +34,20 @@
             <h3 class="category-title">{{ category }}</h3>
 
             <div class="add-task-form-wrapper">
-                <button class="btn" type="submit" name="category_id">
+                <button class="btn" type="submit">
                     <i class="ri-add-line"></i>
                     Add new item
                 </button>
 
                 <form class="add-task-form" id="add-task" method="post" action="{% url 'add-task' %}">
                     {% csrf_token %}
+
+                    <div class="form-row">
+                        <div class="input-wrapper">
+                            <input type="hidden" name="{{ category.id }}">
+                        </div>
+                    </div>
+
                     <div class="form-row">
                         <div class="input-wrapper">
                             <input type="text" id="add-task-name" name="task-name" placeholder="Task name">
