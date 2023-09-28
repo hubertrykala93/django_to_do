@@ -44,6 +44,7 @@ def add_category(request):
         })
 
 
+@csrf_exempt
 def edit_category(request):
     if request.method == 'POST':
         id = request.POST.get('cid', None)
