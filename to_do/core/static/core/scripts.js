@@ -232,8 +232,7 @@ $('#category-form').on('submit', function (e){
         type: 'POST',
         url: '/add-category',
         data: {
-            category: $('input[name=category]').val(),
-            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            category: $('input[name=category]').val()
         },
         success: function(data){
             console.log(data);

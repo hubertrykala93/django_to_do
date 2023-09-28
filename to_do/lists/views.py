@@ -44,29 +44,21 @@ def add_category(request):
         })
 
 
-# @csrf_exempt
-# def edit_category(request):
-#     if request.method == 'POST':
-#         id = request.POST.get('id')
-#
-#         category = Category.objects.get(pk=id)
-#
-#         category_data = {
-#             "id": category.id,
-#             "category": category.category
-#         }
-#
-#         return JsonResponse(data={
-#             "valid": True,
-#             "message": "The category has been successfully edited.",
-#             "category_data": category_data
-#         })
-#
-#     else:
-#         return JsonResponse(data={
-#             "valid": False,
-#             "message": "Editing the category failed."
-#         })
-
+@csrf_exempt
 def delete_category(request):
-    pass
+    if request.method == 'POST':
+        id = request.POST.get('data-cid')
+
+        category = Category.objects.get(pk=id)
+        category.delete()
+
+        return JsonResponse(data={
+            "valid": True,
+            "message": f"The '{category.category}' category has been successfully deleted."
+        })
+
+    else:
+        return JsonResponse(data={
+            "valid": False,
+            "message": "The deletion was unsuccessful."
+        })
