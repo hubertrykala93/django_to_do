@@ -13,6 +13,7 @@
                 <span>{{ category }}</span>
 
                 <div class="buttons">
+
                     <button class="remove-category">
                         <i class="ri-delete-bin-line"></i>
                     </button>
@@ -20,6 +21,7 @@
                     <button class="edit-category">
                         <i class="ri-edit-line"></i>
                     </button>
+
                 </div>
             </li>
             {% endfor %}
@@ -46,8 +48,7 @@
                     Add new item
                 </button>
 
-                <form class="add-task-form" id="add-task" method="post" action="{% url 'add-task' %}">
-                    {% csrf_token %}
+                <form class="add-task-form" id="add-task" method="post" action="">
 
                     <div class="form-row">
                         <div class="input-wrapper">
@@ -94,9 +95,11 @@
                                 <i class="ri-corner-down-left-line"></i>
                             </button>
 
+
                             <button class="edit-task">
                                 <i class="ri-edit-2-line"></i>
                             </button>
+
 
                             <button class="delete-task">
                                 <i class="ri-delete-bin-line"></i>
@@ -124,22 +127,4 @@
         {% endif %}
     </div>
 </div>
-
-<!--<div class="add-category-popup-wrapper">-->
-<!--    <div class="add-category-popup-container">-->
-<!--        <div id="close-add-category-popup">-->
-<!--            <i class="ri-close-line"></i>-->
-<!--        </div>-->
-
-<!--        <form class="add-to-category-form" id="category-form" method="post" action="{% url 'add-category' %}">-->
-<!--            {% csrf_token %}-->
-<!--            <input type="text" id="add-category-name" name="category" placeholder="Category name">-->
-<!--            <button class="btn add-new-category-btn" type="submit">-->
-<!--                <i class="ri-add-box-line"></i>-->
-<!--                Add Category-->
-<!--            </button>-->
-<!--        </form>-->
-
-<!--    </div>-->
-<!--</div>-->
 {% endblock %}

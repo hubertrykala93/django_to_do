@@ -134,7 +134,6 @@ if(addCategoryBtn){
                 </div>
 
                 <form class="add-to-category-form" id="category-form" method="post" action="/add-category">
-                    {% csrf_token %}
                     <input type="text" id="add-category-name" name="category" placeholder="Category name">
                     <button class="btn add-new-category-btn" type="submit">
                         <i class="ri-add-box-line"></i>
@@ -242,22 +241,3 @@ $('#category-form').on('submit', function (e){
     });
 });
 }
-
-//ajax add task
-
-//$('#add-task').on('submit', function (e){
-//    e.preventDefault();
-//        console.log('seks ze starą')
-//    $.ajax({
-//        type: 'POST',
-//        url: '/add-task',
-//        data: {
-//            name: $('input[name=task-name]').val(),
-//            description: $('input[name=task-description]').val(),
-//            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-//        },
-//        success: function(data){
-//            console.log(data);
-//        }
-//    });
-//});

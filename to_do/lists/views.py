@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Category, Task
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 
 @login_required
@@ -16,46 +17,56 @@ def lists(request):
     })
 
 
+@csrf_exempt
 def add_category(request):
     if request.method == 'POST':
         category_name = request.POST.get('category', None)
 
-        new_category = Category(user=request.user, category=category_name)
-
         if Category.objects.filter(category=category_name).exists():
             return JsonResponse(data={
-                'valid': False,
-                'message': f'Category {category_name} already exists.'
+                "valid": False,
+                "message": f"Category '{category_name}' already exists."
             })
+
         else:
+            new_category = Category(user=request.user, category=category_name)
             new_category.save()
 
             return JsonResponse(data={
-                'valid': True,
-                'message': f'Category {category_name} has been created successfully.'
+                "valid": True,
+                "message": f"Category '{category_name}' has been created successfully."
             })
 
+    else:
+        return JsonResponse(data={
+            "valid": False,
+            "message": "The addition of a new category was unsuccessful."
+        })
 
-def add_task(request):
-    if request.method == 'POST':
-        task_name = request.POST.get('task-name', None)
-        task_description = request.POST.get('task-description', None)
 
-        if Task.objects.filter(name=task_name).exists():
-            return JsonResponse(data={
-                'valid': False,
-                'message': f"Task '{task_name}' already exists."
-            })
+# @csrf_exempt
+# def edit_category(request):
+#     if request.method == 'POST':
+#         id = request.POST.get('id')
+#
+#         category = Category.objects.get(pk=id)
+#
+#         category_data = {
+#             "id": category.id,
+#             "category": category.category
+#         }
+#
+#         return JsonResponse(data={
+#             "valid": True,
+#             "message": "The category has been successfully edited.",
+#             "category_data": category_data
+#         })
+#
+#     else:
+#         return JsonResponse(data={
+#             "valid": False,
+#             "message": "Editing the category failed."
+#         })
 
-        else:
-            for name in request.POST.keys():
-                if name.isnumeric():
-                    category_id = int(name)
-
-                    new_task = Task(category_id=category_id, name=task_name.title(), description=task_description)
-                    new_task.save()
-
-                    return JsonResponse(data={
-                        'valid': True,
-                        'message': f"Task '{task_name} for category has been created successfully."
-                    })
+def delete_category(request):
+    pass
