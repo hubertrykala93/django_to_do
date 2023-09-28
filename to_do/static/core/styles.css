@@ -502,7 +502,7 @@ form .errorlist {
   width: auto; }
 
 /*-----To do page-----*/
-.add-category-popup-wrapper {
+.lists-popup-wrapper {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -512,14 +512,14 @@ form .errorlist {
   display: flex;
   align-items: center;
   justify-content: center; }
-  .add-category-popup-wrapper .add-category-popup-container {
+  .lists-popup-wrapper .lists-popup-container {
     width: 100%;
     max-width: 350px;
     background-color: var(--white);
     padding: var(--padding-400);
     border-radius: var(--radius-500);
     position: relative; }
-  .add-category-popup-wrapper #close-add-category-popup {
+  .lists-popup-wrapper #close-lists-popup {
     position: absolute;
     display: flex;
     align-items: center;
@@ -533,7 +533,7 @@ form .errorlist {
     height: 30px;
     color: white;
     cursor: pointer; }
-  .add-category-popup-wrapper input {
+  .lists-popup-wrapper input {
     width: 100%;
     height: 35px;
     font-family: inherit;
@@ -545,7 +545,12 @@ form .errorlist {
     border: 1px solid transparent;
     border-radius: var(--radius-400);
     margin-bottom: 15px; }
-  .add-category-popup-wrapper button {
+  .lists-popup-wrapper .error {
+    color: var(--error-color);
+    font-size: 11px; }
+    .lists-popup-wrapper .error.active {
+      margin-bottom: 15px; }
+  .lists-popup-wrapper button {
     width: 100%; }
 
 .categories-wrapper aside .categories-list {

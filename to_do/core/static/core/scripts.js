@@ -103,63 +103,105 @@ if(tabsElement){
     })
 }
 
+//lists component
 
-////add to do category
-//const addCategoryBtn = document.querySelector('.add-category-btn')
-//
-//if(addCategoryBtn){
-//    addCategoryBtn.addEventListener('click', ()=> {
-//        const addCategoryPopup = document.querySelector('.add-category-popup-wrapper')
-//        addCategoryPopup.classList.add('active')
-//
-//        const closeAddCategoryPopup = document.querySelector('#close-add-category-popup')
-//        closeAddCategoryPopup.addEventListener('click', ()=> {
-//            addCategoryPopup.classList.remove('active')
-//        })
-//    })
-//}
+//add category to DOM and close popup
+function addCategoryToDOM(categoryName){
+    console.log(categoryName)
+    const categoriesList = document.querySelector('.categories-list')
+    const newListItem = document.createElement('li')
+    newListItem.innerHTML = `
+        <span>${categoryName}</span>
 
+        <div class="buttons">
 
-//add to do category
-const addCategoryBtn = document.querySelector('.add-category-btn')
+            <button class="remove-category" data-cid="{{ category.id }}">
+                <i class="ri-delete-bin-line"></i>
+            </button>
 
-if(addCategoryBtn){
-    addCategoryBtn.addEventListener('click', ()=> {
-        const addCategoryPopup = document.createElement('div')
-        addCategoryPopup.classList.add('add-category-popup-wrapper')
-        addCategoryPopup.innerHTML = `
-            <div class="add-category-popup-container">
-                <div id="close-add-category-popup">
+            <button class="edit-category" data-cid="{{ category.id }}">
+                <i class="ri-edit-line"></i>
+            </button>
+
+        </div>
+    `
+
+    categoriesList.prepend(newListItem)
+}
+
+//ajax add category
+function addCategoryAjax(){
+$('#category-form').on('submit', function (e){
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '/add-category',
+        data: {
+            category: $('input[name=category]').val()
+        },
+        success: function(data){
+            if( data.valid ){
+                addCategoryToDOM($('input[name=category]').val())
+                document.querySelector('.lists-popup-wrapper').remove()
+            } else {
+                const formError = document.querySelector('.error')
+                formError.classList.add('active')
+                if(formError){
+                    formError.innerHTML = data.message
+                }
+            }
+        }
+    });
+});
+}
+
+//popup remove
+function removeListPopup(){
+    const closeAddListsPopup = document.querySelector('#close-lists-popup')
+    closeAddListsPopup.addEventListener('click', ()=> {
+        document.querySelector('.lists-popup-wrapper').remove()
+    })
+}
+
+//popup constructor
+function createListPopup(wrapperClass, formClass, formId, method, action, inputId, inputName, inputPlaceholder, btnClass){
+
+    const addListsPopup = document.createElement('div')
+        addListsPopup.classList.add(wrapperClass)
+        addListsPopup.classList.add('lists-popup-wrapper')
+        addListsPopup.innerHTML = `
+            <div class="lists-popup-container">
+                <div id="close-lists-popup">
                     <i class="ri-close-line"></i>
                 </div>
 
-                <form class="add-to-category-form" id="category-form" method="post" action="/add-category">
-                    <input type="text" id="add-category-name" name="category" placeholder="Category name">
-                    <button class="btn add-new-category-btn" type="submit">
+                <form class="${formClass}" id="${formId}" method="${method}" action="${action}">
+                    <input type="text" id="${inputId}" name="${inputName}" placeholder="${inputPlaceholder}">
+                    <div class="error"></div>
+                    <button class="btn ${btnClass}" type="submit">
                         <i class="ri-add-box-line"></i>
                         Add Category
                     </button>
                 </form>
             </div>
         `
-        document.body.append(addCategoryPopup)
+        document.body.append(addListsPopup)
 
-        const closeAddCategoryPopup = document.querySelector('#close-add-category-popup')
-        closeAddCategoryPopup.addEventListener('click', ()=> {
-            document.querySelector('.add-category-popup-wrapper').remove()
-        })
+        removeListPopup()
+}
 
-        addCategory()
-
+//add category btn listener
+const addCategoryBtn = document.querySelector('.add-category-btn')
+if(addCategoryBtn){
+    addCategoryBtn.addEventListener('click', ()=> {
+        createListPopup('add-category-popup-wrapper', 'add-to-category-form', 'category-form', 'post', '/add-category', 'add-category-name', 'category', 'Category name', 'add-new-category-btn')
+        addCategoryAjax()
     })
-    categoriesFunction()
 }
 
 
-//lists, tabs, categories, tasks
-
+//to do categories list behaviour
 function categoriesFunction() {
-
 const toDoListWrapper = document.querySelector('.to-do-list-wrapper')
 
 if(toDoListWrapper){
@@ -198,6 +240,8 @@ if(toDoListWrapper){
     })
     }
 }
+categoriesFunction()
+
 
 //toggle add task form
 function toggleTaskForm(){
@@ -219,24 +263,4 @@ function toggleTaskForm(){
 }
 toggleTaskForm()
 
-//JSON TEST
 
-
-
-//ajax add category
-function addCategory(){
-$('#category-form').on('submit', function (e){
-    e.preventDefault();
-        console.log('seks ze starą')
-    $.ajax({
-        type: 'POST',
-        url: '/add-category',
-        data: {
-            category: $('input[name=category]').val()
-        },
-        success: function(data){
-            console.log(data);
-        }
-    });
-});
-}
