@@ -670,7 +670,8 @@ form .errorlist {
     .side-content aside {
       margin: 0 var(--padding-400) 0 0;
       flex: 0 0 250px;
-      overflow-y: auto; }
+      overflow-y: auto;
+      scroll-behavior: smooth; }
     .side-content .side-content-body {
       flex-grow: 1;
       overflow-y: auto; }

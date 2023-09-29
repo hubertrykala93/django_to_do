@@ -105,21 +105,76 @@ if(tabsElement){
 
 //lists component
 
+//add task content
+function addTaskContentToDOM(categoryId, categoryName) {
+    const categoriesContentsWrapper = document.querySelector('.categories-content-body')
+    const newTaskContent = document.createElement('div')
+    newTaskContent.classList.add('category-content')
+    newTaskContent.setAttribute('data-id', categoryId)
+    newTaskContent.innerHTML = `
+        <h3 class="category-title">${categoryName}</h3>
+
+        <div class="add-task-form-wrapper">
+            <button class="btn toggle-task-form">
+                <i class="ri-add-line"></i>
+                Add new item
+            </button>
+
+            <form class="add-task-form" id="add-task" method="post" action="">
+
+                <div class="form-row">
+                    <div class="input-wrapper">
+                        <input type="hidden" name="${categoryId}">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-wrapper">
+                        <input type="text" id="add-task-name" name="task-name" placeholder="Task name">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-wrapper">
+                        <textarea id="add-task-description" name="task-description"
+                                  placeholder="Task description"></textarea>
+                    </div>
+                </div>
+
+                <div class="submit-row">
+                    <button class="btn" type="submit">
+                        <i class="ri-play-list-add-line"></i>
+                        Add item
+                    </button>
+                </div>
+
+            </form>
+        </div>
+        `
+        categoriesContentsWrapper.prepend(newTaskContent)
+
+        const categoriesContentsItems = document.querySelectorAll('.categories-content-body .category-content')
+        categoriesContentsItems.forEach(item => {
+            item.classList.remove('active')
+        })
+        categoriesContentsItems[0].classList.add('active')
+}
+
 //add category to DOM and close popup
-function addCategoryToDOM(categoryName){
-    console.log(categoryName)
+function addCategoryToDOM(categoryName, categoryId){
     const categoriesList = document.querySelector('.categories-list')
     const newListItem = document.createElement('li')
+    newListItem.setAttribute('data-id', categoryId)
     newListItem.innerHTML = `
         <span>${categoryName}</span>
 
         <div class="buttons">
 
-            <button class="remove-category" data-cid="{{ category.id }}">
+            <button class="remove-category" data-category-id="${categoryId}">
                 <i class="ri-delete-bin-line"></i>
             </button>
 
-            <button class="edit-category" data-cid="{{ category.id }}">
+            <button class="edit-category" data-category-id="${categoryId}">
                 <i class="ri-edit-line"></i>
             </button>
 
@@ -127,6 +182,14 @@ function addCategoryToDOM(categoryName){
     `
 
     categoriesList.prepend(newListItem)
+
+    const categoriesListItems = document.querySelectorAll('.categories-list li')
+    categoriesListItems.forEach(item => {
+        item.classList.remove('active')
+    })
+    categoriesListItems[0].classList.add('active')
+
+    document.querySelector('.to-do-list-wrapper aside').scrollTop = 0;
 }
 
 //ajax add category
@@ -141,7 +204,8 @@ $('#category-form').on('submit', function (e){
         },
         success: function(data){
             if( data.valid ){
-                addCategoryToDOM($('input[name=category]').val())
+                addCategoryToDOM(data.category_name, data.category_id)
+                addTaskContentToDOM(data.category_id, data.category_name)
                 document.querySelector('.lists-popup-wrapper').remove()
             } else {
                 const formError = document.querySelector('.error')

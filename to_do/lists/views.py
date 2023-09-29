@@ -22,21 +22,33 @@ def add_category(request):
     if request.method == 'POST':
         category_name = request.POST.get('category', None)
 
-        if Category.objects.filter(category=category_name).exists():
+        if len(category_name) == 0:
             return JsonResponse(data={
                 "valid": False,
-                "message": f"Category '{category_name}' already exists.",
+                "message": "The category cannot be empty.",
             })
-
-        else:
-            new_category = Category(user=request.user, category=category_name)
-            new_category.save()
-
+        elif not category_name.isalpha():
             return JsonResponse(data={
-                "valid": True,
-                "message": f"Category '{category_name}' has been created successfully.",
-                "category_id": new_category.pk,
+                "valid": False,
+                "message": "The category name must consist of letters only.",
             })
+        else:
+            if Category.objects.filter(category=category_name).exists():
+                return JsonResponse(data={
+                    "valid": False,
+                    "message": f"Category '{category_name}' already exists.",
+                })
+
+            else:
+                new_category = Category(user=request.user, category=category_name)
+                new_category.save()
+
+                return JsonResponse(data={
+                    "valid": True,
+                    "message": f"Category '{category_name}' has been created successfully.",
+                    "category_name": new_category.category,
+                    "category_id": new_category.pk,
+                })
 
     else:
         return JsonResponse(data={
@@ -48,7 +60,7 @@ def add_category(request):
 @csrf_exempt
 def edit_category(request):
     if request.method == 'POST':
-        id = request.POST.get('cid', None)
+        id = request.POST.get('data-category-id', None)
 
         category = Category.objects.get(pk=id)
 
@@ -74,7 +86,7 @@ def edit_category(request):
 @csrf_exempt
 def delete_category(request):
     if request.method == 'POST':
-        id = request.POST.get('cid', None)
+        id = request.POST.get('data-category-id', None)
 
         category = Category.objects.get(pk=id)
         category.delete()

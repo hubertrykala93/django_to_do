@@ -959,6 +959,7 @@ form {
             margin: 0 var(--padding-400) 0 0;
             flex: 0 0 250px;
             overflow-y: auto;
+            scroll-behavior: smooth;
         }
 
         .side-content-body{
