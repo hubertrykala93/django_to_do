@@ -25,7 +25,7 @@ def add_category(request):
         if Category.objects.filter(category=category_name).exists():
             return JsonResponse(data={
                 "valid": False,
-                "message": f"Category '{category_name}' already exists."
+                "message": f"Category '{category_name}' already exists.",
             })
 
         else:
@@ -34,13 +34,14 @@ def add_category(request):
 
             return JsonResponse(data={
                 "valid": True,
-                "message": f"Category '{category_name}' has been created successfully."
+                "message": f"Category '{category_name}' has been created successfully.",
+                "category_id": new_category.pk,
             })
 
     else:
         return JsonResponse(data={
             "valid": False,
-            "message": "The addition of a new category was unsuccessful."
+            "message": "The addition of a new category was unsuccessful.",
         })
 
 
@@ -60,7 +61,7 @@ def edit_category(request):
         return JsonResponse(data={
             'valid': True,
             'message': f"The editing of the '{category.category}' category was successful.",
-            "category_data": category_data
+            "category_data": category_data,
         })
 
     else:
@@ -80,11 +81,11 @@ def delete_category(request):
 
         return JsonResponse(data={
             "valid": True,
-            "message": f"The '{category.category}' category has been successfully deleted."
+            "message": f"The '{category.category}' category has been successfully deleted.",
         })
 
     else:
         return JsonResponse(data={
             "valid": False,
-            "message": "The deletion was unsuccessful."
+            "message": "The deletion was unsuccessful.",
         })
