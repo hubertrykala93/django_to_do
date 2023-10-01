@@ -245,14 +245,43 @@ function removeCategoryAjax(){
                     }
                 });
             }
-
-
-
-
         }
     })
 }
 removeCategoryAjax()
+
+//ajax edit category
+function editCategoryAjax(){
+    const categoriesList = document.querySelector('.categories-list')
+    categoriesList.addEventListener('click', e =>{
+        const target = e.target.parentElement
+        if ( target.classList.contains('edit-category') ){
+            const currentItemId = target.parentElement.parentElement.getAttribute('data-id')
+            createListPopup('edit-category-popup-wrapper', 'edit-category-form', 'edit-form', 'post', '/edit-category', 'edit-category-name', 'categoryId', 'Category name', 'edit-category-btn')
+
+            $('#edit-form').on('submit', function (e){
+                console.log('xdxd')
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '/edit-category',
+                    data: {
+                        categoryId: $('input[name=categoryId]').val()
+                    },
+                    success: function(data){
+                        if( data.valid ){
+
+                        } else {
+
+                        }
+                    }
+                });
+            });
+
+        }
+    })
+}
+editCategoryAjax()
 
 //popup remove
 function removeListPopup(){
