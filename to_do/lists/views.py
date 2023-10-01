@@ -60,7 +60,7 @@ def add_category(request):
 @csrf_exempt
 def edit_category(request):
     if request.method == 'POST':
-        id = request.POST.get('data-category-id', None)
+        id = request.POST.get('categoryId', None)
 
         category = Category.objects.get(pk=id)
 
@@ -86,7 +86,8 @@ def edit_category(request):
 @csrf_exempt
 def delete_category(request):
     if request.method == 'POST':
-        id = request.POST.get('data-category-id', None)
+        id = request.POST.get('categoryId', None)
+        print(id)
 
         category = Category.objects.get(pk=id)
         category.delete()

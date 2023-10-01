@@ -103,7 +103,7 @@ if(tabsElement){
     })
 }
 
-//lists component
+//LISTS COMPONENT
 
 //add task content
 function addTaskContentToDOM(categoryId, categoryName) {
@@ -170,12 +170,12 @@ function addCategoryToDOM(categoryName, categoryId){
 
         <div class="buttons">
 
-            <button class="remove-category" data-category-id="${categoryId}">
-                <i class="ri-delete-bin-line"></i>
-            </button>
-
             <button class="edit-category" data-category-id="${categoryId}">
                 <i class="ri-edit-line"></i>
+            </button>
+
+            <button class="remove-category" data-category-id="${categoryId}">
+                <i class="ri-delete-bin-line"></i>
             </button>
 
         </div>
@@ -218,6 +218,41 @@ $('#category-form').on('submit', function (e){
     });
 });
 }
+
+//ajax remove category
+function removeCategoryAjax(){
+    const categoriesList = document.querySelector('.categories-list')
+    categoriesList.addEventListener('click', e =>{
+        const target = e.target.parentElement
+        if ( target.classList.contains('remove-category') ){
+            const currentItemId = target.parentElement.parentElement.getAttribute('data-id')
+
+            const removingConfirmation = confirm('Are You sure?')
+            if(removingConfirmation){
+                $.ajax({
+                    type: 'POST',
+                    url: '/delete-category',
+                    data: {
+                        categoryId: currentItemId
+                    },
+                    success: function(data){
+                        if( data.valid ){
+                            document.querySelector(`.categories-list li[data-id="${currentItemId}"]`).remove()
+                            document.querySelector(`.to-do-list-contents .category-content[data-id="${currentItemId}"]`).remove()
+                        } else {
+
+                        }
+                    }
+                });
+            }
+
+
+
+
+        }
+    })
+}
+removeCategoryAjax()
 
 //popup remove
 function removeListPopup(){
