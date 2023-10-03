@@ -66,6 +66,9 @@ def edit_category(request):
         print(name)
 
         category = Category.objects.get(pk=id)
+        print(category.user)
+        print(category.id)
+        print(category.category)
 
         category_data = {
             "id": category.id,
