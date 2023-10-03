@@ -46,8 +46,8 @@ def add_category(request):
                 return JsonResponse(data={
                     "valid": True,
                     "message": f"Category '{category_name}' has been created successfully.",
-                    "category_name": new_category.category,
                     "category_id": new_category.pk,
+                    "category_name": new_category.category,
                 })
 
     else:
@@ -87,7 +87,6 @@ def edit_category(request):
 def delete_category(request):
     if request.method == 'POST':
         id = request.POST.get('categoryId', None)
-        print(id)
 
         category = Category.objects.get(pk=id)
         category.delete()
