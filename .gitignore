@@ -134,7 +134,9 @@ celerybeat.pid
 # Environments
 .env
 .venv
-env/
+django_env/
+.django_env/
+.django_env
 venv/
 ENV/
 env.bak/
