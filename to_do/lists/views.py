@@ -61,13 +61,15 @@ def add_category(request):
 def edit_category(request):
     if request.method == 'POST':
         id = request.POST.get('categoryId', None)
+        name = request.POST.get('name', None)
+        print(id)
+        print(name)
 
         category = Category.objects.get(pk=id)
 
         category_data = {
             "id": category.id,
-            "user": request.user,
-            "category": category.category
+            "category": category.category,
         }
 
         return JsonResponse(data={

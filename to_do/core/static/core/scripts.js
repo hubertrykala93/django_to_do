@@ -266,7 +266,7 @@ function editCategoryAjax(){
                     type: 'POST',
                     url: '/edit-category',
                     data: {
-                        categoryId: $('input[name=categoryId]').val()
+                        categoryId: currentItemId
                     },
                     success: function(data){
                         if( data.valid ){
