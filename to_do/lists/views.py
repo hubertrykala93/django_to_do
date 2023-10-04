@@ -27,20 +27,15 @@ def add_category(request):
                 "valid": False,
                 "message": "The category cannot be empty.",
             })
-        elif not category_name.isalpha():
-            return JsonResponse(data={
-                "valid": False,
-                "message": "The category name must consist of letters only.",
-            })
         else:
-            if Category.objects.filter(category=category_name).exists():
+            if Category.objects.filter(user=request.user, category=category_name).exists():
                 return JsonResponse(data={
                     "valid": False,
                     "message": f"Category '{category_name}' already exists.",
                 })
 
             else:
-                new_category = Category(user=request.user, category=category_name)
+                new_category = Category(user=request.user, category=category_name.strip())
                 new_category.save()
 
                 return JsonResponse(data={
@@ -62,24 +57,29 @@ def edit_category(request):
     if request.method == 'POST':
         id = request.POST.get('categoryId', None)
         name = request.POST.get('name', None)
-        print(id)
-        print(name)
 
-        category = Category.objects.get(pk=id)
-        print(category.user)
-        print(category.id)
-        print(category.category)
+        if len(name) == 0:
+            return JsonResponse(data={
+                "valid": False,
+                "message": "The category cannot be empty.",
+            })
+        else:
 
-        category_data = {
-            "id": category.id,
-            "category": category.category,
-        }
+            if Category.objects.filter(user=request.user, category=name).exists():
+                return JsonResponse(data={
+                    'valid': False,
+                    'message': f"The category named '{name.title()}' already exists.",
+                })
 
-        return JsonResponse(data={
-            'valid': True,
-            'message': f"The editing of the '{category.category}' category was successful.",
-            "category_data": category_data,
-        })
+            else:
+                category = Category.objects.get(id=id)
+                category.category = name.strip()
+                category.save()
+
+                return JsonResponse(data={
+                    "valid": True,
+                    "message": "The category name has been successfully changed.",
+                })
 
     else:
         return JsonResponse(data={
@@ -93,7 +93,7 @@ def delete_category(request):
     if request.method == 'POST':
         id = request.POST.get('categoryId', None)
 
-        category = Category.objects.get(pk=id)
+        category = Category.objects.get(user=request.user, pk=id)
         category.delete()
 
         return JsonResponse(data={

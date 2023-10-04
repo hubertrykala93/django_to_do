@@ -264,21 +264,20 @@ function editCategoryAjax(){
                 const currentName = target.parentElement.parentElement.querySelector('span').innerText
                 document.querySelector('.edit-category-form input').value = currentName
                 $('#edit-form').on('submit', function (e){
-                    console.log(currentItemId)
-                    console.log(currentName)
                     e.preventDefault();
                     $.ajax({
                         type: 'POST',
                         url: '/edit-category',
                         data: {
                             categoryId: currentItemId,
-                            name: currentName
+                            name: document.querySelector('#edit-form input').value
                         },
                         success: function(data){
-                            target.parentElement.parentElement.querySelector('span').innerText = 'sex'
-                            document.querySelector('.lists-popup-wrapper').remove()
-                            if( data.valid ){
+                        console.log(data)
 
+                            if( data.valid ){
+                                target.parentElement.parentElement.querySelector('span').innerText = document.querySelector('#edit-form input').value
+                                document.querySelector('.lists-popup-wrapper').remove()
                             } else {
 
                             }
