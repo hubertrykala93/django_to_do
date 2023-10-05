@@ -1,3 +1,7 @@
+/**
+   * HEADER
+    */
+
 //offcanvas menu toggle
 const nav = document.querySelector('#nav')
 const offcanvasToggler = document.querySelector('#offcanvas-toggler')
@@ -30,7 +34,10 @@ if(headerUserElement){
 }
 
 
-//dark mode
+/**
+   * DARK MODE
+    */
+
 let darkMode = JSON.parse(localStorage.getItem('darkMode'))
 const themeToggler = document.querySelector('#theme-changer')
 
@@ -52,7 +59,6 @@ function setLightMode () {
     themeToggler.querySelector('i').classList.add('ri-moon-fill')
 }
 
-
 themeToggler.addEventListener('click', () => {
     let darkMode = JSON.parse(localStorage.getItem('darkMode'))
     if ( darkMode == 'false' ) {
@@ -69,7 +75,6 @@ themeToggler.addEventListener('click', () => {
 /**
    * MESSAGE POPUPS
     */
-
 
 //remove message popup
 const removeMessagePopup = () => {

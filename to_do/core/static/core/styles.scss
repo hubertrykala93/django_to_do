@@ -373,7 +373,7 @@ img{
         opacity: 0;
         z-index: 2;
         transform: translateY(30px);
-        transition: transform .3s, opacity .4s;
+        transition: transform .3s, opacity .4s, visibility .3s;
 
         .user-menu-item{
             margin-bottom: 10px;

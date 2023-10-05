@@ -281,7 +281,7 @@ img {
     opacity: 0;
     z-index: 2;
     transform: translateY(30px);
-    transition: transform .3s, opacity .4s; }
+    transition: transform .3s, opacity .4s, visibility .3s; }
     #header-user .user-menu .user-menu-item {
       margin-bottom: 10px; }
       #header-user .user-menu .user-menu-item:last-child {
