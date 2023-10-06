@@ -1,65 +1,3 @@
-/**
-   * FUNCTIONS DECLARATIONS
-    */
-
-const setFirstPositionActive = () => {
-    const categoriesList = document.querySelector('.categories-list')
-    const listItems = categoriesList.querySelectorAll('li')
-
-    if( listItems.length ){
-        listItems.forEach((item, index) =>{
-            if(index === 0){item.classList.add('active')} 
-            else{item.classList.remove('active')}
-        })
-
-        const categoryContents = document.querySelectorAll('.to-do-list-contents .category-content')
-        if ( categoryContents.length ){
-            categoryContents.forEach((item, index) =>{
-                if(index === 0){item.classList.add('active')} 
-                else{item.classList.remove('active')}
-            })
-        }
-    }
-}
-
-const listItemsNavigation = (e) => {
-    categoriesList.querySelectorAll('li').forEach(item => {item.classList.remove('active')})
-
-    let currentCategoryId
-    if ( e.target.tagName  === "SPAN" ){
-        e.target.parentElement.classList.add('active')
-        currentCategoryId = e.target.parentElement.getAttribute('data-id')
-    } else{
-        e.target.classList.add('active')
-        currentCategoryId = e.target.getAttribute('data-id')
-    }
-
-    const allCategoriesContents = document.querySelectorAll('.to-do-list-contents > .category-content')
-    if( allCategoriesContents.length ){
-        allCategoriesContents.forEach(item => {
-            item.classList.remove('active')
-            if ( item.getAttribute('data-id') === currentCategoryId ){
-                item.classList.add('active')
-            }
-        })
-    }
-}
-
-//list event listener
-const categoriesList = document.querySelector('.categories-list')
-
-if(categoriesList){
-    setFirstPositionActive()
-
-    categoriesList.addEventListener('click', e =>{
-        if ( e.target.tagName  === "SPAN" || e.target.tagName  === "LI" ) {
-            listItemsNavigation(e)
-        }
-    })
-}
-
-/*
-
 //add task content
 function addTaskContentToDOM(categoryId, categoryName) {
     const categoriesContentsWrapper = document.querySelector('.categories-content-body')
@@ -294,6 +232,49 @@ if(addCategoryBtn){
 }
 
 
+//to do categories list behaviour
+function categoriesFunction() {
+const toDoListWrapper = document.querySelector('.to-do-list-wrapper')
+
+if(toDoListWrapper){
+    const categoriesList = document.querySelector('.categories-list')
+    const firstListItem = categoriesList.querySelector('li')
+    if( firstListItem ) {
+        firstListItem.classList.add('active')
+        const firstListItemId = firstListItem.getAttribute('data-id')
+        const firstCategoryContent = toDoListWrapper.querySelector(`.to-do-list-contents > .category-content[data-id="${firstListItemId}"]`)
+        if (firstCategoryContent ){
+            firstCategoryContent.classList.add('active')
+        }
+    }
+
+    categoriesList.addEventListener('click', e => {
+        if ( e.target.tagName  === "SPAN" || e.target.tagName  === "LI" ) {
+            categoriesList.querySelectorAll('li').forEach(item => {item.classList.remove('active')})
+
+            let currentCategoryId
+            if ( e.target.tagName  === "SPAN" ){
+                e.target.parentElement.classList.add('active')
+                currentCategoryId = e.target.parentElement.getAttribute('data-id')
+            } else{
+                e.target.classList.add('active')
+                currentCategoryId = e.target.getAttribute('data-id')
+            }
+
+            const allCategoriesContents = toDoListWrapper.querySelectorAll('.to-do-list-contents > .category-content')
+            allCategoriesContents.forEach(item => {
+                item.classList.remove('active')
+                if ( item.getAttribute('data-id') === currentCategoryId ){
+                    item.classList.add('active')
+                }
+            })
+        }
+    })
+    }
+}
+categoriesFunction()
+
+
 //toggle add task form
 function toggleTaskForm(){
     const listsContents = document.querySelector('.to-do-list-contents')
@@ -315,5 +296,3 @@ function toggleTaskForm(){
     }
 }
 toggleTaskForm()
-
-*/

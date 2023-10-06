@@ -3,10 +3,7 @@ Hubert:
 
 Szymon:
 - ustylizuj taski
-- zrób to coś wysuwane z taskami i daj też tam ikony edit i delete
-- dropdown ma sie wolniej chowac
 - napisać funkcję resetującą categorię i taski do domyslego widoku
 - po edycji nazwy kategorii zmienić tez jej content title
 - bedac na danej kategorii - usuwajac ja, po usunieciu ma byc aktywna pierwsza z brzegu
-- funkcja generujaca wiadomosci po add, edit i remove,
 - rodzielić funckje js
