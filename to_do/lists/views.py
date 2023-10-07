@@ -137,7 +137,9 @@ def add_task(request):
                     "valid": True,
                     "message": f"The task has been successfully assigned to the {category_name.category} category.",
                     "new_task_id": new_task.pk,
+                    "new_task_created_at": new_task.created_at,
                     "new_task_name": new_task.name,
+                    "new_task_description": new_task.description,
                 })
 
     else:
