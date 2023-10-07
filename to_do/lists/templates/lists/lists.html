@@ -50,6 +50,7 @@
                 </button>
 
                 <form class="add-task-form" method="post" action="{% url 'add-task' %}">
+                    {% csrf_token %}
 
                     <div class="form-row">
                         <div class="input-wrapper">

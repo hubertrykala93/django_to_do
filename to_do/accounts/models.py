@@ -37,16 +37,17 @@ class CustomUserManager(UserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=50, unique=True, null=False, blank=False, default='')
-    email = models.EmailField(blank=True, default='', unique=True, validators=[ValidationError])
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics', null=True)
+    username = models.CharField(max_length=50, unique=True, null=False, blank=False, default='',
+                                db_column='user_username')
+    email = models.EmailField(blank=True, default='', unique=True, validators=[ValidationError], db_column='user_email')
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics', null=True, db_column='user_image')
 
-    is_verified = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    is_superuser = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
-    date_joined = models.DateTimeField(default=now)
-    last_login = models.DateTimeField(blank=True, null=True)
+    is_verified = models.BooleanField(default=False, db_column='user_is_verified')
+    is_active = models.BooleanField(default=True, db_column='user_is_active')
+    is_superuser = models.BooleanField(default=False, db_column='user_is_superuser')
+    is_staff = models.BooleanField(default=False, db_column='user_is_staff')
+    date_joined = models.DateTimeField(default=now, db_column='user_date_joined')
+    last_login = models.DateTimeField(blank=True, null=True, db_column='user_last_login')
 
     objects = CustomUserManager()
 
@@ -75,18 +76,18 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(to=User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=50, unique=False, null=True, blank=True)
-    last_name = models.CharField(max_length=50, blank=True, null=True)
+    user = models.OneToOneField(to=User, on_delete=models.CASCADE, db_column='user_profile')
+    first_name = models.CharField(max_length=50, unique=False, null=True, blank=True, db_column='profile_first_name')
+    last_name = models.CharField(max_length=50, blank=True, null=True, db_column='profile_last_name')
     gender = models.CharField(default='', max_length=20, choices=(
         ('Not Defined', 'Not Defined'),
         ('Male', 'Male'),
         ('Female', 'Female'),
-    ))
-    date_of_birth = models.CharField(max_length=20, blank=True, null=True)
-    country = models.CharField(max_length=50, blank=True, null=True)
-    province = models.CharField(max_length=50, blank=True, null=True)
-    city = models.CharField(max_length=50, blank=True, null=True)
+    ), db_column='profile_gender')
+    date_of_birth = models.CharField(max_length=20, blank=True, null=True, db_column='profile_date_of_birth')
+    country = models.CharField(max_length=50, blank=True, null=True, db_column='profile_country')
+    province = models.CharField(max_length=50, blank=True, null=True, db_column='profile_province')
+    city = models.CharField(max_length=50, blank=True, null=True, db_column='profile_city')
 
     def __str__(self):
         return f'{self.user.username} Profile.'
