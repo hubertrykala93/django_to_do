@@ -138,6 +138,7 @@ const addTaskContentToDOM = (categoryId, categoryName) => {
 
             </form>
         </div>
+        <div class="tasks-list"></div>
         `
         categoriesContentsWrapper.prepend(newTaskContent)
 }
@@ -194,7 +195,6 @@ const addNewCategory = () => {
     })
 }
 
-//ajax edit category
 const editCategory = (targetLi, currentItemId) =>{
 
     createListPopup('edit-category-popup-wrapper', 'edit-category-form', 'edit-form', 'post', '/edit-category', 'edit-category-name', 'categoryId', 'New category name', 'edit-category-btn', 'ri-edit-2-fill', 'Edit name')
@@ -226,7 +226,7 @@ const editCategory = (targetLi, currentItemId) =>{
     })
 }
 
-function deleteCategory(currentItemId){
+const deleteCategory = (currentItemId) => {
     const removingConfirmation = confirm('Are You sure?')
     if(removingConfirmation){
         $.ajax({
@@ -259,6 +259,34 @@ const toggleTaskForm = (target)=> {
     formElement.classList.add('visible')
 }
 
+const addNewTask = (btn) => {
+    const addTaskForm = btn.closest('.add-task-form')
+
+    addTaskForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+
+        const newTaskName = addTaskForm.querySelector('.add-task-name').value
+        const newTaskDescription = addTaskForm.querySelector('.add-task-description').value
+        const taskParentCategoryId = addTaskForm.closest('.category-content').getAttribute('data-id')
+        $.ajax({
+            type: 'POST',
+            url: '/add-task',
+            data: {
+                name: newTaskName,
+                description: newTaskDescription,
+                categoryId: taskParentCategoryId
+            },
+            success: function(data){
+                if( data.valid ){
+                    createMessagePopup(data.message, 'success')
+                } else {
+                    
+                }
+            }
+        });
+    })
+}
+
 //list event listener
 const categoriesList = document.querySelector('.categories-list')
 
@@ -286,7 +314,7 @@ if(categoriesList){
     })
 }
 
-//add category event listener
+//add category btn event listener
 const addCategoryBtn = document.querySelector('.to-do-list-wrapper .add-category-btn')
 if(addCategoryBtn){
     addCategoryBtn.addEventListener('click', ()=> {
@@ -302,5 +330,9 @@ listsContents.addEventListener('click', e => {
     //toggle task form
     if ( target.classList.contains('toggle-task-form') ) {
         toggleTaskForm(target)
+    }
+    //add new task
+    else if ( target.id === 'add-task' || target.parentElement.id === 'add-task' ) {
+        addNewTask(target)
     }
 })

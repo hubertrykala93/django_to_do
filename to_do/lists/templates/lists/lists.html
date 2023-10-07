@@ -49,7 +49,7 @@
                     Add new item
                 </button>
 
-                <form class="add-task-form" id="add-task" method="post" action="">
+                <form class="add-task-form" class="add-task" method="post" action="">
 
                     <div class="form-row">
                         <div class="input-wrapper">
@@ -59,19 +59,18 @@
 
                     <div class="form-row">
                         <div class="input-wrapper">
-                            <input type="text" id="add-task-name" name="task-name" placeholder="Task name">
+                            <input type="text" class="add-task-name" name="task-name" placeholder="Task name">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="input-wrapper">
-                            <textarea id="add-task-description" name="task-description"
-                                      placeholder="Task description"></textarea>
+                            <textarea class="add-task-description" name="task-description" placeholder="Task description"></textarea>
                         </div>
                     </div>
 
                     <div class="submit-row">
-                        <button class="btn" type="submit">
+                        <button class="btn" type="submit" id="add-task">
                             <i class="ri-play-list-add-line"></i>
                             Add item
                         </button>
@@ -80,46 +79,48 @@
                 </form>
             </div>
 
-            {% if tasks %}
-            {% for task in tasks %}
-            {% if task.category == category %}
-
             <div class="tasks-list">
-                <div class="task-wrapper">
-                    <div class="task-header">
-                        <span class="task-name">
-                            Name: {{ task.name }}
-                        </span>
+                {% if tasks %}
+                {% for task in tasks %}
+                {% if task.category == category %}
 
-                        <div class="task-icons">
-                            <button class="show-task-details">
-                                <i class="ri-corner-down-left-line"></i>
-                            </button>
+                <div class="tasks-list-item" data-id="{{ task.id }}">
+                    <div class="task-wrapper">
+                        <div class="task-header">
+                            <span class="task-name">
+                                Name: {{ task.name }}
+                            </span>
+
+                            <div class="task-icons">
+                                <button class="show-task-details">
+                                    <i class="ri-corner-down-left-line"></i>
+                                </button>
 
 
-                            <button class="edit-task">
-                                <i class="ri-edit-2-line"></i>
-                            </button>
+                                <button class="edit-task">
+                                    <i class="ri-edit-2-line"></i>
+                                </button>
 
 
-                            <button class="delete-task">
-                                <i class="ri-delete-bin-line"></i>
-                            </button>
+                                <button class="delete-task">
+                                    <i class="ri-delete-bin-line"></i>
+                                </button>
+                            </div>
                         </div>
+
+                        <div class="task-details">
+                            Created at: {{ task.created_at }}
+                            Description: {{ task.description }}
+                        </div>
+
+
                     </div>
-
-                    <div class="task-details">
-                        Created at: {{ task.created_at }}
-                        Description: {{ task.description }}
-                    </div>
-
-
                 </div>
-            </div>
 
-            {% endif %}
-            {% endfor %}
-            {% endif %}
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+            </div>
         </div>
 
         {% endfor %}
