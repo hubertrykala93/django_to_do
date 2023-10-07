@@ -21,23 +21,23 @@ def lists(request):
 @csrf_exempt
 def add_category(request):
     if request.method == 'POST':
-        category_name = request.POST.get('category', None)
+        category_name = request.POST.get('category', None).strip()
 
-        if len(category_name.strip()) == 0:
+        if len(category_name) == 0:
             return JsonResponse(data={
                 "valid": False,
                 "message": "The category cannot be empty.",
             })
 
         else:
-            if Category.objects.filter(user=request.user, category=category_name.strip()).exists():
+            if Category.objects.filter(user=request.user, category=category_name).exists():
                 return JsonResponse(data={
                     "valid": False,
-                    "message": f"Category '{category_name.strip()}' already exists.",
+                    "message": f"Category '{category_name}' already exists.",
                 })
 
             else:
-                new_category = Category(user=request.user, category=category_name.strip())
+                new_category = Category(user=request.user, category=category_name)
                 new_category.save()
 
                 return JsonResponse(data={
@@ -58,29 +58,29 @@ def add_category(request):
 def edit_category(request):
     if request.method == 'POST':
         id = request.POST.get('categoryId', None)
-        name = request.POST.get('name', None)
+        name = request.POST.get('name', None).strip()
 
-        if len(name.strip()) == 0:
+        if len(name) == 0:
             return JsonResponse(data={
                 "valid": False,
                 "message": "The category cannot be empty.",
             })
 
         else:
-            if Category.objects.filter(user=request.user, category=name.strip()).exists():
+            if Category.objects.filter(user=request.user, category=name).exists():
                 return JsonResponse(data={
                     'valid': False,
-                    'message': f"The category named '{name.title().strip()}' already exists.",
+                    'message': f"The category named '{name}' already exists.",
                 })
 
             else:
                 category = Category.objects.get(id=id)
-                category.category = name.strip()
+                category.category = name
                 category.save()
 
                 return JsonResponse(data={
                     "valid": True,
-                    "message": f"The category name has been successfully changed to {name.title().strip()}.",
+                    "message": f"The category name has been successfully changed to {name}.",
                 })
 
     else:
@@ -115,24 +115,24 @@ def add_task(request):
     if request.method == 'POST':
         category_id = request.POST.get('categoryId')
         category_name = Category.objects.get(id=category_id)
-        task_name = request.POST.get('name')
-        task_description = request.POST.get('description')
+        task_name = request.POST.get('name').strip()
+        task_description = request.POST.get('description').strip()
 
-        if len(task_name.strip()) == 0:
+        if len(task_name) == 0:
             return JsonResponse(data={
                 "valid": False,
                 "message": "The task cannot be empty.",
             })
 
         else:
-            if Task.objects.filter(name=task_name.strip()).exists():
+            if Task.objects.filter(name=task_name).exists():
                 return JsonResponse(data={
                     "valid": False,
-                    "message": f"Task '{task_name.strip()}' already exists.",
+                    "message": f"Task '{task_name}' already exists.",
                 })
 
             else:
-                new_task = Task(category_id=category_id, name=task_name.strip(), description=task_description.strip())
+                new_task = Task(category_id=category_id, name=task_name, description=task_description)
                 new_task.save()
 
                 return JsonResponse(data={
@@ -158,8 +158,8 @@ def edit_task(request):
     if request.method == 'POST':
         category_id = request.POST.get('categoryId')
         id = request.POST.get('taskId')
-        name = request.POST.get('taskName')
-        description = request.POST.get('taskDescription')
+        name = request.POST.get('taskName').strip()
+        description = request.POST.get('taskDescription').strip()
 
         if len(name) == 0:
             return JsonResponse(data={
@@ -177,7 +177,7 @@ def edit_task(request):
             if Task.objects.filter(category_id=category_id, id=id, name=name).exists():
                 return JsonResponse(data={
                     "valid": False,
-                    "message": f"The task named '{name.strip()}' already exists.",
+                    "message": f"The task named '{name}' already exists.",
                 })
 
             else:
@@ -188,7 +188,7 @@ def edit_task(request):
 
                 return JsonResponse(data={
                     "valid": True,
-                    "message": f"The task name has been successfully changed to {name.strip()}.",
+                    "message": f"The task name has been successfully changed to {name}.",
                     "new_task_name": new_task.name,
                     "new_task_description": new_task.description,
                 })
