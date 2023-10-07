@@ -49,7 +49,7 @@
                     Add new item
                 </button>
 
-                <form class="add-task-form" class="add-task" method="post" action="">
+                <form class="add-task-form" method="post" action="{% url 'add-task' %}">
 
                     <div class="form-row">
                         <div class="input-wrapper">
@@ -65,7 +65,8 @@
 
                     <div class="form-row">
                         <div class="input-wrapper">
-                            <textarea class="add-task-description" name="task-description" placeholder="Task description"></textarea>
+                            <textarea class="add-task-description" name="task-description"
+                                      placeholder="Task description"></textarea>
                         </div>
                     </div>
 

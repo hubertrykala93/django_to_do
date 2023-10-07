@@ -5,5 +5,6 @@ urlpatterns = [
     path(route='lists/', view=views.lists, name='lists'),
     path(route='add-category', view=views.add_category, name='add-category'),
     path(route='edit-category', view=views.edit_category, name='edit-category'),
-    path(route='delete-category', view=views.delete_category, name='delete-category')
+    path(route='delete-category', view=views.delete_category, name='delete-category'),
+    path(route='add-task', view=views.add_task, name='add-task'),
 ]

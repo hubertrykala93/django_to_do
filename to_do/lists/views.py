@@ -27,8 +27,9 @@ def add_category(request):
                 "valid": False,
                 "message": "The category cannot be empty.",
             })
+
         else:
-            if Category.objects.filter(user=request.user, category=category_name).exists():
+            if Category.objects.filter(user=request.user, category=category_name.strip()).exists():
                 return JsonResponse(data={
                     "valid": False,
                     "message": f"Category '{category_name}' already exists.",
@@ -106,3 +107,43 @@ def delete_category(request):
             "valid": False,
             "message": "The deletion was unsuccessful.",
         })
+
+
+@csrf_exempt
+def add_task(request):
+    if request.method == 'POST':
+        category_id = request.POST.get('categoryId')
+        category_name = Category.objects.get(id=category_id)
+        task_name = request.POST.get('name')
+        task_description = request.POST.get('description')
+
+        if len(task_name) == 0:
+            return JsonResponse(data={
+                "valid": False,
+                "message": "The task cannot be empty.",
+            })
+        else:
+            if Task.objects.filter(name=task_name.strip()).exists():
+                return JsonResponse(data={
+                    "valid": False,
+                    "message": f"Task '{task_name.strip()}' already exists.",
+                })
+
+            else:
+                new_task = Task(category_id=category_id, name=task_name, description=task_description)
+                new_task.save()
+
+                return JsonResponse(data={
+                    "valid": True,
+                    "message": f"The task has been successfully assigned to the {category_name.category} category.",
+                    "new_task_id": new_task.pk,
+                    "new_task_name": new_task.name,
+                })
+
+    else:
+        return JsonResponse(
+            data={
+                "valid": False,
+                "message": "The addition of a new task was unsuccessful.",
+            }
+        )
