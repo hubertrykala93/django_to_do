@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 @login_required
+@csrf_exempt
 def lists(request):
     categories = Category.objects.filter(user=request.user)
     tasks = Task.objects.all()
