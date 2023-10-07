@@ -260,8 +260,47 @@ const toggleTaskForm = (target)=> {
 }
 
 const addNewTask = (btn) => {
-    const addTaskForm = btn.closest('.add-task-form')
 
+    // add task to DOM
+    const addTaskToDOM = function (obj, categoryId) {
+        const tasksList = document.querySelector(`.to-do-list-contents .category-content[data-id="${categoryId}"] .tasks-list`)
+        const newTask = document.createElement('div')
+        newTask.classList.add('tasks-list-item')
+        newTask.setAttribute('data-id', obj.new_task_id)
+        newTask.innerHTML = `
+        <div class="task-wrapper">
+            <div class="task-header">
+                <span class="task-name">
+                    Name: ${obj.new_task_name}
+                </span>
+
+                <div class="task-icons">
+                    <button class="show-task-details">
+                        <i class="ri-corner-down-left-line"></i>
+                    </button>
+
+
+                    <button class="edit-task">
+                        <i class="ri-edit-2-line"></i>
+                    </button>
+
+
+                    <button class="delete-task">
+                        <i class="ri-delete-bin-line"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="task-details">
+                Created at: ${obj.new_task_created_at}
+                Description: ${obj.new_task_description}
+            </div>
+        </div>
+        `
+        tasksList.prepend(newTask)
+    }
+
+    const addTaskForm = btn.closest('.add-task-form')
     addTaskForm.addEventListener('submit', (e) => {
         e.preventDefault()
 
@@ -278,6 +317,7 @@ const addNewTask = (btn) => {
             },
             success: function(data){
                 if( data.valid ){
+                    addTaskToDOM(data, taskParentCategoryId)
                     createMessagePopup(data.message, 'success')
                 } else {
                     
@@ -327,6 +367,7 @@ if(addCategoryBtn){
 const listsContents = document.querySelector('.to-do-list-contents')
 listsContents.addEventListener('click', e => {
     const target = e.target
+    // console.log(target)
     //toggle task form
     if ( target.classList.contains('toggle-task-form') ) {
         toggleTaskForm(target)
