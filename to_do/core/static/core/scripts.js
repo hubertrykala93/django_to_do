@@ -104,7 +104,7 @@ const createMessagePopup = (message, role) => {
     messagePopup.classList.add('message-popup')
     messagePopup.classList.add(role)
     messagePopup.textContent = message
-    document.querySelector('main').prepend(messagePopup)
+    document.querySelector('main').append(messagePopup)
 
     setTimeout(()=>{
         messagePopup.classList.add('active')

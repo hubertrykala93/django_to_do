@@ -45,23 +45,56 @@ const listItemsNavigation = (e) => {
     }
 }
 
-//list event listener
-const categoriesList = document.querySelector('.categories-list')
-
-if(categoriesList){
-    setFirstPositionActive()
-
-    categoriesList.addEventListener('click', e =>{
-        if ( e.target.tagName  === "SPAN" || e.target.tagName  === "LI" ) {
-            listItemsNavigation(e)
+function removeListPopup(){
+    window.addEventListener('click', (e)=> {
+        if( e.target.classList.contains('lists-popup-wrapper') || e.target.id === 'close-lists-popup' || e.target.parentElement.id === 'close-lists-popup' ){
+            if ( document.querySelector('.lists-popup-wrapper') ){
+                document.querySelector('.lists-popup-wrapper').remove()
+            }
         }
     })
 }
 
-/*
+const showListPopupError = (message) => {
+    const formError = document.querySelector('.lists-popup-wrapper form .error')
+    if(formError){
+        formError.classList.add('active')
+        formError.innerHTML = message
+    }
+}
 
-//add task content
-function addTaskContentToDOM(categoryId, categoryName) {
+const createListPopup = (wrapperClass, formClass, formId, method, action, inputId, inputName, inputPlaceholder, btnClass, btnIcon, btnText) =>{
+    const addListsPopup = document.createElement('div')
+        addListsPopup.classList.add(wrapperClass)
+        addListsPopup.classList.add('lists-popup-wrapper')
+        addListsPopup.innerHTML = `
+            <div class="lists-popup-container">
+                <div id="close-lists-popup">
+                    <i class="ri-close-line"></i>
+                </div>
+
+                <form class="${formClass}" id="${formId}" method="${method}" action="${action}">
+                    <div class="form-row">
+                        <div class="input-wrapper">
+                            <input type="text" id="${inputId}" name="${inputName}" placeholder="${inputPlaceholder}">
+                            <div class="error"></div>
+                        </div>
+                    </div>
+                    <div class="submit-row">
+                        <button class="btn ${btnClass}" type="submit">
+                            <i class="${btnIcon}"></i>
+                            ${btnText}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        `
+        document.body.append(addListsPopup)
+
+        removeListPopup()
+}
+
+const addTaskContentToDOM = (categoryId, categoryName) => {
     const categoriesContentsWrapper = document.querySelector('.categories-content-body')
     const newTaskContent = document.createElement('div')
     newTaskContent.classList.add('category-content')
@@ -107,213 +140,167 @@ function addTaskContentToDOM(categoryId, categoryName) {
         </div>
         `
         categoriesContentsWrapper.prepend(newTaskContent)
-
-        const categoriesContentsItems = document.querySelectorAll('.categories-content-body .category-content')
-        categoriesContentsItems.forEach(item => {
-            item.classList.remove('active')
-        })
-        categoriesContentsItems[0].classList.add('active')
 }
 
-//add category to DOM and close popup
-function addCategoryToDOM(categoryName, categoryId){
-    const categoriesList = document.querySelector('.categories-list')
-    const newListItem = document.createElement('li')
-    newListItem.setAttribute('data-id', categoryId)
-    newListItem.innerHTML = `
-        <span>${categoryName}</span>
+const addNewCategory = () => {
 
-        <div class="buttons">
+    //add category to DOM
+    function addCategoryToDOM(categoryName, categoryId){
+        const categoriesList = document.querySelector('.categories-list')
+        const newListItem = document.createElement('li')
+        newListItem.setAttribute('data-id', categoryId)
+        newListItem.innerHTML = `
+            <span>${categoryName}</span>
 
-            <button class="edit-category" data-category-id="${categoryId}">
-                <i class="ri-edit-line"></i>
-            </button>
+            <div class="buttons">
 
-            <button class="remove-category" data-category-id="${categoryId}">
-                <i class="ri-delete-bin-line"></i>
-            </button>
+                <button class="edit-category" data-category-id="${categoryId}">
+                    <i class="ri-edit-line"></i>
+                </button>
 
-        </div>
-    `
+                <button class="remove-category" data-category-id="${categoryId}">
+                    <i class="ri-delete-bin-line"></i>
+                </button>
 
-    categoriesList.prepend(newListItem)
-
-    const categoriesListItems = document.querySelectorAll('.categories-list li')
-    categoriesListItems.forEach(item => {
-        item.classList.remove('active')
-    })
-    categoriesListItems[0].classList.add('active')
-
-    document.querySelector('.to-do-list-wrapper aside').scrollTop = 0;
-}
-
-//ajax add category
-function addCategoryAjax(){
-$('#category-form').on('submit', function (e){
-    e.preventDefault();
-    $.ajax({
-        type: 'POST',
-        url: '/add-category',
-        data: {
-            category: $('input[name=category]').val()
-        },
-        success: function(data){
-            if( data.valid ){
-                addCategoryToDOM(data.category_name, data.category_id)
-                addTaskContentToDOM(data.category_id, data.category_name)
-                document.querySelector('.lists-popup-wrapper').remove()
-                createMessagePopup(data.message, 'success')
-            } else {
-                const formError = document.querySelector('.error')
-                formError.classList.add('active')
-                if(formError){
-                    formError.innerHTML = data.message
-                }
-            }
-        }
-    });
-});
-}
-
-//ajax remove category
-function removeCategoryAjax(){
-    const categoriesList = document.querySelector('.categories-list')
-    if (categoriesList){
-        categoriesList.addEventListener('click', e =>{
-            const target = e.target.parentElement
-            if ( target.classList.contains('remove-category') ){
-                const currentItemId = target.parentElement.parentElement.getAttribute('data-id')
-
-                const removingConfirmation = confirm('Are You sure?')
-                if(removingConfirmation){
-                    $.ajax({
-                        type: 'POST',
-                        url: '/delete-category',
-                        data: {
-                            categoryId: currentItemId
-                        },
-                        success: function(data){
-                            console.log(data)
-                            if( data.valid ){
-                                document.querySelector(`.categories-list li[data-id="${currentItemId}"]`).remove()
-                                document.querySelector(`.to-do-list-contents .category-content[data-id="${currentItemId}"]`).remove()
-                                createMessagePopup(data.message, 'info')
-                            } else {
-
-                            }
-                        }
-                    });
-                }
-            }
-        })
-    }
-}
-removeCategoryAjax()
-
-//ajax edit category
-function editCategoryAjax(){
-    const categoriesList = document.querySelector('.categories-list')
-    if(categoriesList){
-        categoriesList.addEventListener('click', e =>{
-            const target = e.target.parentElement
-            if ( target.classList.contains('edit-category') ){
-                const currentItemId = target.parentElement.parentElement.getAttribute('data-id')
-                createListPopup('edit-category-popup-wrapper', 'edit-category-form', 'edit-form', 'post', '/edit-category', 'edit-category-name', 'categoryId', 'New category name', 'edit-category-btn', 'ri-edit-2-fill', 'Edit name')
-                const currentName = target.parentElement.parentElement.querySelector('span').innerText
-                document.querySelector('.edit-category-form input').value = currentName
-                $('#edit-form').on('submit', function (e){
-                    e.preventDefault();
-                    $.ajax({
-                        type: 'POST',
-                        url: '/edit-category',
-                        data: {
-                            categoryId: currentItemId,
-                            name: document.querySelector('#edit-form input').value
-                        },
-                        success: function(data){
-                            if( data.valid ){
-                                target.parentElement.parentElement.querySelector('span').innerText = document.querySelector('#edit-form input').value
-                                document.querySelector('.lists-popup-wrapper').remove()
-                                createMessagePopup(data.message, 'success')
-                            } else {
-
-                            }
-                        }
-                    });
-                });
-
-            }
-        })
-    }
-
-}
-editCategoryAjax()
-
-//popup remove
-function removeListPopup(){
-    const closeAddListsPopup = document.querySelector('#close-lists-popup')
-    closeAddListsPopup.addEventListener('click', ()=> {
-        document.querySelector('.lists-popup-wrapper').remove()
-    })
-}
-
-//popup constructor
-function createListPopup(wrapperClass, formClass, formId, method, action, inputId, inputName, inputPlaceholder, btnClass, btnIcon, btnText){
-
-    const addListsPopup = document.createElement('div')
-        addListsPopup.classList.add(wrapperClass)
-        addListsPopup.classList.add('lists-popup-wrapper')
-        addListsPopup.innerHTML = `
-            <div class="lists-popup-container">
-                <div id="close-lists-popup">
-                    <i class="ri-close-line"></i>
-                </div>
-
-                <form class="${formClass}" id="${formId}" method="${method}" action="${action}">
-                    <input type="text" id="${inputId}" name="${inputName}" placeholder="${inputPlaceholder}">
-                    <div class="error"></div>
-                    <button class="btn ${btnClass}" type="submit">
-                        <i class="${btnIcon}"></i>
-                        ${btnText}
-                    </button>
-                </form>
             </div>
         `
-        document.body.append(addListsPopup)
 
-        removeListPopup()
+        categoriesList.prepend(newListItem)
+        document.querySelector('.to-do-list-wrapper aside').scrollTop = 0;
+    }
+
+    const addCategoryForm = document.getElementById('category-form')
+    addCategoryForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+
+        $.ajax({
+            type: 'POST',
+            url: '/add-category',
+            data: {
+                category: addCategoryForm.querySelector('#add-category-name').value
+            },
+            success: function(data){
+                if( data.valid ){
+                    addCategoryToDOM(data.category_name, data.category_id)
+                    addTaskContentToDOM(data.category_id, data.category_name)
+                    document.querySelector('.lists-popup-wrapper').remove()
+                    setFirstPositionActive()
+                    createMessagePopup(data.message, 'success')
+                } else {
+                    showListPopupError(data.message)
+                }
+            }
+        });
+    })
 }
 
-//add category btn listener
-const addCategoryBtn = document.querySelector('.add-category-btn')
+//ajax edit category
+const editCategory = (targetLi, currentItemId) =>{
+
+    createListPopup('edit-category-popup-wrapper', 'edit-category-form', 'edit-form', 'post', '/edit-category', 'edit-category-name', 'categoryId', 'New category name', 'edit-category-btn', 'ri-edit-2-fill', 'Edit name')
+    const currentName = targetLi.querySelector('span').innerText
+    document.querySelector('.edit-category-form input').value = currentName
+
+    const editCategoryForm = document.getElementById('edit-form')
+    editCategoryForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newCategoryName = editCategoryForm.querySelector('#edit-category-name').value
+        $.ajax({
+            type: 'POST',
+            url: '/edit-category',
+            data: {
+                categoryId: currentItemId,
+                name: newCategoryName
+            },
+            success: function(data){
+                if( data.valid ){
+                    targetLi.querySelector('span').innerText = newCategoryName
+                    document.querySelector(`.to-do-list-contents .category-content[data-id="${currentItemId}"] .category-title`).innerText = newCategoryName
+                    document.querySelector('.lists-popup-wrapper').remove()
+                    createMessagePopup(data.message, 'success')
+                } else {
+                    showListPopupError(data.message)
+                }
+            }
+        });
+    })
+}
+
+function deleteCategory(currentItemId){
+    const removingConfirmation = confirm('Are You sure?')
+    if(removingConfirmation){
+        $.ajax({
+            type: 'POST',
+            url: '/delete-category',
+            data: {
+                categoryId: currentItemId
+            },
+            success: function(data){
+                if( data.valid ){
+                    document.querySelector(`.categories-list li[data-id="${currentItemId}"]`).remove()
+                    document.querySelector(`.to-do-list-contents .category-content[data-id="${currentItemId}"]`).remove()
+                    setFirstPositionActive()
+                    createMessagePopup(data.message, 'info')
+                }
+            }
+        });
+    }
+}
+
+const toggleTaskForm = (target)=> {
+    const formElement = target.nextElementSibling
+    if ( formElement.classList.contains('visible') ){
+        formElement.style.maxHeight = "0px"
+        formElement.classList.remove('visible')
+        return
+    }
+    const contentHeight = formElement.scrollHeight
+    formElement.style.maxHeight = contentHeight + "px"
+    formElement.classList.add('visible')
+}
+
+//list event listener
+const categoriesList = document.querySelector('.categories-list')
+
+if(categoriesList){
+    setFirstPositionActive()
+
+    categoriesList.addEventListener('click', e =>{
+        //nawigacja po elementach listy
+        if ( e.target.tagName  === "SPAN" || e.target.tagName  === "LI" ) {
+            listItemsNavigation(e)
+        } 
+        //edycja nazwy kategorii
+        else if ( e.target.parentElement.classList.contains('edit-category') ) {
+            const targetLi = e.target.parentElement.parentElement.parentElement
+            const currentItemId = e.target.parentElement.parentElement.parentElement.getAttribute('data-id')
+            editCategory(targetLi, currentItemId)
+            console.log('edycja')
+        }
+        //usuwanie kategorii
+        else if ( e.target.parentElement.classList.contains('remove-category') ) {
+            const currentItemId = e.target.parentElement.parentElement.parentElement.getAttribute('data-id')
+            deleteCategory(currentItemId)
+            console.log('usuwanie')
+        }
+    })
+}
+
+//add category event listener
+const addCategoryBtn = document.querySelector('.to-do-list-wrapper .add-category-btn')
 if(addCategoryBtn){
     addCategoryBtn.addEventListener('click', ()=> {
         createListPopup('add-category-popup-wrapper', 'add-to-category-form', 'category-form', 'post', '/add-category', 'add-category-name', 'category', 'Category name', 'add-new-category-btn', 'ri-add-box-line', 'Add category')
-        addCategoryAjax()
+        addNewCategory()
     })
 }
 
-
-//toggle add task form
-function toggleTaskForm(){
-    const listsContents = document.querySelector('.to-do-list-contents')
-    if (listsContents){
-        listsContents.addEventListener('click', e => {
-            const target = e.target
-            if ( target.classList.contains('toggle-task-form') ){
-
-                if ( target.nextElementSibling.classList.contains('visible') ){
-                    target.nextElementSibling.style.maxHeight = "0px"
-                    target.nextElementSibling.classList.remove('visible')
-                    return
-                }
-                const contentHeight = target.nextElementSibling.scrollHeight
-                target.nextElementSibling.style.maxHeight = contentHeight + "px"
-                target.nextElementSibling.classList.add('visible')
-            }
-        })
+//category content event listener
+const listsContents = document.querySelector('.to-do-list-contents')
+listsContents.addEventListener('click', e => {
+    const target = e.target
+    //toggle task form
+    if ( target.classList.contains('toggle-task-form') ) {
+        toggleTaskForm(target)
     }
-}
-toggleTaskForm()
-
-*/
+})

@@ -2,8 +2,4 @@ Hubert:
 - żeby klasa errorlist się generowała automatycznie
 
 Szymon:
-- ustylizuj taski
-- napisać funkcję resetującą categorię i taski do domyslego widoku
-- po edycji nazwy kategorii zmienić tez jej content title
-- bedac na danej kategorii - usuwajac ja, po usunieciu ma byc aktywna pierwsza z brzegu
-- rodzielić funckje js
+- ustylizuj taski (to na końcu jak będzie działać ich obsługa, bo prawdopodobnie będą potrzebne modyfikacje htmla a to zmieni css - nie warto robić podwójnej roboty)
