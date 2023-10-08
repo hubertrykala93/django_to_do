@@ -260,7 +260,6 @@ const toggleTaskForm = (target)=> {
 }
 
 const addNewTask = (addTaskForm) => {
-
     // add task to DOM
     const addTaskToDOM = function (obj, categoryId) {
         const tasksList = document.querySelector(`.to-do-list-contents .category-content[data-id="${categoryId}"] .tasks-list`)
@@ -298,7 +297,6 @@ const addNewTask = (addTaskForm) => {
         </div>
         `
         tasksList.prepend(newTask)
-        console.log('add task to dom')
     }
 
     addTaskForm.addEventListener('submit', (e) => {
@@ -328,6 +326,24 @@ const addNewTask = (addTaskForm) => {
     })
 }
 
+const deleteTask = (task) => {
+    const taskId = task.getAttribute('data-id')
+
+    $.ajax({
+        type: 'POST',
+        url: '/delete-task',
+        data: {
+            taskId: taskId
+        },
+        success: function(data){
+            if( data.valid ){
+                task.remove()
+            }
+            createMessagePopup(data.message, 'success')
+        }
+    });
+}
+
 //list event listener
 const categoriesList = document.querySelector('.categories-list')
 
@@ -335,18 +351,18 @@ if(categoriesList){
     setFirstPositionActive()
 
     categoriesList.addEventListener('click', e =>{
-        //nawigacja po elementach listy
+        //nav list navigation
         if ( e.target.tagName  === "SPAN" || e.target.tagName  === "LI" ) {
             listItemsNavigation(e)
         } 
-        //edycja nazwy kategorii
+        //edit category name
         else if ( e.target.parentElement.classList.contains('edit-category') ) {
             const targetLi = e.target.parentElement.parentElement.parentElement
             const currentItemId = e.target.parentElement.parentElement.parentElement.getAttribute('data-id')
             editCategory(targetLi, currentItemId)
             console.log('edycja')
         }
-        //usuwanie kategorii
+        //delete category name
         else if ( e.target.parentElement.classList.contains('remove-category') ) {
             const currentItemId = e.target.parentElement.parentElement.parentElement.getAttribute('data-id')
             deleteCategory(currentItemId)
@@ -375,5 +391,9 @@ listsContents.addEventListener('click', e => {
     //add new task
     else if ( target.classList.contains('add-task') || target.parentElement.classList.contains('add-task') ) {
         addNewTask(target.closest('.add-task-form'))
+    }
+    //delete task
+    else if ( target.classList.contains('delete-task') || target.parentElement.classList.contains('delete-task') ){
+        deleteTask(target.closest('.tasks-list-item'))
     }
 })
