@@ -108,7 +108,7 @@ const addTaskContentToDOM = (categoryId, categoryName) => {
                 Add new item
             </button>
 
-            <form class="add-task-form" id="add-task" method="post" action="">
+            <form class="add-task-form" method="post" action="/add-task">
 
                 <div class="form-row">
                     <div class="input-wrapper">
@@ -118,19 +118,19 @@ const addTaskContentToDOM = (categoryId, categoryName) => {
 
                 <div class="form-row">
                     <div class="input-wrapper">
-                        <input type="text" id="add-task-name" name="task-name" placeholder="Task name">
+                        <input type="text" class="add-task-name" name="task-name" placeholder="Task name">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="input-wrapper">
-                        <textarea id="add-task-description" name="task-description"
+                        <textarea class="add-task-description" name="task-description"
                                   placeholder="Task description"></textarea>
                     </div>
                 </div>
 
                 <div class="submit-row">
-                    <button class="btn" type="submit">
+                    <button class="btn add-task" type="submit">
                         <i class="ri-play-list-add-line"></i>
                         Add item
                     </button>
@@ -259,7 +259,7 @@ const toggleTaskForm = (target)=> {
     formElement.classList.add('visible')
 }
 
-const addNewTask = (btn) => {
+const addNewTask = (addTaskForm) => {
 
     // add task to DOM
     const addTaskToDOM = function (obj, categoryId) {
@@ -298,9 +298,9 @@ const addNewTask = (btn) => {
         </div>
         `
         tasksList.prepend(newTask)
+        console.log('add task to dom')
     }
 
-    const addTaskForm = btn.closest('.add-task-form')
     addTaskForm.addEventListener('submit', (e) => {
         e.preventDefault()
 
@@ -367,13 +367,12 @@ if(addCategoryBtn){
 const listsContents = document.querySelector('.to-do-list-contents')
 listsContents.addEventListener('click', e => {
     const target = e.target
-    // console.log(target)
     //toggle task form
     if ( target.classList.contains('toggle-task-form') ) {
         toggleTaskForm(target)
     }
     //add new task
-    else if ( target.id === 'add-task' || target.parentElement.id === 'add-task' ) {
-        addNewTask(target)
+    else if ( target.classList.contains('add-task') || target.parentElement.classList.contains('add-task') ) {
+        addNewTask(target.closest('.add-task-form'))
     }
 })
