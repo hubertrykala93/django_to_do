@@ -303,6 +303,7 @@ const addNewTask = (addTaskForm) => {
 
     addTaskForm.addEventListener('submit', (e) => {
         e.preventDefault()
+        e.stopImmediatePropagation();
 
         const newTaskName = addTaskForm.querySelector('.add-task-name').value
         const newTaskDescription = addTaskForm.querySelector('.add-task-description').value

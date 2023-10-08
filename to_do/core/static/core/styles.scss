@@ -847,6 +847,22 @@ form {
                 transition: max-height .4s;
             }
         }
+
+        .tasks-list{
+            margin-top: 25px;
+
+            .tasks-list-item{
+                background-color: var(--app-bg);
+                border-radius: var(--radius-400);
+                margin-bottom: 15px;
+                padding: 10px;
+            }
+
+            .task-header{
+                display: flex;
+                justify-content: space-between;
+            }
+        }
     }
 }
 

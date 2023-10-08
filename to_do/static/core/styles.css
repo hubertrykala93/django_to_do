@@ -607,6 +607,17 @@ form .errorlist {
   overflow: hidden;
   transition: max-height .4s; }
 
+.categories-wrapper .categories-content-body .tasks-list {
+  margin-top: 25px; }
+  .categories-wrapper .categories-content-body .tasks-list .tasks-list-item {
+    background-color: var(--app-bg);
+    border-radius: var(--radius-400);
+    margin-bottom: 15px;
+    padding: 10px; }
+  .categories-wrapper .categories-content-body .tasks-list .task-header {
+    display: flex;
+    justify-content: space-between; }
+
 /*------------Breakpoints------------*/
 @media (min-width: 1000px) {
   html {
