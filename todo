@@ -2,4 +2,4 @@ Hubert:
 - żeby klasa errorlist się generowała automatycznie
 
 Szymon:
-- ustylizuj taski (to na końcu jak będzie działać ich obsługa, bo prawdopodobnie będą potrzebne modyfikacje htmla a to zmieni css - nie warto robić podwójnej roboty)
+- poprawić performance messagesów
