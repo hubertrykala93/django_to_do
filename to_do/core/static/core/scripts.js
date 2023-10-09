@@ -85,7 +85,7 @@ const removeMessagePopup = () => {
             setTimeout(()=>{
                 messagePopup.remove()
             }, 300)
-        }, 5000)
+        }, 800)
     }
 }
 

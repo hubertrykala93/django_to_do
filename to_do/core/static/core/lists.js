@@ -270,7 +270,7 @@ const addNewTask = (addTaskForm) => {
         <div class="task-wrapper">
             <div class="task-header">
                 <span class="task-name">
-                    Name: ${obj.new_task_name}
+                    ${obj.new_task_name}
                 </span>
 
                 <div class="task-icons">
@@ -291,8 +291,18 @@ const addNewTask = (addTaskForm) => {
             </div>
 
             <div class="task-details">
-                Created at: ${obj.new_task_created_at}
-                Description: ${obj.new_task_description}
+                <div class="task-content">
+                    <div class="time-info">
+                        <h4>Created at:</h4>
+                        <p>${obj.new_task_created_at}</p>
+                    </div>
+                    <div class="desc-info">
+                        <div class="task-description">
+                            <h4>Despription:</h4>
+                            <p>${obj.new_task_description}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         `
@@ -317,9 +327,75 @@ const addNewTask = (addTaskForm) => {
             success: function(data){
                 if( data.valid ){
                     addTaskToDOM(data, taskParentCategoryId)
+                    addTaskForm.querySelector('.add-task-name').value = ''
+                    addTaskForm.querySelector('.add-task-description').value = ''
                     createMessagePopup(data.message, 'success')
                 } else {
-                    
+                    createMessagePopup(data.message, 'error')
+                }
+            }
+        });
+    })
+}
+
+const editTask = (task) => {
+
+    const addTaskPopup = document.createElement('div')
+    addTaskPopup.classList.add('edit-task-popup-wrapper')
+    addTaskPopup.classList.add('lists-popup-wrapper')
+    addTaskPopup.innerHTML = `
+        <div class="lists-popup-container">
+            <div id="close-lists-popup">
+                <i class="ri-close-line"></i>
+            </div>
+
+            <form class="edit-task" id="edit-task" method="post" action="/edit-task">
+                <div class="form-row">
+                    <div class="input-wrapper">
+                        <input type="text" id="edit-task-name" name="edit-task-name" placeholder="New task name">
+                        <div class="error"></div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-wrapper">
+                        <textarea id="edit-task-description" name="edit-task-description" placeholder="New task description"></textarea>
+                    </div>
+                </div>
+                <div class="submit-row">
+                    <button class="btn edit-task-btn" type="submit">
+                        <i class="ri-edit-2-fill"></i>
+                        Edit task
+                    </button>
+                </div>
+            </form>
+        </div>
+    `
+    document.body.append(addTaskPopup)
+    removeListPopup()
+
+    const editTaskForm = document.getElementById('edit-task')
+    editTaskForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newTaskName = editTaskForm.querySelector('#edit-task-name').value
+        const newTaskDescription = editTaskForm.querySelector('#edit-task-description').value
+        $.ajax({
+            type: 'POST',
+            url: '/edit-task',
+            data: {
+                categoryId: task.closest('.category-content').getAttribute('data-id'),
+                taskId: task.getAttribute('data-id'),
+                taskName: newTaskName,
+                taskDescription: newTaskDescription
+            },
+            success: function(data){
+                console.log(data)
+                if( data.valid ){
+                    task.querySelector('.task-name').textContent = data.new_task_name
+                    task.querySelector('.task-description').textContent = data.new_task_description
+                    document.querySelector('.lists-popup-wrapper').remove()
+                    createMessagePopup(data.message, 'success')
+                } else {
+                    showListPopupError(data.message)
                 }
             }
         });
@@ -338,10 +414,25 @@ const deleteTask = (task) => {
         success: function(data){
             if( data.valid ){
                 task.remove()
+                createMessagePopup(data.message, 'success')
+            }else{
+                createMessagePopup(data.message, 'error')
             }
-            createMessagePopup(data.message, 'success')
         }
     });
+}
+
+const toggleTaskDetails = (task) => {
+    const taskDetails = task.querySelector('.task-details')
+    
+    if ( taskDetails.classList.contains('visible') ){
+        taskDetails.style.maxHeight = "0px"
+        taskDetails.classList.remove('visible')
+        return
+    }
+    const contentHeight = taskDetails.scrollHeight
+    taskDetails.style.maxHeight = contentHeight + "px"
+    taskDetails.classList.add('visible')
 }
 
 //list event listener
@@ -392,8 +483,16 @@ listsContents.addEventListener('click', e => {
     else if ( target.classList.contains('add-task') || target.parentElement.classList.contains('add-task') ) {
         addNewTask(target.closest('.add-task-form'))
     }
+    //edit task
+    else if ( target.classList.contains('edit-task') || target.parentElement.classList.contains('edit-task') ){
+        editTask(target.closest('.tasks-list-item'))
+    }
     //delete task
     else if ( target.classList.contains('delete-task') || target.parentElement.classList.contains('delete-task') ){
         deleteTask(target.closest('.tasks-list-item'))
+    }
+    //toggle task details
+    else if ( target.classList.contains('show-task-details') || target.parentElement.classList.contains('show-task-details') ) {
+        toggleTaskDetails(target.closest('.tasks-list-item'))
     }
 })

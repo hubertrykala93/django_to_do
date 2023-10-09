@@ -855,12 +855,69 @@ form {
                 background-color: var(--app-bg);
                 border-radius: var(--radius-400);
                 margin-bottom: 15px;
-                padding: 10px;
             }
 
             .task-header{
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
+                padding: 10px var(--padding-400);
+
+                .task-name{
+                    font-size: 13px;
+                    font-weight: 500;
+                }
+            }
+
+            .task-icons{
+                display: flex;
+                column-gap: 8px;
+                
+                button{
+                    background-color: transparent;
+                    border: none;
+                    cursor: pointer;
+                    font-size: 15px;
+                    transition: transform .2s;
+
+                    &:hover{
+                        transform: scale(1.2);
+                    }
+                }
+
+                .show-task-details{
+                    color: var(--primary);
+                }
+
+                .edit-task{
+                    color: var(--text-body);
+                }
+
+                .delete-task{
+                    color: var(--error-color);
+                }
+            }
+
+            .task-details{
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height .4s;
+
+                .task-content {
+                    display: flex;
+                    flex-direction: column;
+                    row-gap: 10px;
+                    background-color: var(--light-bg);
+                    border-radius: 0 0 var(--radius-400) var(--radius-400);
+                    padding: 15px var(--padding-400);
+                    font-size: 11px;
+
+                    h4{
+                        font-size: 13px;
+                        font-weight: 600;
+                        margin-bottom: 5px;
+                    }
+                }
             }
         }
     }

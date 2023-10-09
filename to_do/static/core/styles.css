@@ -612,11 +612,48 @@ form .errorlist {
   .categories-wrapper .categories-content-body .tasks-list .tasks-list-item {
     background-color: var(--app-bg);
     border-radius: var(--radius-400);
-    margin-bottom: 15px;
-    padding: 10px; }
+    margin-bottom: 15px; }
   .categories-wrapper .categories-content-body .tasks-list .task-header {
     display: flex;
-    justify-content: space-between; }
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px var(--padding-400); }
+    .categories-wrapper .categories-content-body .tasks-list .task-header .task-name {
+      font-size: 13px;
+      font-weight: 500; }
+  .categories-wrapper .categories-content-body .tasks-list .task-icons {
+    display: flex;
+    column-gap: 8px; }
+    .categories-wrapper .categories-content-body .tasks-list .task-icons button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      transition: transform .2s; }
+      .categories-wrapper .categories-content-body .tasks-list .task-icons button:hover {
+        transform: scale(1.2); }
+    .categories-wrapper .categories-content-body .tasks-list .task-icons .show-task-details {
+      color: var(--primary); }
+    .categories-wrapper .categories-content-body .tasks-list .task-icons .edit-task {
+      color: var(--text-body); }
+    .categories-wrapper .categories-content-body .tasks-list .task-icons .delete-task {
+      color: var(--error-color); }
+  .categories-wrapper .categories-content-body .tasks-list .task-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s; }
+    .categories-wrapper .categories-content-body .tasks-list .task-details .task-content {
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+      background-color: var(--light-bg);
+      border-radius: 0 0 var(--radius-400) var(--radius-400);
+      padding: 15px var(--padding-400);
+      font-size: 11px; }
+      .categories-wrapper .categories-content-body .tasks-list .task-details .task-content h4 {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 5px; }
 
 /*------------Breakpoints------------*/
 @media (min-width: 1000px) {
