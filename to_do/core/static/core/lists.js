@@ -168,6 +168,10 @@ const addNewCategory = () => {
 
         categoriesList.prepend(newListItem)
         document.querySelector('.to-do-list-wrapper aside').scrollTop = 0;
+        const noCategoriesMessage = document.querySelector('.to-do-list-wrapper aside .no-items-message')
+        if(noCategoriesMessage){
+            noCategoriesMessage.remove()
+        }
     }
 
     const addCategoryForm = document.getElementById('category-form')
@@ -226,6 +230,15 @@ const editCategory = (targetLi, currentItemId) =>{
     })
 }
 
+const setEmptyCategoryMessage = () => {
+    const message = document.createElement('p')
+    message.classList.add('no-items-message')
+    message.textContent = 'No categories'
+    const parentNode = document.querySelector('.to-do-list-wrapper aside')
+    const categoriesList = document.querySelector('.categories-list')
+    parentNode.insertBefore(message, categoriesList)
+}
+
 const deleteCategory = (currentItemId) => {
     const removingConfirmation = confirm('Are You sure?')
     if(removingConfirmation){
@@ -239,6 +252,7 @@ const deleteCategory = (currentItemId) => {
                 if( data.valid ){
                     document.querySelector(`.categories-list li[data-id="${currentItemId}"]`).remove()
                     document.querySelector(`.to-do-list-contents .category-content[data-id="${currentItemId}"]`).remove()
+                    if(!document.querySelectorAll('.categories-list li').length) {setEmptyCategoryMessage()}
                     setFirstPositionActive()
                     createMessagePopup(data.message, 'info')
                 }
@@ -457,7 +471,6 @@ if(categoriesList){
         else if ( e.target.parentElement.classList.contains('remove-category') ) {
             const currentItemId = e.target.parentElement.parentElement.parentElement.getAttribute('data-id')
             deleteCategory(currentItemId)
-            console.log('usuwanie')
         }
     })
 }
