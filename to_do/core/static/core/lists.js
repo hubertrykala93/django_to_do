@@ -141,6 +141,11 @@ const addTaskContentToDOM = (categoryId, categoryName) => {
         <div class="tasks-list"></div>
         `
         categoriesContentsWrapper.prepend(newTaskContent)
+
+        const noCategoriesMessage = document.querySelector('.to-do-list-wrapper .to-do-list-contents .no-items-message')
+        if(noCategoriesMessage){
+            noCategoriesMessage.remove()
+        }
 }
 
 const addNewCategory = () => {
@@ -239,6 +244,14 @@ const setEmptyCategoryMessage = () => {
     parentNode.insertBefore(message, categoriesList)
 }
 
+const setEmptyTaskMessage = () => {
+    const message = document.createElement('p')
+    message.classList.add('no-items-message')
+    message.textContent = 'Before adding tasks create a new category.'
+    const parentNode = document.querySelector('.to-do-list-wrapper .to-do-list-contents')
+    parentNode.appendChild(message)
+}
+
 const deleteCategory = (currentItemId) => {
     const removingConfirmation = confirm('Are You sure?')
     if(removingConfirmation){
@@ -253,6 +266,7 @@ const deleteCategory = (currentItemId) => {
                     document.querySelector(`.categories-list li[data-id="${currentItemId}"]`).remove()
                     document.querySelector(`.to-do-list-contents .category-content[data-id="${currentItemId}"]`).remove()
                     if(!document.querySelectorAll('.categories-list li').length) {setEmptyCategoryMessage()}
+                    if(!document.querySelectorAll('.to-do-list-contents .category-content').length) {setEmptyTaskMessage()}
                     setFirstPositionActive()
                     createMessagePopup(data.message, 'info')
                 }
@@ -402,7 +416,6 @@ const editTask = (task) => {
                 taskDescription: newTaskDescription
             },
             success: function(data){
-                console.log(data)
                 if( data.valid ){
                     task.querySelector('.task-name').textContent = data.new_task_name
                     task.querySelector('.task-description').textContent = data.new_task_description
@@ -465,7 +478,6 @@ if(categoriesList){
             const targetLi = e.target.parentElement.parentElement.parentElement
             const currentItemId = e.target.parentElement.parentElement.parentElement.getAttribute('data-id')
             editCategory(targetLi, currentItemId)
-            console.log('edycja')
         }
         //delete category name
         else if ( e.target.parentElement.classList.contains('remove-category') ) {
