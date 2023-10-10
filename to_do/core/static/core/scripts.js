@@ -76,16 +76,17 @@ themeToggler.addEventListener('click', () => {
    * MESSAGE POPUPS
     */
 
+let messageSetTimeoutId
 //remove message popup
 const removeMessagePopup = () => {
     const messagePopup = document.querySelector('.message-popup')
     if (messagePopup) {
-        setTimeout(()=>{
+        messageSetTimeoutId = setTimeout(()=>{
             messagePopup.classList.remove('active')
             setTimeout(()=>{
                 messagePopup.remove()
-            }, 300)
-        }, 800)
+            }, 400)
+        }, 3000)
     }
 }
 
@@ -104,10 +105,19 @@ const createMessagePopup = (message, role) => {
     messagePopup.classList.add('message-popup')
     messagePopup.classList.add(role)
     messagePopup.textContent = message
-    document.querySelector('main').append(messagePopup)
 
-    setTimeout(()=>{
-        messagePopup.classList.add('active')
+    const currentMessage = document.querySelector('.message-popup')
+    if (currentMessage){
+        currentMessage.textContent = message
+        currentMessage.classList.add(role)
+        clearTimeout(messageSetTimeoutId)
         removeMessagePopup()
-    }, 700)
+        return false
+    } else{
+        document.querySelector('main').append(messagePopup)
+        setTimeout(()=>{
+            messagePopup.classList.add('active')
+            removeMessagePopup()
+        }, 700)
+    }
 }
