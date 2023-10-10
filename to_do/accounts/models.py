@@ -57,7 +57,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
         verbose_name = 'User'
-        verbose_name_plural = 'Users'
+        verbose_name_plural = 'Accounts'
 
     def __str__(self):
         return self.username
@@ -91,3 +91,6 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username} Profile.'
+
+    class Meta:
+        verbose_name_plural = 'Profiles'

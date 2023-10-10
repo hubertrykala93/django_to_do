@@ -9,6 +9,7 @@ class Category(models.Model):
 
     class Meta:
         ordering = ['-id']
+        verbose_name_plural = 'Categories'
 
     def __str__(self):
         return self.category
@@ -29,3 +30,4 @@ class Task(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+        verbose_name_plural = 'Tasks'
