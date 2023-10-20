@@ -15,7 +15,7 @@ def index(request):
 
 def support(request):
     if request.method == 'POST':
-        contact_form = ContactForm(data=request.POST, files=request.FILES)
+        contact_form = ContactForm(data=request.POST)
 
         if contact_form.is_valid():
             messages.success(request=request,
@@ -25,13 +25,11 @@ def support(request):
             html_message = render_to_string(template_name='core/support_mail.html', context={
                 'full_name': contact_form.cleaned_data['full_name'],
                 'email': contact_form.cleaned_data['email'],
-                'mobile_phone': contact_form.cleaned_data['mobile_phone'],
                 'message': contact_form.cleaned_data['message'],
-                'file': contact_form.cleaned_data['file']
             }, request=request)
 
             send_mail(
-                subject=f"Message from {contact_form.cleaned_data['full_name']}.",
+                subject=f"Message from To Do App.",
                 message=contact_form.cleaned_data['message'],
                 from_email=contact_form.cleaned_data['email'],
                 recipient_list=[os.environ.get('EMAIL_HOST_USER')],
