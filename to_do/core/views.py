@@ -34,7 +34,7 @@ def support(request):
                 subject=f"Message from {contact_form.cleaned_data['full_name']}.",
                 message=contact_form.cleaned_data['message'],
                 from_email=contact_form.cleaned_data['email'],
-                recipient_list=[os.environ.get('EMAIL_LOGIN')],
+                recipient_list=[os.environ.get('EMAIL_HOST_USER')],
                 fail_silently=True,
                 html_message=html_message
             )
