@@ -35,7 +35,7 @@ def register(request):
                                              'uid': urlsafe_base64_encode(s=force_bytes(s=user.pk)),
                                              'token': token_generator.make_token(user=user)
                                          }),
-                from_email=os.environ.get('EMAIL_LOGIN'),
+                from_email=os.environ.get('EMAIL_HOST_USER'),
                 recipient_list=[user.email]
             )
 
@@ -213,7 +213,7 @@ def reset_password(request):
                         send_mail(
                             subject='Reset your Password',
                             message=html_message,
-                            from_email=os.environ.get('EMAIL_LOGIN'),
+                            from_email=os.environ.get('EMAIL_HOST_USER'),
                             recipient_list=[email],
                             fail_silently=False
                         )
