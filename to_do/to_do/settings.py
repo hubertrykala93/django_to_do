@@ -30,7 +30,8 @@ SECRET_KEY = get_random_secret_key()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['195.242.116.113', '127.0.0.1', 'localhost', '*', 's129.cyber-folks.pl']
+ALLOWED_HOSTS = ['195.242.116.113', '127.0.0.1', 'localhost', '*', 's129.cyber-folks.pl', 'https://cyberfolks.pl',
+                 'cyberfolks.pl', 'http://mytasktrackerapp.com/', 'mytasktrackerapp.com']
 
 # Application definition
 
@@ -54,6 +55,7 @@ AUTH_USER_MODEL = 'accounts.User'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -67,9 +69,9 @@ SECURE_HSTS_SECONDS = 30000000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
-SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
 
 ROOT_URLCONF = "to_do.urls"
 
