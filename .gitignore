@@ -9,3 +9,4 @@ django_env/
 .django_env
 
 .idea/
+.gitignore
