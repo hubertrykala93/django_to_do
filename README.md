@@ -13,8 +13,8 @@
 The To-Do App is a simple task list management system that allows users to add, remove, and edit tasks. This application enables users to organize their tasks and track their progress in completing daily responsibilities.
 
 ## Authors
-- [@hubertrykala93](https://github.com/hubertrykala93) - Back-end Developer.
-- [@Szymon-Levy](https://github.com/Szymon-Levy) - Front-end Developer.
+- Back-end - [@hubertrykala93](https://github.com/hubertrykala93)
+- Front-end - [@Szymon-Levy](https://github.com/Szymon-Levy)
 
 ## Technologies
 * Python 3.9
