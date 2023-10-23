@@ -5,6 +5,7 @@
 * [General Info](#general-info)
 * [Authors](#authors)
 * [Technologies](#technologies)
+* [Features & Capabilities](#features-capabilities)
 * [Setup](#setup)
 
 
@@ -22,6 +23,14 @@ The To-Do App is a simple task list management system that allows users to add, 
 * Sass
 * JavaScript
 * jQuery
+
+## Features & Capabilities
+* Register
+* Login
+* Contact Form
+* Password Reset
+* Account Activation
+* Categories & Tasks CRUD
 
 ## Setup
 To check the project, please click on the following link.
