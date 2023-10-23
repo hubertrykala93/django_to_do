@@ -28,10 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG")
 
-ALLOWED_HOSTS = ['195.242.116.113', '127.0.0.1', 'localhost', '*', 's129.cyber-folks.pl', 'https://cyberfolks.pl',
-                 'cyberfolks.pl', 'http://mytasktrackerapp.com/', 'mytasktrackerapp.com']
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(sep=' ')
 
 # Application definition
 
@@ -68,7 +67,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = False
+SECURE_SSL_REDIRECT = True
 
 ROOT_URLCONF = "to_do.urls"
 
@@ -155,4 +154,4 @@ EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
 
 DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
 
-PASSWORD_RESET_TIMEOUT_DAYS = 2
+PASSWORD_RESET_TIMEOUT_DAYS = os.environ.get("PASSWORD_RESET_TIMEOUT_DAYS")
