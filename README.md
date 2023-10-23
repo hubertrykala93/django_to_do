@@ -30,6 +30,7 @@ The To-Do App is a simple task list management system that allows users to add, 
 * Contact Form
 * Password Reset
 * Account Activation
+* User & Profile Settings
 * Categories & Tasks CRUD
 
 ## Setup
