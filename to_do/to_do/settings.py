@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['195.242.116.113', '127.0.0.1', 'localhost', '*', 's129.cyber-folks.pl', 'https://cyberfolks.pl',
                  'cyberfolks.pl', 'http://mytasktrackerapp.com/', 'mytasktrackerapp.com']
@@ -68,7 +68,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 
 ROOT_URLCONF = "to_do.urls"
 
