@@ -39,3 +39,7 @@ To check the project, please click on the following link.
 http://mytasktrackerapp.com
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f6375dad768bbc30f6fc4c5e17a2015b974d00bd
