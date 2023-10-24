@@ -1,4 +1,4 @@
-#!/Users/admin/Desktop/django_to_do/django_env/bin/python3
+#!/Users/admin/Desktop/django_to_do/django_env/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
