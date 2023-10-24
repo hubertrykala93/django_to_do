@@ -1,5 +1,6 @@
 # To Do App
 ![Alt text](https://github.com/hubertrykala93/to_do_django_app/blob/main/images/1.png)
+![Alt text](https://github.com/hubertrykala93/to_do_django_app/blob/main/images/2.png)
 
 ## Table of Contents
 * [General Info](#general-info)
