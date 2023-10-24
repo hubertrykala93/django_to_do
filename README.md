@@ -19,7 +19,7 @@ The To-Do App is a simple task list management system that allows users to add, 
 - [@Szymon-Levy](https://github.com/Szymon-Levy) (Front-end Developer)
 
 ## Technologies
-* Python 3.9
+* Python 3.10.9
 * Django Framework
 * HTML
 * Sass
